@@ -1,0 +1,18 @@
+
+<ion-view title="تحديث المعلومات">
+
+  <ion-nav-bar></ion-nav-bar>
+
+  <ion-content padding="true">
+    <form ng-submit="update()">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="الاسم الكامل (محمد المحمد)" ng-model="parameters.fullname" class="text-left rtl">
+        </label>
+        <div>
+          <button class="button button-block button-positive rtl" type="submit">تحديث المعلومات</button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

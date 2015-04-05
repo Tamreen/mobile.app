@@ -1,0 +1,49 @@
+
+<ion-view view-title="حول التطبيق">
+
+  <ion-nav-bar>
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content has-header="true">
+    <div class="list">
+
+      <div class="item text-center">
+        <img src="img/logo.png" />
+      </div>
+
+      <!-- TODO: Get the version of the app. -->
+      <div class="item">
+        الإصدار
+        <span class="item-note rtl">{{ appVersion }}</span>
+      </div>
+
+      <!-- <div class="item">
+        الرخصة
+        <span class="item-note rtl">مفتوح المصدر (MIT)</span>
+      </div> -->
+
+      <div class="item">
+        تطوير
+        <span class="item-note rtl">حسام الزغيبي (hossamzee)</span>
+      </div>
+
+      <div class="item">
+        <a class="button button-block button-positive" onclick="window.open('https://twitter.com/hossamzee', '_system', 'location=yes')">إبلاغٌ عن خطأ أو تقديم مُلاحظة أو طلب مِيزة</a>
+      </div>
+
+      <div class="item text-center item-text-wrap">
+        <p>
+          <a href="#/pages/legal">تراخيص قانونيّة</a>
+        </p>
+        <!--<p>
+          <a href="http://ionicframework.com">Ionic Framework</a>, <a href="https://angularjs.org">AngularJS</a>,
+          <a href="http://cordova.apache.org">Apache Cordova</a>, <a href="https://github.com/googlei18n/libphonenumber">Google libphonenumber</a>,
+          <a href="https://github.com/chriso/validator.js">validator</a>, <a href="#">node</a>
+        </p>-->
+      </div>
+
+    </div>
+  </ion-content>
+
+</ion-view>

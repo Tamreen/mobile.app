@@ -1,0 +1,47 @@
+
+<ion-view view-title="التمارين">
+
+  <ion-nav-bar>
+    <ion-nav-back-button ng-click="trainingsBack()"></ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-more" ng-click="more()"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-refresher pulling-text="اسحب للتحديث..." on-refresh="fetchUpdates(group.id)" class="rtl"></ion-refresher>
+
+    <ion-list>
+
+      <div class="item item-text-wrap text-center rtl" ng-if="trainings.length == 0">
+        لم يتم إضافة تمرين حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '...' في الأعلى و من ثم اختيار 'إضافة تمرين جديد'.
+      </div>
+      
+      <a href="#/trainings/{{training.id}}/activities" class="item item-icon-left" ng-repeat="training in trainings">
+        
+        <i class="icon ion-trophy"></i>
+        <h2 class="rtl text-left">{{training.name}}</h2>
+
+        <!-- Status. -->
+        <p ng-if="training.status == 'gathering'" class="rtl text-left">
+          التحضير جارٍ...
+        </p>
+
+        <p ng-if="training.status == 'completed'" class="rtl text-left">
+          مُكتمل.
+        </p>
+
+        <p ng-if="training.status == 'canceled'" class="rtl text-left">
+          ملغي.
+        </p>
+
+        <span class="badge badge-assertive" ng-if="training.activitiesCount > 0">{{training.activitiesCount}}</span>
+      </a>
+      
+    </ion-list>
+
+  </ion-content>
+
+</ion-view>

@@ -1,0 +1,36 @@
+
+<ion-view view-title="المجموعات">
+
+  <ion-nav-bar>
+  </ion-nav-bar>
+
+  <ion-nav-buttons side="primary">
+    <button class="button button-icon icon ion-more" ng-click="more()"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="secondary">
+    <a class="button button-icon icon ion-plus-round" href="#/groups/add"></a>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-refresher pulling-text="اسحب للتحديث..." on-refresh="fetchUpdates()" class="rtl"></ion-refresher>
+
+    <ion-list>
+
+      <div class="item item-text-wrap text-center rtl" ng-if="groups.length == 0">
+        لم يتم إضافة مجموعة حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '+' في الأعلى.
+      </div>
+      
+      <a href="#/groups/{{group.id}}/trainings" class="item item-icon-left" ng-repeat="group in groups">
+        <i class="icon ion-person-stalker"></i>
+        <h2 class="rtl text-left">{{group.name}}</h2>
+        <p class="rtl text-left">{{group.playersCount}} لاعب.</p>
+        <span class="badge badge-assertive" ng-if="group.activitiesCount > 0">{{group.activitiesCount}}</span>
+      </a>
+      
+    </ion-list>
+
+  </ion-content>
+
+</ion-view>

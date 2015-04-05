@@ -1,0 +1,33 @@
+
+<ion-view title="إضافة تمرين">
+
+  <ion-nav-bar>
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <form ng-submit="add(group.id)">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="اسم الملعب" ng-model="parameters.stadium" class="rtl text-left">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="وقت البدء" ng-model="parameters.startedAt" class="rtl text-left" onfocus="(this.type='datetime-local')">
+        </label>
+        <label class="item item-input">
+          <input type="number" placeholder="عدد اللاعبين (20)" ng-model="parameters.playersCount" class="rtl text-left">
+        </label>
+        <label class="item item-input">
+          <input type="number" placeholder="عدد الاحتياط (4)" ng-model="parameters.subsetPlayersCount" class="rtl text-left">
+        </label>
+        <div>
+          <button class="button button-block button-positive rtl" type="submit">إضافة تمرين</button>
+        </div>
+        <div class="text-center rtl">
+          سيبدأ التحضير مُباشرةً بعد الإضافة.
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

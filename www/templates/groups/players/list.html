@@ -1,0 +1,38 @@
+
+<ion-view view-title="اللاعبين">
+
+  <ion-nav-bar>
+    <ion-nav-back-button ng-click="playersBack()"></ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-plus-round" ng-click="addPlayer(group.id)" ng-if="group.adminable"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-refresher pulling-text="اسحب للتحديث..." on-refresh="fetchPlayerUpdates(group.id)" class="rtl"></ion-refresher>
+
+    <ion-list show-delete="group.adminable" can-swipe="false">
+
+      <div class="item item-text-wrap text-center rtl" ng-if="players.length == 0">
+        لم يتم إضافة لاعبين حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '+' في الأعلى.
+      </div>
+      
+      <ion-item class="item item-icon-left" ng-repeat="player in players">
+
+        <i class="icon ion-person"></i>
+        <h2 class="rtl text-left">{{player.fullname}}</h2>
+        <p class="rtl text-left">انضم {{player.joinedAt | fromNow }}</p>
+
+        <ion-delete-button class="ion-minus-circled"
+                       ng-click="deletePlayer(player.id, group.id)">
+        </ion-delete-button>
+
+      </ion-item>
+      
+    </ion-list>
+
+  </ion-content>
+
+</ion-view>

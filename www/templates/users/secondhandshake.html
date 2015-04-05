@@ -1,0 +1,21 @@
+
+<ion-view title="تسجيل الدخول">
+
+  <ion-nav-bar></ion-nav-bar>
+
+  <ion-content padding="true">
+    <form ng-submit="secondHandShake()">
+      <div class="list">
+        <label class="item item-input">
+          <input type="number" placeholder="الرمز المؤقت" ng-model="parameters.code" />
+        </label>
+        <div>
+          <button class="button button-block button-positive rtl" type="submit">تسجيل الدخول</button>
+        </div>
+        <div class="text-center rtl">
+          سوف تصلك رسالةً نصيّةً قصيرة بعد قليلٍ بإذن الله، كُن صبوراً.
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

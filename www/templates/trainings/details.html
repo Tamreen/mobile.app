@@ -1,0 +1,67 @@
+
+<ion-view view-title="تفاصيل التمرين">
+
+  <ion-nav-bar>
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content>
+
+    <ion-list>
+
+        <!-- Stadium and start date information. -->
+        <div class="item">
+          <span class="rtl">{{training.stadium}}</span>
+          <span class="item-note rtl">{{training.startedAt | arDate }}</span>
+        </div>
+
+        <!-- Will come players. -->
+        <div class="item item-divider">
+          <span class="rtl">قرّروا الحضور</span>
+          <span class="badge badge-light">{{training.willcomePlayers.length}}</span>
+        </div>
+
+        <div class="item" ng-repeat="player in training.willcomePlayers">
+          <span class="rtl">{{player.fullname}}</span>
+          <span class="item-note">{{$index+1}}</span>
+        </div>
+
+        <!-- Subset players. -->
+        <div class="item item-divider">
+          <span class="rtl">سجّلوا كاحتياط</span>
+          <span class="badge badge-light">{{training.subsetPlayers.length}}</span>
+        </div>
+
+        <div class="item" ng-repeat="player in training.subsetPlayers">
+          <span class="rtl">{{player.fullname}}</span>
+          <span class="item-note">{{$index+1}}</span>
+        </div>
+
+        <!-- Apologize players. -->
+        <div class="item item-divider">
+          <span class="rtl">اعتذروا عن الحضور</span>
+          <span class="badge badge-light">{{training.apologizePlayers.length}}</span>
+        </div>
+
+        <div class="item" ng-repeat="player in training.apologizePlayers">
+          <span class="rtl">{{player.fullname}}</span>
+          <span class="item-note">{{$index+1}}</span>
+        </div>
+
+        <!-- Not yet players. -->
+        <div class="item item-divider">
+          <span class="rtl">لم يقرّروا حتّى الآن</span>
+          <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
+        </div>
+
+        <div class="item" ng-repeat="player in training.notyetPlayers">
+          <span class="rtl">{{player.fullname}}</span>
+          <span class="item-note">{{$index+1}}</span>
+        </div>
+      
+    </ion-list>
+
+  </ion-content>
+
+</ion-view>

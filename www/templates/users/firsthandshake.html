@@ -1,0 +1,21 @@
+
+<ion-view title="مرحباً ألف">
+
+  <ion-nav-bar></ion-nav-bar>
+
+  <ion-content padding="true">
+    <form name="firstHandShakeForm" ng-submit="firstHandShake()">
+      <div class="list">
+        <label class="item item-input">
+          <input type="tel" placeholder="رقم الجوّال" ng-model="parameters.mobileNumber" />
+        </label>
+        <div>
+          <button class="button button-block button-positive rtl" type="submit">إرسال الرمز المؤقت عبر SMS</button>
+        </div>
+        <!-- <div class="text-center rtl">
+          بُني بواسطة لاعبٍ مهتم.
+        </div> -->
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

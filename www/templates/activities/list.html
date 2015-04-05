@@ -1,0 +1,76 @@
+
+<ion-view view-title="النشاطات">
+
+  <ion-nav-bar>
+    <ion-nav-back-button ng-click="activitiesBack(training.groupId)"></ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-more" ng-click="more()"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-refresher pulling-text="اسحب للتحديث..." on-refresh="fetchUpdates(training.id)" class="rtl"></ion-refresher>
+
+    <ion-list>
+
+      <div class="item item-text-wrap text-center rtl" ng-if="activities.length == 0">
+        لا توجد نشاطات لهذا التمرين حتّى الآن.
+      </div>
+
+      <div ng-repeat="activity in activities">
+
+        <!-- Training has started. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'training-started'">
+          <span class="button button-small button-dark">بدأ التحضير للتمرين {{ activity.createdAt | fromNow }}</span>
+          <a href="#/trainings/{{training.id}}" class="button button-small button-positive">تفاصيل التمرين</a>
+        </div>
+
+        <!-- Player decided to come. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'player-decided-to-come'">
+          <span class="button button-small button-dark button-outline">
+            <i class="ion-checkmark-circled balanced"></i>
+            {{activity.author}} قرّر أن يحضر {{ activity.createdAt | fromNow }}
+          </span>
+        </div>
+
+        <!-- Player registered as a subset. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'player-registered-as-subset'">
+          <span class="button button-small button-dark button-outline">
+            <i class="ion-checkmark-circled energized"></i>
+            {{activity.author}} سجّل كاحتياط {{ activity.createdAt | fromNow }}
+          </span>
+        </div>
+
+        <!-- Player apologized. -->
+        <!-- TODO: The player should confirm this action before taking it. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'player-apologized'">
+          <span class="button button-small button-dark button-outline">
+            <i class="ion-close-circled assertive"></i>
+            {{activity.author}} اعتذر عن الحضور {{ activity.createdAt | fromNow }}
+          </span>
+        </div>
+
+        <!-- Training has completed. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'training-completed'">
+          <span class="button button-small button-balanced">اكتمل التحضير للتمرين {{ activity.createdAt | fromNow }}</span>
+        </div>
+
+        <!-- Training has canceled. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'training-canceled'">
+          <span class="button button-small button-assertive">أُلغي التمرين {{ activity.createdAt | fromNow }}</span>
+        </div>
+
+        <!-- Training is not complete. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'training-not-completed'">
+          <span class="button button-small button-energized">تحضير التمرين غير مُكتمل {{ activity.createdAt | fromNow }}</span>
+        </div>
+
+      </div>
+      
+    </ion-list>
+
+  </ion-content>
+
+</ion-view>

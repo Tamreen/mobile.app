@@ -1,0 +1,13 @@
+{
+  "name": "tamreen",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0-beta.14",
+    "libphonenumber": "0.9.0",
+    "validator-js": "*",
+    "moment": "~2.9.0",
+    "ngCordova": "~0.1.12-alpha"
+  },
+  "dependencies": {
+  }
+}
