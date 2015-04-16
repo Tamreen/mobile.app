@@ -14,6 +14,74 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 	$scope.group = null;
 	$scope.training = null;
 
+	// Set the locale of moment.
+	moment.locale('ar-sa');
+
+	// Set the default value of started at.
+	// $scope.parameters.startedAtDate = moment();
+	// $scope.parameters.startedAtTime = todayFirstHour;
+
+	// Hold dates and hours.
+	$scope.dates = [];
+
+	// Set the dates.
+	for (i=0; i<7; i++){
+		var day = moment().add(i, 'days');
+		$scope.dates.push({id: day.format(), value: day.format('dddd, DD MMMM YYYY')});
+	}
+
+	// Set the hours.
+	$scope.hours = [
+		{id: '00:00', value: '12:00 ص'},
+		{id: '00:30', value: '12:30 ص'},
+		{id: '01:00', value: '1:00 ص'},
+		{id: '01:30', value: '1:30 ص'},
+		{id: '02:00', value: '2:00 ص'},
+		{id: '02:30', value: '2:30 ص'},
+		{id: '03:00', value: '3:00 ص'},
+		{id: '03:30', value: '3:30 ص'},
+		{id: '04:00', value: '4:00 ص'},
+		{id: '04:30', value: '4:30 ص'},
+		{id: '05:00', value: '5:00 ص'},
+		{id: '05:30', value: '5:30 ص'},
+		{id: '06:00', value: '6:00 ص'},
+		{id: '06:30', value: '6:30 ص'},
+		{id: '07:00', value: '7:00 ص'},
+		{id: '07:30', value: '7:30 ص'},
+		{id: '08:00', value: '8:00 ص'},
+		{id: '08:30', value: '8:30 ص'},
+		{id: '09:00', value: '9:00 ص'},
+		{id: '09:30', value: '9:30 ص'},
+		{id: '10:00', value: '10:00 ص'},
+		{id: '10:30', value: '10:30 ص'},
+		{id: '11:00', value: '11:00 ص'},
+		{id: '11:30', value: '11:30 ص'},
+		{id: '12:00', value: '12:00 م'},
+		{id: '12:30', value: '12:30 م'},
+		{id: '13:00', value: '1:00 م'},
+		{id: '13:30', value: '1:30 م'},
+		{id: '14:00', value: '2:00 م'},
+		{id: '14:30', value: '2:30 م'},
+		{id: '15:00', value: '3:00 م'},
+		{id: '15:30', value: '3:30 م'},
+		{id: '16:00', value: '4:00 م'},
+		{id: '16:30', value: '4:30 م'},
+		{id: '17:00', value: '5:00 م'},
+		{id: '17:30', value: '5:30 م'},
+		{id: '18:00', value: '6:00 م'},
+		{id: '18:30', value: '6:30 م'},
+		{id: '19:00', value: '7:00 م'},
+		{id: '19:30', value: '7:30 م'},
+		{id: '20:00', value: '8:00 م'},
+		{id: '20:30', value: '8:30 م'},
+		{id: '21:00', value: '9:00 م'},
+		{id: '21:30', value: '9:30 م'},
+		{id: '22:00', value: '10:00 م'},
+		{id: '22:30', value: '10:30 م'},
+		{id: '23:00', value: '11:00 م'},
+		{id: '23:30', value: '11:30 م'},
+	];
+
 	$scope.trainingsBack = function(groupId){
 		$state.go('groups-list');
 	}
@@ -54,7 +122,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		console.log('Adding a training has been called.');
 
 		// Validate the user inputs.
-		if (validator.isNull($scope.parameters.stadium) || !validator.isDate($scope.parameters.startedAt) || !validator.isNumeric($scope.parameters.playersCount) || $scope.parameters.playersCount <= 0 || !validator.isNumeric($scope.parameters.subsetPlayersCount)){
+		if (validator.isNull($scope.parameters.stadium) || validator.isNull($scope.parameters.startedAtDate) || validator.isNull($scope.parameters.startedAtTime) || !validator.isNumeric($scope.parameters.playersCount) || $scope.parameters.playersCount <= 0 || !validator.isNumeric($scope.parameters.subsetPlayersCount)){
 
 				$ionicPopup.alert({
 					title: 'خطأ',
@@ -65,8 +133,17 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				return;
 		}
 
+		// Get the started at datetime.
+		var startedAt = moment($scope.parameters.startedAtDate, 'YYYY-MM-DDTHH:mm:ssZ');
+		
+		// Get the hours and minutes.
+		var hoursMinutes = $scope.parameters.startedAtTime.split(':');
+
+		// Update them.
+		startedAt.hours(hoursMinutes[0]).minutes(hoursMinutes[1]).seconds(0);
+
 		// Set the datetime to be formatted correctly.
-		var isoStartDateTime = validator.toDate($scope.parameters.startedAt).toISOString();
+		var isoStartDateTime = startedAt.toISOString(); //validator.toDate($scope.parameters.startedAt).toISOString();
 
 		// Try to add a training to a certain group using the service.
 		var promise = TamreenService.trainingAdd(groupId, $scope.parameters.stadium, isoStartDateTime, $scope.parameters.playersCount, $scope.parameters.subsetPlayersCount);

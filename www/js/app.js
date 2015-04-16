@@ -17,7 +17,7 @@
 // TODO: Logs should be canceled.
 
 // cordova build --release
-// jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore TamreenApp.keystore platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp
+// jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keys/TamreenApp.keystore platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp
 // /Users/hossamzee/android-sdk-macosx/build-tools/21.1.2/zipalign -v 4 platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp1.0.1.apk
 
 var starter = angular.module('starter', ['ionic', 'ngCordova']);

@@ -21,6 +21,7 @@
     "uk.co.whiteoctober.cordova.appversion",
     "com.johnwargo.carrier",
     "org.apache.cordova.device",
-    "org.apache.cordova.console"
+    "org.apache.cordova.console",
+    "http://github.com/VitaliiBlagodir/cordova-plugin-datepicker"
   ]
 }

@@ -9,12 +9,40 @@
   <ion-content padding="true">
     <form ng-submit="add(group.id)">
       <div class="list">
+
         <label class="item item-input">
           <input type="text" placeholder="اسم الملعب" ng-model="parameters.stadium" class="rtl text-left">
         </label>
-        <label class="item item-input">
-          <input type="text" placeholder="وقت البدء" ng-model="parameters.startedAt" class="rtl text-left" onfocus="(this.type='datetime-local')">
+
+        <!--<label class="item" ng-click="pickDate()">
+          <input type="text" placeholder="وقت البدء" ng-model="parameters.startedAt" class="rtl text-left" ng-focus="pickDate()">
+          <p>التاريخ</p>
+        </label> -->
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            التاريخ
+          </div>
+          <select ng-model="parameters.startedAtDate">
+            <option value="" ng-selected="selected">اختر تاريخًا</option>
+            <option ng-repeat="date in dates" value="{{date.id}}">
+              {{date.value}}
+            </option>
+          </select>
         </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            وقت البدء
+          </div>
+          <select ng-model="parameters.startedAtTime">
+            <option value="" ng-selected="selected">اختر وقتًا</option>
+            <option ng-repeat="hour in hours" value="{{hour.id}}">
+              {{hour.value}}
+            </option>
+          </select>
+        </label>
+
         <label class="item item-input">
           <input type="number" placeholder="عدد اللاعبين (20)" ng-model="parameters.playersCount" class="rtl text-left">
         </label>
