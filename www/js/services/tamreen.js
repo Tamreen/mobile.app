@@ -82,6 +82,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 	service.helperMobileNumberValidable = function(mobileNumber){
 		try{
+			console.log(service.regionCode);
 			return phoneUtils.isValidNumberForRegion(mobileNumber, service.regionCode);
 		}catch (e){
 			return false;
@@ -90,7 +91,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
     service.helperMobileRegionCode = function(mobileNumber){
     	try{
-			return phoneUtils.getRegionCodeForNumber(mobileNumber);
+			return phoneUtils.getRegionCodeForNumber(mobileNumber).toLowerCase();
 		}catch (e){
 			return null;
 		}
