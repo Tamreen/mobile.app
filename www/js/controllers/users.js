@@ -6,12 +6,16 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 
 	// Parameters.
 	$scope.parameters = {};
+	$scope.parameters.countryCode = 'sa';
 
 	// firstHandShake.
 	// Called when the user is entering the mobile and expecting a temporary code number.
 	$scope.firstHandShake = function(){
 
 		console.log('First hand shake has been called.');
+
+		// Set the country code.
+		TamreenService.countryCode = $scope.parameters.countryCode;
 
 		// Validate the input of the user.
 		if (TamreenService.helperMobileNumberValidable($scope.parameters.mobileNumber) == false){

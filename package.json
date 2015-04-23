@@ -19,9 +19,7 @@
     "https://github.com/driftyco/ionic-plugins-keyboard.git",
     "org.apache.cordova.contacts",
     "uk.co.whiteoctober.cordova.appversion",
-    "com.johnwargo.carrier",
     "org.apache.cordova.device",
-    "org.apache.cordova.console",
-    "http://github.com/VitaliiBlagodir/cordova-plugin-datepicker"
+    "org.apache.cordova.console"
   ]
 }

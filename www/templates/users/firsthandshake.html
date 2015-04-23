@@ -6,9 +6,38 @@
   <ion-content padding="true">
     <form name="firstHandShakeForm" ng-submit="firstHandShake()">
       <div class="list">
+
+        <label class="item item-input item-select">
+          <span class="input-label">الدولة</span>
+          <select ng-model="parameters.countryCode">
+            <option value="jo">الأردن</option>
+            <option value="ae">الإمارات</option>
+            <option value="bh">البحرين</option>
+            <option value="dz">الجزائر</option>
+            <option value="sa">السعودية</option>
+            <option value="cn">الصين</option>
+            <option value="iq">العراق</option>
+            <option value="kw">الكويت</option>
+            <option value="ma">المغرب</option>
+            <option value="ye">اليمن</option>
+            <option value="gr">اليونان</option>
+            <option value="us">أمريكا</option>
+            <option value="gb">بريطانيا</option>
+            <option value="tn">تونس</option>
+            <option value="sy">سوريا</option>
+            <option value="om">عمان</option>
+            <option value="qa">قطر</option>
+            <option value="lb">لبنان</option>
+            <option value="ly">ليبيا</option>
+            <option value="eg">مصر</option>
+          </select>
+        </label>
+
         <label class="item item-input">
+          <span class="input-label">الجوّال</span>
           <input type="tel" placeholder="رقم الجوّال" ng-model="parameters.mobileNumber" />
         </label>
+
         <div>
           <button class="button button-block button-positive rtl" type="submit">إرسال الرمز المؤقت عبر SMS</button>
         </div>

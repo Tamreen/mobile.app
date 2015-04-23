@@ -1,6 +1,12 @@
 {
   "name": "tamreen",
   "app_id": "",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://localhost:4000/api"
+    }
+  ],
   "gulpStartupTasks": [
     "sass",
     "watch"

@@ -14,8 +14,8 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	service.user = null;
 
 	// The URL of the API.
-	// service.baseUrl = 'https://localhost:4000/api/v1'; // local.
-	service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
+	service.baseUrl = '/api/v1'; // local.
+	// service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
 
 	service.localStorage = null;
 	service.userTokenKey = 'users-token';
@@ -23,10 +23,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	// Device.
 	service.deviceType = null;
 	service.deviceToken = null;
-
-	// TODO: To be removed.
-	// Carrier.
-	service.carrier = null;
 
 	// Mobile information.
 	service.countryCode = null;
@@ -85,6 +81,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	}
 
 	service.helperMobileNumberValidable = function(mobileNumber){
+		console.log(service.countryCode);
 		try{
 			return phoneUtils.isValidNumberForRegion(mobileNumber, service.countryCode);
 		}catch (e){
@@ -150,6 +147,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			headers: service.helperUserTokenHeader(),
 			data: {
 				'e164formattedMobileNumber': e164formattedMobileNumber,
+				'countryCode': service.countryCode,
 			}
 		});
 	};
@@ -169,6 +167,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			data: {
 				'e164formattedMobileNumber': service.e164formattedMobileNumber,
+				'countryCode': service.countryCode,
 				'code': code,
 			}
 		});
@@ -567,91 +566,54 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 		console.log('TamreenService is ready.');
 
-		// Set the carrier information.
-		var tempCountryCode = null;
 
-		// // TODO: Remove this afterward, for tests only.
-		// var carrier = {
-		// 	getCountryCode: function(success, failure){
-		// 		return success('sa');
-		// 	}
-		// };
+		// Set the device information.
+		service.deviceType = $cordovaDevice.getPlatform();
 
-		if (validator.equals(typeof carrier, 'undefined') || validator.isNull(carrier)){
+		if (validator.isNull(service.deviceType)){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'لن يعمل التطبيق يشكلٍ صحيح في ظلّ عدم وجود شريحة (SIM).',
+				template: 'لن يعمل التطبيق يشكلٍ صحيح في ظلّ عدم وجود منصّة تشغيل (Platform).',
 				okText: 'حسناً',
 			});
 			return;
 		}
 
-		 // Get the current carrier.
-		carrier.getCountryCode(function(countryCode){
+		service.deviceType = service.deviceType.toLowerCase();
+		console.log('service.deviceType = ' + service.deviceType);
 
-			service.countryCode = countryCode;
+		// Call the device.
+		service.helperPushNotificationRegister();
 
-			if (validator.isNull(service.countryCode)){
-				$ionicPopup.alert({
-					title: 'خطأ',
-					template: 'لن يعمل التطبيق يشكلٍ صحيح في ظلّ عدم وجود شريحة (SIM).',
-					okText: 'حسناً',
-				});
-				return;
-				// TODO: Comment this in production.
-				// service.countryCode = 'sa';
-			}
+		// TODO:
+		// service.localStorage.removeItem(service.userTokenKey);
 
-			console.log('service.countryCode = ' + service.countryCode);
+		// Try to get the user information.
+		var saved = service.localStorage.getItem(service.userTokenKey);
 
-			// Set the device information.
-			service.deviceType = $cordovaDevice.getPlatform();
+		if (saved == null)
+		{
+			console.log('Cannot find the user information.');
+			$state.go('users-firsthandshake');
 
-			if (validator.isNull(service.deviceType)){
-				$ionicPopup.alert({
-					title: 'خطأ',
-					template: 'لن يعمل التطبيق يشكلٍ صحيح في ظلّ عدم وجود منصّة تشغيل (Platform).',
-					okText: 'حسناً',
-				});
-				return;
-			}
+		}else{
 
-			service.deviceType = service.deviceType.toLowerCase();
-			console.log('service.deviceType = ' + service.deviceType);
+			// Get the user information as JSON.
+			var user = JSON.parse(saved);
 
-			// Call the device.
-			service.helperPushNotificationRegister();
+			// Make the user logged in.
+			user.logginable = 1;
+			service.user = user;
 
-			// TODO:
-			// service.localStorage.removeItem(service.userTokenKey);
+			// Set the country code.
+			service.countryCode = user.countryCode;
 
-			// Try to get the user information.
-			var saved = service.localStorage.getItem(service.userTokenKey);
+			console.log(JSON.stringify(service.user));
 
-			if (saved == null)
-			{
-				console.log('Cannot find the user information.');
-				$state.go('users-firsthandshake');
+			// Go afterward to groups.
+			$state.go('groups-list');
+		}
 
-			}else{
-
-				// Get the user information as JSON.
-				var user = JSON.parse(saved);
-
-				// Make the user logged in.
-				user.logginable = 1;
-				service.user = user;
-
-				console.log(JSON.stringify(service.user));
-
-				// Go afterward to groups.
-				$state.go('groups-list');
-			}
-
-		}, function(error){
-			console.log('Cannot get the country code.');
-		  	console.log(JSON.stringify(error));
-		});
 	});
 
 	return service;
