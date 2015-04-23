@@ -25,7 +25,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	service.deviceToken = null;
 
 	// Mobile information.
-	service.countryCode = null;
+	service.regionCode = null;
 	service.e164formattedMobileNumber = null;
 
 	// A helper method to return the user token as an HTTP header.
@@ -81,18 +81,25 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	}
 
 	service.helperMobileNumberValidable = function(mobileNumber){
-		console.log(service.countryCode);
 		try{
-			return phoneUtils.isValidNumberForRegion(mobileNumber, service.countryCode);
+			return phoneUtils.isValidNumberForRegion(mobileNumber, service.regionCode);
 		}catch (e){
 			return false;
+		}
+    };
+
+    service.helperMobileRegionCode = function(mobileNumber){
+    	try{
+			return phoneUtils.getRegionCodeForNumber(mobileNumber);
+		}catch (e){
+			return null;
 		}
     };
 
     // Return the mobile number in e164 format.
     service.helperMobileNumberE164Format = function(mobileNumber){
         try{
-            return phoneUtils.formatE164(mobileNumber, service.countryCode);
+            return phoneUtils.formatE164(mobileNumber, service.regionCode);
         }catch (e){
             return '';
         }
@@ -147,7 +154,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			headers: service.helperUserTokenHeader(),
 			data: {
 				'e164formattedMobileNumber': e164formattedMobileNumber,
-				'countryCode': service.countryCode,
+				'regionCode': service.regionCode,
 			}
 		});
 	};
@@ -167,7 +174,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			data: {
 				'e164formattedMobileNumber': service.e164formattedMobileNumber,
-				'countryCode': service.countryCode,
+				'regionCode': service.regionCode,
 				'code': code,
 			}
 		});
@@ -605,8 +612,8 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			user.logginable = 1;
 			service.user = user;
 
-			// Set the country code.
-			service.countryCode = user.countryCode;
+			// Set the region code.
+			service.regionCode = service.helperMobileRegionCode(user.e164formattedMobileNumber);
 
 			console.log(JSON.stringify(service.user));
 
