@@ -117,9 +117,9 @@ starter.config(function($stateProvider, $urlRouterProvider, $httpProvider){
     })
 
     // Legal.
-    .state('pages-legal', {
-      url: '/pages/legal',
-      templateUrl: 'templates/pages/legal.html',
+    .state('pages-feedback', {
+      url: '/pages/feedback',
+      templateUrl: 'templates/pages/feedback.html',
       controller: 'PagesController',
     })
 

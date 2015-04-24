@@ -1,0 +1,21 @@
+
+<ion-view title="أخبرنا برأيك">
+
+  <ion-nav-bar>
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <form name="addForm" ng-submit="feedback()">
+      <div class="list">
+        <label class="item item-input">
+          <textarea placeholder="أبلغ عن خطأ أو قدّم ملاحظةً أو اطلب ميزةً." ng-model="parameters.content" class="rtl" rows="4"></textarea>
+        </label>
+        <div>
+          <button class="button button-block button-positive rtl" type="submit">أخبرنا برأيك</button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

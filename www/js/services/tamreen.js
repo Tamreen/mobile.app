@@ -82,7 +82,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 	service.helperMobileNumberValidable = function(mobileNumber){
 		try{
-			console.log(service.regionCode);
 			return phoneUtils.isValidNumberForRegion(mobileNumber, service.regionCode);
 		}catch (e){
 			return false;
@@ -155,7 +154,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			headers: service.helperUserTokenHeader(),
 			data: {
 				'e164formattedMobileNumber': e164formattedMobileNumber,
-				'regionCode': service.regionCode,
 			}
 		});
 	};
@@ -175,7 +173,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			data: {
 				'e164formattedMobileNumber': service.e164formattedMobileNumber,
-				'regionCode': service.regionCode,
 				'code': code,
 			}
 		});
@@ -522,6 +519,26 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	// GET /trainings/:trainingId/activities/latest
 	service.activityFetchUpdates = function(trainingId){
 		return service.activityList(trainingId);
+	};
+
+	// Give a feedback.
+	// POST /feedbacks/add
+	service.feedback = function(content){
+
+		var callableUrl = service.baseUrl + '/feedbacks/add';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'POST',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: {
+				content: content,
+			}
+		});
 	};
 
 	$ionicPlatform.ready(function(){
