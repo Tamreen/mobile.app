@@ -14,8 +14,8 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	service.user = null;
 
 	// The URL of the API.
-	service.baseUrl = '/api/v1'; // local.
-	// service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
+	// service.baseUrl = '/api/v1'; // local.
+	service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
 
 	service.localStorage = null;
 	service.userTokenKey = 'users-token';
