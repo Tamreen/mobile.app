@@ -23,7 +23,7 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'الرجاء التأكّد من إدخال رقم جوّال صحيح.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 
 			return;
@@ -47,8 +47,8 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 			console.log(JSON.stringify(response));
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند إرسال الرمز المؤقت، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند إرسال الرمز المؤقت، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	};
@@ -65,7 +65,7 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'الرجاء التأكّد من تعبئة الحقل بشكلٍ صحيح.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 
 			return;
@@ -89,7 +89,7 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'الرجاء التأكّد من إدخال الرمز المؤقت  بشكلٍ صحيح.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 		});
 	};

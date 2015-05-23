@@ -17,7 +17,7 @@ starter.controller('PagesController', function($scope, $state, $ionicPopup, Tamr
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'الرجاء تعبئة الحقول المطلوبة.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 
 			return;
@@ -32,7 +32,7 @@ starter.controller('PagesController', function($scope, $state, $ionicPopup, Tamr
 			$ionicPopup.alert({
 				title: 'شكرًا',
 				template: 'شكرًا لك على رأيك، نهتم به و نعمل على دراسته.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 
 			$state.go('pages-about');
@@ -40,8 +40,8 @@ starter.controller('PagesController', function($scope, $state, $ionicPopup, Tamr
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند تحديث المعلومات، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند تحديث المعلومات، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 

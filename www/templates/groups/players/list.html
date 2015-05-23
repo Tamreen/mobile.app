@@ -13,21 +13,23 @@
 
     <ion-refresher pulling-text="اسحب للتحديث..." on-refresh="fetchPlayerUpdates(group.id)" class="rtl"></ion-refresher>
 
-    <ion-list show-delete="group.adminable" can-swipe="false">
+    <ion-list>
 
       <div class="item item-text-wrap text-center rtl" ng-if="players.length == 0">
         لم يتم إضافة لاعبين حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '+' في الأعلى.
       </div>
       
-      <ion-item class="item item-icon-left" ng-repeat="player in players">
+      <ion-item class="item item-icon-left item-icon-right" ng-repeat="player in players" ng-click="playerMore(player.id)">
 
         <i class="icon ion-person"></i>
         <h2 class="rtl text-left">{{player.fullname}}</h2>
-        <p class="rtl text-left">انضم {{player.joinedAt | fromNow }}</p>
 
-        <ion-delete-button class="ion-minus-circled"
-                       ng-click="deletePlayer(player.id, group.id)">
-        </ion-delete-button>
+        <p class="rtl text-left">
+          <span ng-if="player.role == 'member'">انضم {{player.joinedAt | fromNow }}</span>
+          <span class="assertive" ng-if="player.role == 'admin'">مدير المجموعة</span>
+        </p>
+
+        <i class="icon ion-more" ng-if="group.adminable"></i>
 
       </ion-item>
       

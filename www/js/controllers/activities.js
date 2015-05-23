@@ -31,8 +31,8 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب النشاطات، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند جلب النشاطات، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	}
@@ -108,8 +108,8 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند حفظ قرارك، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند حفظ قرارك، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	}
@@ -142,8 +142,8 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 				}, function(response){
 					$ionicPopup.alert({
 						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند حفظ قرارك، حاول مرّة أخرى تكرّماً.',
-						okText: 'حسناً',
+						template: 'يبدو أنّ هناك خطأٌ ما عند حفظ قرارك، حاول مرّة أخرى تكرّمًا.',
+						okText: 'حسنًا',
 					});
 				});
 			}
@@ -178,14 +178,14 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 					$ionicPopup.alert({
 						title: 'تم',
 						template: 'تمّ إلغاء التمرين.',
-						okText: 'حسناً',
+						okText: 'حسنًا',
 					});
 
 				}, function(response){
 					$ionicPopup.alert({
 						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند إلغاء التمرين، حاول مرّة أخرى تكرّماً.',
-						okText: 'حسناً',
+						template: 'يبدو أنّ هناك خطأٌ ما عند إلغاء التمرين، حاول مرّة أخرى تكرّمًا.',
+						okText: 'حسنًا',
 					});
 				});
 

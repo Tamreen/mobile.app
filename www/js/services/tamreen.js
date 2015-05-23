@@ -14,8 +14,8 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	service.user = null;
 
 	// The URL of the API.
-	// service.baseUrl = '/api/v1'; // local.
-	service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
+	service.baseUrl = '/api/v1'; // local.
+	// service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
 
 	service.localStorage = null;
 	service.userTokenKey = 'users-token';
@@ -377,6 +377,24 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 	};
 
+	// Make a player an admin for a certain group.
+	// (Auth) GET /groups/:groupId/players/:id/adminize
+	service.groupPlayerAdminimize = function(id, groupId){
+
+		var callableUrl = service.baseUrl + '/groups/' + groupId + '/players/' + id + '/adminize';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+
+	};
+
 	// List all trainings associated with a certain group.
 	// (Auth) GET /groups/:groupId/trainings
 	service.trainingList = function(groupId){
@@ -541,6 +559,25 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 		});
 	};
 
+	//
+	service.helperHandleErrors = function(response){
+
+		var errorMessage = null;
+
+		if (!validator.isNull(response) && !validator.isNull(response.data) && !validator.isNull(response.data.message)){
+			errorMessage = response.data.message;
+		}else{
+			errorMessage = 'يبدو أنّ هناك خطأ ما، حاول مرّة أخرى لاحقًا.';
+		}
+
+		//
+		$ionicPopup.alert({
+			title: 'خطأ',
+			template: errorMessage,
+			okText: 'حسنًا',
+		});
+	};
+
 	$ionicPlatform.ready(function(){
 
 		// Listen to whenever a notification received.
@@ -567,7 +604,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 				$ionicPopup.alert({
 					title: 'خطأ',
 					template: 'لن يعمل التطبيق يشكلٍ صحيح في ظلّ عدم تفعيل التخزين المحلّي.',
-					okText: 'حسناً',
+					okText: 'حسنًا',
 				});
 				return;
 			}
@@ -580,7 +617,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'لن يعمل التطبيق يشكلٍ صحيح في ظلّ عدم تفعيل التخزين المحلّي.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 			return;
 		}
@@ -599,7 +636,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'لن يعمل التطبيق يشكلٍ صحيح في ظلّ عدم وجود منصّة تشغيل (Platform).',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 			return;
 		}

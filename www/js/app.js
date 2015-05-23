@@ -1,6 +1,10 @@
 
 // Tamreen App.
 
+// export ANDROID_HOME=/Users/hossamzee/android-sdk-macosx
+// export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+// adb logcat
+
 // Remove all plugins.
 // rm -Rf platforms/*
 // rm -Rf plugins/*
@@ -8,10 +12,6 @@
 // cordova build ios
 
 // "https://github.com/forcedotcom/PushPlugin#unstable",
-
-// export ANDROID_HOME=/Users/hossamzee/android-sdk-macosx
-// export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-// adb logcat
 
 // TODO: If there is no internet connection, there should be handling.
 // TODO: Logs should be canceled.

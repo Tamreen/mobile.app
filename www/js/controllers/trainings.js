@@ -99,8 +99,8 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب التمارين، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند جلب التمارين، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	}
@@ -127,7 +127,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				$ionicPopup.alert({
 					title: 'خطأ',
 					template: 'الرجاء التأكّد من تعبئة الحقول بشكلٍ صحيح.',
-					okText: 'حسناً',
+					okText: 'حسنًا',
 				});
 
 				return;
@@ -160,8 +160,8 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند إضافة تمرين، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند إضافة تمرين، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	}
@@ -180,8 +180,8 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب تفاصيل التمرين، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند جلب تفاصيل التمرين، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	}
@@ -269,7 +269,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 					$ionicPopup.alert({
 						title: 'تم',
 						template: 'لقد غادرتَ المجموعة، في حفظ الله.',
-						okText: 'حسناً',
+						okText: 'حسنًا',
 					});
 
 					// Redirect the user to the groups.
@@ -278,8 +278,8 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				}, function(response){
 					$ionicPopup.alert({
 						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند مغادرة المجموعة، حاول مرّة أخرى تكرّماً.',
-						okText: 'حسناً',
+						template: 'يبدو أنّ هناك خطأٌ ما عند مغادرة المجموعة، حاول مرّة أخرى تكرّمًا.',
+						okText: 'حسنًا',
 					});
 				});
 
@@ -317,7 +317,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 					$ionicPopup.alert({
 						title: 'تم',
 						template: 'لقد حذفتَ المجموعة.',
-						okText: 'حسناً',
+						okText: 'حسنًا',
 					});
 
 					// Redirect the user to the groups.
@@ -326,8 +326,8 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				}, function(response){
 					$ionicPopup.alert({
 						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند حذف التمرين، حاول مرّة أخرى تكرّماً.',
-						okText: 'حسناً',
+						template: 'يبدو أنّ هناك خطأٌ ما عند حذف التمرين، حاول مرّة أخرى تكرّمًا.',
+						okText: 'حسنًا',
 					});
 				});
 

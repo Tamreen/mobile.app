@@ -17,7 +17,7 @@ starter.controller('PlayersController', function($scope, $state, $ionicPopup, Ta
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'الرجاء التأكّد من إدخال الاسم الكامل.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 
 			return;
@@ -32,8 +32,8 @@ starter.controller('PlayersController', function($scope, $state, $ionicPopup, Ta
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند تحديث المعلومات، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند تحديث المعلومات، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	};

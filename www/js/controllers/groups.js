@@ -30,8 +30,8 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما في جلب المجموعات، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما في جلب المجموعات، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	}
@@ -58,7 +58,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 			$ionicPopup.alert({
 				title: 'خطأ',
 				template: 'الرجاء التأكّد من إدخال اسم المجموعة.',
-				okText: 'حسناً',
+				okText: 'حسنًا',
 			});
 
 			return;
@@ -80,8 +80,8 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند إضافة مجموعة، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند إضافة مجموعة، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
 	}
@@ -103,10 +103,44 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 		}, function(response){
 			$ionicPopup.alert({
 				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب اللاعبين، حاول مرّة أخرى تكرّماً.',
-				okText: 'حسناً',
+				template: 'يبدو أنّ هناك خطأٌ ما عند جلب اللاعبين، حاول مرّة أخرى تكرّمًا.',
+				okText: 'حسنًا',
 			});
 		});
+	}
+
+	$scope.playerMore = function(playerId){
+
+		if ($scope.group.adminable == false){
+			return;
+		}
+
+		var buttonLabels = [{text: 'إضافة اللاعب إلى المدراء'}, {text: 'حذف اللاعب من المجموعة'}];
+
+		var hideSheet = $ionicActionSheet.show({
+
+	     	buttons: buttonLabels,
+	     	titleText: 'فيمَ تفكّر؟',
+	     	cancelText: 'إلغاء',
+	     	destructiveText: null,
+
+	     	cancel: function() {
+	          // Add cancel code here.
+	        },
+
+	     	buttonClicked: function(index){
+
+		    	if (index == 0){
+		       		$scope.adminizePlayer(playerId);
+		       }
+		       else if (index == 1){
+		       		$scope.deletePlayer(playerId);
+		       }
+
+		       	// Not sure why this returns.
+	       		return true;
+	     	}
+   		});
 	}
 
 	$scope.fetchPlayerUpdates = function(groupId){
@@ -132,7 +166,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 				$ionicPopup.alert({
 					title: 'خطأ',
 					template: 'الرجاء التأكّد من اختيار اسم لاعبٍ لديه رقم جوّال صحيح.',
-					okText: 'حسناً',
+					okText: 'حسنًا',
 				});
 
 				return;
@@ -161,8 +195,8 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 
 				$ionicPopup.alert({
 					title: 'خطأ',
-					template: 'يبدو أنّ هناك خطأٌ ما عند إضافة اللاعب، حاول مرّة أخرى تكرّماً.',
-					okText: 'حسناً',
+					template: 'يبدو أنّ هناك خطأٌ ما عند إضافة اللاعب، حاول مرّة أخرى تكرّمًا.',
+					okText: 'حسنًا',
 				});
 			});
 
@@ -176,7 +210,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 
 	// Admin function.
 	// Delete a player in a group.
-	$scope.deletePlayer = function(playerId, groupId){
+	$scope.deletePlayer = function(playerId){
 
 		console.log('Delete a player has been called.');
 
@@ -194,35 +228,75 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 			if(yes){
 
 				// Try to list the groups using the service.
-				var promise = TamreenService.groupPlayerDelete(playerId, groupId);
+				var promise = TamreenService.groupPlayerDelete(playerId, $scope.group.id);
 
 				// Check what the service promises.
 				promise.then(function(){
 
-					$scope.listPlayers(groupId);
+					$scope.listPlayers($scope.group.id);
 					$state.go('groups-players-list');
 
 					$ionicPopup.alert({
 						title: 'تمَ',
 						template: 'تمً حذف اللاعب من المجموعةِ بنجاح.',
-						okText: 'حسناً',
+						okText: 'حسنًا',
 					});
 
 					// Done.
 					console.log('Deleting a player has been done.');
 
 				}, function(response){
-
-					$ionicPopup.alert({
-						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند حذف اللاعب، حاول مرّة أخرى تكرّماً.',
-						okText: 'حسناً',
-					});
-
+					TamreenService.helperHandleErrors(response);
 				});
 
 			}else{
 				console.log('Cancel deleting the player.');
+			}
+		});
+	}
+
+	// Admin function.
+	// Make a player an admin.
+	$scope.adminizePlayer = function(playerId){
+
+		console.log('Mak a player an admin has been called.');
+
+		// Check if the user is sure about deleting.
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'إضافة لاعب إلى المدراء',
+			template: 'هل أنت متأكّد من أنّك تريد إضافة اللاعب إلى المدراء؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+		});
+
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// Try to list the groups using the service.
+				var promise = TamreenService.groupPlayerAdminimize(playerId, $scope.group.id);
+
+				// Check what the service promises.
+				promise.then(function(){
+
+					$scope.listPlayers($scope.group.id);
+					$state.go('groups-players-list');
+
+					$ionicPopup.alert({
+						title: 'تمَ',
+						template: 'تمً إضافة اللاعب إلى المدراء بنجاح.',
+						okText: 'حسنًا',
+					});
+
+					// Done.
+					console.log('Making a player an admin has been done.');
+
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
+
+			}else{
+				console.log('Cancel making a player an admin.');
 			}
 		});
 	}
@@ -265,7 +339,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 				$ionicPopup.alert({
 					title: 'تم',
 					template: 'تمّ تسجيل الخروج بنجاح.',
-					okText: 'حسناً',
+					okText: 'حسنًا',
 				});
 			}
 		});

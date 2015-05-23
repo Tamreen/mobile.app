@@ -17,9 +17,10 @@
   "cordovaPlugins": [
     "https://github.com/phonegap-build/PushPlugin.git",
     "https://github.com/driftyco/ionic-plugins-keyboard.git",
-    "org.apache.cordova.contacts",
-    "uk.co.whiteoctober.cordova.appversion",
+    "com.ionic.keyboard",
     "org.apache.cordova.device",
-    "org.apache.cordova.console"
+    "org.apache.cordova.console",
+    "uk.co.whiteoctober.cordova.appversion",
+    "org.apache.cordova.contacts"
   ]
 }
