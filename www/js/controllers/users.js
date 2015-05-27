@@ -44,12 +44,7 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 		promise.then(function(){
 			$state.go('users-secondhandshake');
 		}, function(response){
-			console.log(JSON.stringify(response));
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند إرسال الرمز المؤقت، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	};
 
@@ -86,11 +81,7 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 			$state.go('groups-list');
 
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'الرجاء التأكّد من إدخال الرمز المؤقت  بشكلٍ صحيح.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	};
 });

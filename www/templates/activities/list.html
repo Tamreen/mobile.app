@@ -44,7 +44,6 @@
         </div>
 
         <!-- Player apologized. -->
-        <!-- TODO: The player should confirm this action before taking it. -->
         <div class="item text-center rtl" ng-if="activity.type == 'player-apologized'">
           <span class="button button-small button-dark button-outline">
             <i class="ion-close-circled assertive"></i>
@@ -65,6 +64,14 @@
         <!-- Training is not complete. -->
         <div class="item text-center rtl" ng-if="activity.type == 'training-not-completed'">
           <span class="button button-small button-energized">تحضير التمرين غير مُكتمل {{ activity.createdAt | fromNow }}</span>
+        </div>
+
+        <!-- Player brought professional. -->
+        <div class="item text-center rtl" ng-if="activity.type == 'player-brought-professional'">
+          <span class="button button-small button-dark button-outline">
+            <i class="ion-checkmark-circled royal"></i>
+            {{activity.author}} جلب محترفًا {{ activity.createdAt | fromNow }}
+          </span>
         </div>
 
       </div>

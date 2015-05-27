@@ -97,11 +97,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		promise.then(function(response){
 			$scope.trainings = response.data;
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب التمارين، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 	
@@ -158,11 +154,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 			$state.go('activities-list', {'trainingId': $scope.training.id});
 
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند إضافة تمرين، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
@@ -178,11 +170,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 			// Save the training information.
 			$scope.training = response.data;
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب تفاصيل التمرين، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
@@ -276,11 +264,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 					$state.go('groups-list');
 
 				}, function(response){
-					$ionicPopup.alert({
-						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند مغادرة المجموعة، حاول مرّة أخرى تكرّمًا.',
-						okText: 'حسنًا',
-					});
+					TamreenService.helperHandleErrors(response);
 				});
 
 			}else{
@@ -324,11 +308,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 					$state.go('groups-list');
 
 				}, function(response){
-					$ionicPopup.alert({
-						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند حذف التمرين، حاول مرّة أخرى تكرّمًا.',
-						okText: 'حسنًا',
-					});
+					TamreenService.helperHandleErrors(response);
 				});
 
 			}else{

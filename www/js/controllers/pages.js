@@ -38,11 +38,7 @@ starter.controller('PagesController', function($scope, $state, $ionicPopup, Tamr
 			$state.go('pages-about');
 
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند تحديث المعلومات، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 
 	}

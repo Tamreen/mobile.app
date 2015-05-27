@@ -29,11 +29,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 			$scope.activities = response.data;
 			$ionicScrollDelegate.scrollBottom(true);
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب النشاطات، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
@@ -106,11 +102,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 			// Do refresh the activities.
 			$scope.list(trainingId);
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند حفظ قرارك، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
@@ -140,11 +132,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 					// Do refresh the activities.
 					$scope.list(trainingId);
 				}, function(response){
-					$ionicPopup.alert({
-						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند حفظ قرارك، حاول مرّة أخرى تكرّمًا.',
-						okText: 'حسنًا',
-					});
+					TamreenService.helperHandleErrors(response);
 				});
 			}
 		});
@@ -182,11 +170,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 					});
 
 				}, function(response){
-					$ionicPopup.alert({
-						title: 'خطأ',
-						template: 'يبدو أنّ هناك خطأٌ ما عند إلغاء التمرين، حاول مرّة أخرى تكرّمًا.',
-						okText: 'حسنًا',
-					});
+					TamreenService.helperHandleErrors(response);
 				});
 
 			}else{
@@ -221,7 +205,6 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 				// 		break;
 				// 	}
 				// });
-
 			}
 
 		}, function(response){

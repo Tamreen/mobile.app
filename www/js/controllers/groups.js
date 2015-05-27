@@ -28,11 +28,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 		promise.then(function(response){
 			$scope.groups = response.data;
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما في جلب المجموعات، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
@@ -77,12 +73,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 			$state.go('groups-players-list', {'groupId': response.data.id});
 
 		}, function(response){
-
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند إضافة مجموعة، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
@@ -101,11 +92,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 		promise.then(function(response){
 			$scope.players = response.data;
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند جلب اللاعبين، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
@@ -192,12 +179,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 				console.log('Adding a player has been done.');
 
 			}, function(response){
-
-				$ionicPopup.alert({
-					title: 'خطأ',
-					template: 'يبدو أنّ هناك خطأٌ ما عند إضافة اللاعب، حاول مرّة أخرى تكرّمًا.',
-					okText: 'حسنًا',
-				});
+				TamreenService.helperHandleErrors(response);
 			});
 
 		}, function(failure){

@@ -30,11 +30,7 @@ starter.controller('PlayersController', function($scope, $state, $ionicPopup, Ta
 		promise.then(function(user){
 			$state.go('groups-list');
 		}, function(response){
-			$ionicPopup.alert({
-				title: 'خطأ',
-				template: 'يبدو أنّ هناك خطأٌ ما عند تحديث المعلومات، حاول مرّة أخرى تكرّمًا.',
-				okText: 'حسنًا',
-			});
+			TamreenService.helperHandleErrors(response);
 		});
 	};
 
