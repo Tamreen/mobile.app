@@ -13,6 +13,13 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 	// Activities.
 	$scope.activities = [];
 
+	// Arabic actions.
+	$scope.actionWillcome = 'سأحضر بإذن الله';
+	$scope.actionApologize = 'أعتذر عن الحضور';
+	$scope.actionBringProfessional = 'جلب لاعب محترف';
+	$scope.actionDetails = 'تفاصيل التمرين';
+	$scope.actionCancel = 'إلغاء التمرين'; 
+
 	$scope.activitiesBack = function(groupId){
 		$state.go('trainings-list', {'groupId': groupId});
 	}
@@ -47,14 +54,46 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 
 	$scope.more = function(){
 
-		console.log('Activities more has been called.');
+		// console.log('Activities more has been called.');
 
-		var buttonLabels = [{text: 'سأحضر بإذن الله'}, {text: 'أعتذر عن الحضور'}];
+		// var buttonLabels = [{text: 'سأحضر بإذن الله'}, {text: 'أعتذر عن الحضور'}];
 
-		// Check if the user is admin of the training.
-		if ($scope.training.adminable)
-		{
-			buttonLabels.push({text: 'إلغاء التمرين'});
+		// // Check if the user is admin of the training.
+		// if ($scope.training.adminable)
+		// {
+		// 	buttonLabels.push({text: 'إلغاء التمرين'});
+		// }
+
+		//
+		var buttonLabels = [];
+
+		//
+		if ($scope.training.playerDecision == 'notyet'){
+			buttonLabels.push({text: $scope.actionWillcome});
+			buttonLabels.push({text: $scope.actionApologize});
+		}
+
+		//
+		if ($scope.training.playerDecision == 'willcome' || $scope.training.playerDecision == 'register-as-subset'){
+			buttonLabels.push({text: $scope.actionApologize});
+		}
+
+		//
+		if ($scope.training.playerDecision == 'apologize'){
+			buttonLabels.push({text: $scope.actionWillcome});
+		}
+
+		//
+		if ($scope.training.professionalable){
+			buttonLabels.push({text: $scope.actionBringProfessional});
+		}
+
+		//
+		buttonLabels.push({text: $scope.actionDetails});
+
+		//
+		if ($scope.training.adminable){
+			buttonLabels.push({text: $scope.actionCancel});
 		}
 
 		var hideSheet = $ionicActionSheet.show({
@@ -64,25 +103,41 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 	     	cancelText: 'إلغاء',
 	     	destructiveText: null,
 
-	     	cancel: function() {
-	          // add cancel code..
+	     	cancel: function(){
+	          // add cancel code.
 	        },
 
 	     	buttonClicked: function(index){
 
-		    	if (index == 0){
-		       		console.log('Decision I will come has been chosen.');
-		       		$scope.willCome($scope.training.id);
-		       	}
-		       	else if (index == 1){
-		       		console.log('Decision I apologize has been chosen.');
-		       		$scope.apologize($scope.training.id);
-		       	}
-		       	else if (index == 2)
-		       	{
-		       		console.log('Cancel the training has been chosen.');
-		       		$scope.cancel($scope.training.id);
-		       	}
+				//
+				var selectedLabel = buttonLabels[index].text;
+
+				// #/trainings/{{training.id}}
+
+				//
+				if (selectedLabel == $scope.actionWillcome){
+					$scope.willCome($scope.training.id);
+				}
+
+				//
+				if (selectedLabel == $scope.actionApologize){
+					$scope.apologize($scope.training.id);
+				}
+
+				//
+				if (selectedLabel == $scope.actionBringProfessional){
+					alert('actionBringProfessional');
+				}
+
+				//
+				if (selectedLabel == $scope.actionDetails){
+					$state.go('trainings-details', {trainingId: $scope.training.id});
+				}
+
+				//
+				if (selectedLabel == $scope.actionCancel){
+					$scope.cancel($scope.training.id);
+				}
 
 		       	// Not sure why.
 	       		return true;
@@ -99,14 +154,17 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 
 		// Check what the service promises.
 		promise.then(function(response){
+
 			// Do refresh the activities.
 			$scope.list(trainingId);
+			$scope.updateTraining(trainingId);
+
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
 		});
 	}
 
-	// TODO: Confirm this action.
+	// Confirm this action.
 	$scope.apologize = function(trainingId){
 		
 		console.log('Decision apologize has been called.');
@@ -129,8 +187,11 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 
 				// Check what the service promises.
 				promise.then(function(response){
+
 					// Do refresh the activities.
 					$scope.list(trainingId);
+					$scope.updateTraining(trainingId);
+
 				}, function(response){
 					TamreenService.helperHandleErrors(response);
 				});
@@ -138,6 +199,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 		});
 	}
 
+	//
 	$scope.cancel = function(trainingId){
 
 		console.log('Cancel the training has been called.');
@@ -176,6 +238,21 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 			}else{
 				console.log('Training has not been canceled.');
 			}
+		});
+	}
+
+	//
+	$scope.updateTraining = function(trainingId){
+
+		var promise = TamreenService.trainingDetails($stateParams.trainingId);
+
+		promise.then(function(response){
+
+			// Save the current training.
+			$scope.training = response.data;
+
+		}, function(response){
+			console.log('There is an error when getting a training details.');
 		});
 	}
 
