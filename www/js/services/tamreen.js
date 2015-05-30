@@ -356,7 +356,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 				fullname: fullname,
 			}
 		});
-
 	};
 
 	// Delete a player from a certain group.
@@ -440,7 +439,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 				subsetPlayersCount: subsetPlayersCount,
 			}
 		});
-
 	};
 
 	// Get the training details.
@@ -458,7 +456,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			headers: service.helperUserTokenHeader(),
 		});
-
 	};
 
 	// Lets the player come to the training.
@@ -476,7 +473,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			headers: service.helperUserTokenHeader(),
 		});
-
 	};
 
 	// Lets the player apologize from coming to the training.
@@ -494,7 +490,27 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			headers: service.helperUserTokenHeader(),
 		});
+	};
 
+	// Lets the player bring a professional player.
+	// (Auth) POST /trainings/:id/professionals/bring
+	service.trainingBringProfessional = function(id, e164formattedMobileNumber, fullname){
+
+		var callableUrl = service.baseUrl + '/trainings/' + id +'/professionals/bring';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'POST',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: {
+				e164formattedMobileNumber: e164formattedMobileNumber,
+				fullname: fullname,
+			}
+		});
 	};
 
 	// Let the admin cancel the training.
@@ -512,7 +528,40 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			headers: service.helperUserTokenHeader(),
 		});
+	};
 
+	// Decide for a player to come to a training by the training admin.
+	// (Auth) GET /trainings/:id/players/:playerId/willcome
+	service.trainingAdminPlayerWillCome = function(id, playerId){
+
+		var callableUrl = service.baseUrl + '/trainings/' + id + '/players/' + playerId + '/willcome';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Decide for a player to apologize for attending a training by the training admin
+	// (Auth) GET /trainings/:id/players/:playerId/apologize
+	service.trainingAdminPlayerApologize = function(id, playerId){
+
+		var callableUrl = service.baseUrl + '/trainings/' + id + '/players/' + playerId + '/apologize';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
 	};
 
 	// List the activities for a certain training.
@@ -530,7 +579,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			url: callableUrl,
 			headers: service.helperUserTokenHeader(),
 		});
-
 	};
 
 	// It is propably the same with service.activityList.
@@ -647,7 +695,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 		// Call the device.
 		service.helperPushNotificationRegister();
 
-		// TODO:
 		// service.localStorage.removeItem(service.userTokenKey);
 
 		// Try to get the user information.

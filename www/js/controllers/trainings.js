@@ -120,13 +120,11 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		// Validate the user inputs.
 		if (validator.isNull($scope.parameters.stadium) || validator.isNull($scope.parameters.startedAtDate) || validator.isNull($scope.parameters.startedAtTime) || !validator.isNumeric($scope.parameters.playersCount) || $scope.parameters.playersCount <= 0 || !validator.isNumeric($scope.parameters.subsetPlayersCount)){
 
-				$ionicPopup.alert({
-					title: 'خطأ',
-					template: 'الرجاء التأكّد من تعبئة الحقول بشكلٍ صحيح.',
-					okText: 'حسنًا',
-				});
-
-				return;
+			return $ionicPopup.alert({
+				title: 'خطأ',
+				template: 'الرجاء التأكّد من تعبئة الحقول بشكلٍ صحيح.',
+				okText: 'حسنًا',
+			});
 		}
 
 		// Get the started at datetime.
@@ -315,6 +313,99 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				console.log('Cancel deleting the group.');
 			}
 		});
+	}
+
+	$scope.adminSayPlayerWillCome = function(trainingId, playerId){
+
+		//
+		var promise = TamreenService.trainingAdminPlayerWillCome(trainingId, playerId);
+
+		// Check what the service promises.
+		promise.then(function(response){
+
+			//
+			$ionicPopup.alert({
+				title: 'تم',
+				template: 'تم تسجيل حضور اللاعب بنجاح.',
+				okText: 'حسنًا',
+			});
+
+			$scope.detail(trainingId);
+
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
+
+	}
+
+	$scope.adminSayPlayerApologize = function(trainingId, playerId){
+
+		//
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'الاعتذار عن الحضور',
+			template: 'هل أنت متأكّد من أنّ اللاعب يريد الاعتذار عن الحضور؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// Try to list the groups using the service.
+				var promise = TamreenService.trainingAdminPlayerApologize(trainingId, playerId);
+
+				// Check what the service promises.
+				promise.then(function(response){
+
+					//
+					$ionicPopup.alert({
+						title: 'تم',
+						template: 'تم تسجيل اعتذار اللاعب بنجاح.',
+						okText: 'حسنًا',
+					});
+
+					//
+					$scope.detail(trainingId);
+
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
+			}
+		});
+	}
+
+	// TODO: There is an issue when entering training details for the first time.
+	$scope.notyetPlayerMore = function(playerId){
+
+		var buttonLabels = [{text: 'سيحضر بإذن الله'}, {text: 'يعتذر عن الحضور'}];
+
+		var hideSheet = $ionicActionSheet.show({
+
+	     	buttons: buttonLabels,
+	     	titleText: 'فيمَ يفكّر؟',
+	     	cancelText: 'إلغاء',
+	     	destructiveText: null,
+
+	     	cancel: function() {
+	          // Add cancel code here.
+	        },
+
+	     	buttonClicked: function(index){
+
+		    	if (index == 0){
+		       		$scope.adminSayPlayerWillCome($scope.training.id, playerId);
+		       }
+		       else if (index == 1){
+		       		$scope.adminSayPlayerApologize($scope.training.id, playerId);
+		       }
+
+		       	// Not sure why this returns.
+	       		return true;
+	     	}
+   		});
+
 	}
 
 	// Define a group if any.

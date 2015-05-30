@@ -147,7 +147,6 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 		$cordovaContacts.pickContact().then(function(contact){
 
 			// Validate if the chosen contact have a mobile number.
-			// TODO: There is an issue when the phone number is missing.
 			if (validator.isNull(contact.phoneNumbers) || contact.phoneNumbers.length == 0 || TamreenService.helperMobileNumberValidable(contact.phoneNumbers[0].value) == false || validator.isNull(contact.name.formatted)){
 
 				$ionicPopup.alert({
@@ -220,7 +219,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 
 					$ionicPopup.alert({
 						title: 'تمَ',
-						template: 'تمً حذف اللاعب من المجموعةِ بنجاح.',
+						template: 'تمّ حذف اللاعب من المجموعةِ بنجاح.',
 						okText: 'حسنًا',
 					});
 
@@ -266,7 +265,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 
 					$ionicPopup.alert({
 						title: 'تمَ',
-						template: 'تمً إضافة اللاعب إلى المدراء بنجاح.',
+						template: 'تمّ إضافة اللاعب إلى المدراء بنجاح.',
 						okText: 'حسنًا',
 					});
 
@@ -283,7 +282,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 		});
 	}
 
-	// TODO: Confirm if the user wants to log out.
+	// Confirm if the user wants to log out.
 	$scope.logoutUser = function(){
 
 		var confirmPopup = $ionicPopup.confirm({

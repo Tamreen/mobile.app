@@ -1,6 +1,6 @@
 
 // Activities controller.
-starter.controller('ActivitiesController', function($scope, $rootScope, $state, $stateParams, $ionicActionSheet, $ionicPopup, $ionicScrollDelegate, TamreenService){
+starter.controller('ActivitiesController', function($scope, $rootScope, $state, $stateParams, $cordovaContacts, $ionicActionSheet, $ionicPopup, $ionicScrollDelegate, TamreenService){
 
 	console.log('Activities controller has been initialized.');
 
@@ -54,16 +54,6 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 
 	$scope.more = function(){
 
-		// console.log('Activities more has been called.');
-
-		// var buttonLabels = [{text: 'سأحضر بإذن الله'}, {text: 'أعتذر عن الحضور'}];
-
-		// // Check if the user is admin of the training.
-		// if ($scope.training.adminable)
-		// {
-		// 	buttonLabels.push({text: 'إلغاء التمرين'});
-		// }
-
 		//
 		var buttonLabels = [];
 
@@ -112,8 +102,6 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 				//
 				var selectedLabel = buttonLabels[index].text;
 
-				// #/trainings/{{training.id}}
-
 				//
 				if (selectedLabel == $scope.actionWillcome){
 					$scope.willCome($scope.training.id);
@@ -126,7 +114,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 
 				//
 				if (selectedLabel == $scope.actionBringProfessional){
-					alert('actionBringProfessional');
+					$scope.bringProfessional($scope.training.id);
 				}
 
 				//
@@ -197,6 +185,53 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 				});
 			}
 		});
+	}
+
+	$scope.bringProfessional = function(trainingId){
+
+		$cordovaContacts.pickContact().then(function(contact){
+
+			// Validate if the chosen contact have a mobile number.
+			if (validator.isNull(contact.phoneNumbers) || contact.phoneNumbers.length == 0 || TamreenService.helperMobileNumberValidable(contact.phoneNumbers[0].value) == false || validator.isNull(contact.name.formatted)){
+
+				$ionicPopup.alert({
+					title: 'خطأ',
+					template: 'الرجاء التأكّد من اختيار اسم لاعبٍ لديه رقم جوّال صحيح.',
+					okText: 'حسنًا',
+				});
+
+				return;
+			}
+
+			// Set the e164 formatted mboile number and the name of the player.
+			var e164formattedMobileNumber = TamreenService.helperMobileNumberE164Format(contact.phoneNumbers[0].value);
+			var fullname = contact.name.formatted;
+
+			// Great!
+			console.log('Getting the mobile number ' + e164formattedMobileNumber);
+
+			// Try to bring a professional using the service.
+			var promise = TamreenService.trainingBringProfessional(trainingId, e164formattedMobileNumber, fullname);
+
+			// Check what the service promises.
+			
+			promise.then(function(response){
+
+				// Do refresh the activities.
+				$scope.list(trainingId);
+				$scope.updateTraining(trainingId);
+
+			}, function(response){
+				TamreenService.helperHandleErrors(response);
+			});
+
+		}, function(failure){
+
+			// Contact error.
+			console.log('Bringing a professional has been canceled.');
+
+        });
+
 	}
 
 	//

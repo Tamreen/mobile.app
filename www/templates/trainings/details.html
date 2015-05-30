@@ -55,9 +55,9 @@
           <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
         </div>
 
-        <div class="item" ng-repeat="player in training.notyetPlayers">
+        <div class="item item-icon-right" ng-repeat="player in training.notyetPlayers" ng-click="notyetPlayerMore(player.id)">
           <span class="rtl">{{player.fullname}}</span>
-          <span class="item-note">{{$index+1}}</span>
+          <i class="icon ion-more" ng-if="training.adminable"></i>
         </div>
       
     </ion-list>
