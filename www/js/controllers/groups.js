@@ -240,7 +240,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 	// Make a player an admin.
 	$scope.adminizePlayer = function(playerId){
 
-		console.log('Mak a player an admin has been called.');
+		console.log('Make a player an admin has been called.');
 
 		// Check if the user is sure about deleting.
 		var confirmPopup = $ionicPopup.confirm({
