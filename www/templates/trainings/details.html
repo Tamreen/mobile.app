@@ -16,6 +16,20 @@
           <span class="item-note rtl">{{training.startedAt | arDate }}</span>
         </div>
 
+        <div class="item tabs tabs-secondary tabs-icon-left">
+
+          <div class="tab-item">
+            <i class="icon ion-person"></i>
+            اللاعبون {{training.willcomePlayersCount}} / {{training.playersCount}}
+          </div>
+
+          <div class="tab-item">
+            <i class="icon ion-person-add"></i>
+            الاحتياط {{training.registerAsSubsetPlayersCount}} / {{training.subsetPlayersCount}}
+          </div>
+
+        </div>
+
         <!-- Will come players. -->
         <div class="item item-divider">
           <span class="rtl">قرّروا الحضور</span>
