@@ -33,8 +33,10 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 
 		// Check what the service promises.
 		promise.then(function(response){
+
 			$scope.activities = response.data;
 			$ionicScrollDelegate.scrollBottom(true);
+
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
 		});

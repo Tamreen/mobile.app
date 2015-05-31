@@ -626,6 +626,17 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 		});
 	};
 
+	//
+	service.helperToast = function(content){
+
+		var media = new Media('sounds/activity.mp3');
+
+		$ionicLoading.show({template: content, duration: 2000});
+
+		// Play the media.
+		media.play();
+	}
+
 	$ionicPlatform.ready(function(){
 
 		// Listen to whenever a notification received.
@@ -637,8 +648,18 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 					// Make sure the type of the notification is registered.
 					service.deviceToken = notification.regid;
+
+				break;
+
+				case 'message':
+					service.helperToast(notification.message);
 				break;
 			}
+
+			if (notification.alert){
+				service.helperToast(notification.alert);
+			}
+
 		});
 
 		console.log('localStorage');
