@@ -629,7 +629,13 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	//
 	service.helperToast = function(content){
 
-		var media = new Media('sounds/activity.mp3');
+		var androidPath = '';
+
+		if (validator.equals(service.deviceType, 'android')){
+			androidPath = '/android_asset/www/';
+		}
+
+		var media = new Media(androidPath + 'sounds/activity.mp3');
 
 		$ionicLoading.show({template: content, duration: 2000});
 
@@ -652,7 +658,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 				break;
 
 				case 'message':
-					service.helperToast(notification.message);
+					service.helperToast(notification.payload.title);
 				break;
 			}
 
