@@ -1,6 +1,6 @@
 
 // Tamreen service.
-starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlatform, $cordovaDevice, $cordovaPush, $cordovaAppVersion, $ionicLoading, $ionicPopup){
+starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlatform, $cordovaDevice, $cordovaPush, $cordovaAppVersion, $ionicLoading, $ionicPopup, $ionicModal){
 
 	console.log('Tamreen service has been initialized.');
 
@@ -607,6 +607,22 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 		});
 	};
 
+	// Get the minimum client version.
+	// GET /versions/minclient
+	service.minVersionFetch = function(trainingId){
+
+		var callableUrl = service.baseUrl + '/versions/minclient';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+		});
+	};
+
 	//
 	service.helperHandleErrors = function(response){
 
@@ -698,7 +714,22 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 		}
 
 		$cordovaAppVersion.getAppVersion().then(function(version){
+
 			service.appVersion = version;
+
+			// Check if the current version is different than the server version.
+			service.minVersionFetch().then(function(response){
+
+				var minClientVersion = response.data.version;
+
+				if (!validator.equals(service.appVersion, minClientVersion)){
+					$ionicModal.fromTemplateUrl('templates/pages/newversion.html').then(function(modal){
+						modal.scope.version = minClientVersion;
+						modal.show();
+					});
+				}
+			});
+
 		});
 
 		console.log('TamreenService is ready.');

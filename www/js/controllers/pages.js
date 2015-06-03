@@ -27,7 +27,7 @@ starter.controller('PagesController', function($scope, $state, $ionicPopup, Tamr
 		var promise = TamreenService.feedback($scope.parameters.content);
 
 		// Check what the service promises.
-		promise.then(function(user){
+		promise.then(function(){
 
 			$ionicPopup.alert({
 				title: 'شكرًا',

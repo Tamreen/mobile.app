@@ -143,7 +143,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 		var promise = TamreenService.trainingWillCome(trainingId);
 
 		// Check what the service promises.
-		promise.then(function(response){
+		promise.then(function(){
 
 			// Do refresh the activities.
 			$scope.list(trainingId);
@@ -176,7 +176,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 				var promise = TamreenService.trainingApologize(trainingId);
 
 				// Check what the service promises.
-				promise.then(function(response){
+				promise.then(function(){
 
 					// Do refresh the activities.
 					$scope.list(trainingId);
@@ -217,7 +217,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 
 			// Check what the service promises.
 			
-			promise.then(function(response){
+			promise.then(function(){
 
 				// Do refresh the activities.
 				$scope.list(trainingId);
@@ -258,7 +258,7 @@ starter.controller('ActivitiesController', function($scope, $rootScope, $state, 
 				var promise = TamreenService.trainingCancel(trainingId);
 
 				// Check what the service promises.
-				promise.then(function(response){
+				promise.then(function(){
 
 					$state.go('trainings-list', {'groupId': $scope.training.groupId});
 

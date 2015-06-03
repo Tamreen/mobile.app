@@ -74,7 +74,7 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 
 			TamreenService.helperUserRememberInfo(response.data);
 			
-			if (response.data.loginable == false)
+			if (response.data.loginable == 0)
 				return $state.go('players-update');
 
 			// Otherwise.

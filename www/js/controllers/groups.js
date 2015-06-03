@@ -300,7 +300,7 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 				var promise = TamreenService.userLogout();
 
 				// Check what the service promises.
-				promise.then(function(response){
+				promise.then(function(){
 					TamreenService.helperUserForgetInfo();
 				}, function(response){
 					TamreenService.helperUserForgetInfo();

@@ -250,7 +250,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				var promise = TamreenService.groupLeave(groupId);
 
 				// Check what the service promises.
-				promise.then(function(response){
+				promise.then(function(){
 
 					$ionicPopup.alert({
 						title: 'تم',
@@ -294,7 +294,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				var promise = TamreenService.groupDelete(groupId);
 
 				// Check what the service promises.
-				promise.then(function(response){
+				promise.then(function(){
 
 					$ionicPopup.alert({
 						title: 'تم',
@@ -321,7 +321,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		var promise = TamreenService.trainingAdminPlayerWillCome(trainingId, playerId);
 
 		// Check what the service promises.
-		promise.then(function(response){
+		promise.then(function(){
 
 			//
 			$ionicPopup.alert({
@@ -357,7 +357,7 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 				var promise = TamreenService.trainingAdminPlayerApologize(trainingId, playerId);
 
 				// Check what the service promises.
-				promise.then(function(response){
+				promise.then(function(){
 
 					//
 					$ionicPopup.alert({
