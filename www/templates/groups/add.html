@@ -10,15 +10,20 @@
     <form name="addForm" ng-submit="add()">
       <div class="list">
         <label class="item item-input">
-          <input type="text" placeholder="اسم المجموعة" ng-model="parameters.name" class="rtl text-left" />
+          <span class="input-label">اسم المجموعة</span>
+          <input type="text" placeholder="المحترفون" ng-model="parameters.name" class="rtl text-left" />
         </label>
         <div>
           <button class="button button-block button-positive rtl" type="submit">إضافة مجموعة</button>
         </div>
-        <div class="text-center rtl">
-          إضافة اللاعبين إلى المجموعة سيأتي تباعًا.
-        </div>
       </div>
     </form>
   </ion-content>
+
+  <div class="bar bar-footer bar-light">
+    <div class="title rtl">
+      <small>إضافة اللاعبين إلى المجموعة ستأتي تباعًا.</small>
+    </div>
+  </div>
+
 </ion-view>

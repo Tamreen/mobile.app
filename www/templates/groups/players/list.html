@@ -9,7 +9,7 @@
     <button class="button button-icon icon ion-plus-round" ng-click="addPlayer(group.id)" ng-if="group.adminable"></button>
   </ion-nav-buttons>
 
-  <ion-content>
+  <ion-content padding="true">
 
     <ion-refresher pulling-text="اسحب للتحديث..." on-refresh="fetchPlayerUpdates(group.id)" class="rtl"></ion-refresher>
 
@@ -21,7 +21,7 @@
       
       <ion-item class="item item-icon-left item-icon-right" ng-repeat="player in players" ng-click="playerMore(player.id)">
 
-        <i class="icon ion-person"></i>
+        <i class="icon ion-person dark"></i>
         <h2 class="rtl text-left">{{player.fullname}}</h2>
 
         <p class="rtl text-left">

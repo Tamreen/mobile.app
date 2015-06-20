@@ -11,7 +11,8 @@
       <div class="list">
 
         <label class="item item-input">
-          <input type="text" placeholder="اسم الملعب" ng-model="parameters.stadium" class="rtl text-left">
+          <span class="input-label">اسم الملعب</span>
+          <input type="text" placeholder="الإبداع" ng-model="parameters.stadium" class="rtl text-left">
         </label>
 
         <!--<label class="item" ng-click="pickDate()">
@@ -20,9 +21,7 @@
         </label> -->
 
         <label class="item item-input item-select">
-          <div class="input-label">
-            التاريخ
-          </div>
+          <span class="input-label">التاريخ</span>
           <select ng-model="parameters.startedAtDate">
             <option value="" ng-selected="selected">اختر تاريخًا</option>
             <option ng-repeat="date in dates" value="{{date.id}}">
@@ -32,9 +31,7 @@
         </label>
 
         <label class="item item-input item-select">
-          <div class="input-label">
-            وقت البدء
-          </div>
+          <span class="input-label">وقت البدء</span>
           <select ng-model="parameters.startedAtTime">
             <option value="" ng-selected="selected">اختر وقتًا</option>
             <option ng-repeat="hour in hours" value="{{hour.id}}">
@@ -44,18 +41,26 @@
         </label>
 
         <label class="item item-input">
-          <input type="tel" placeholder="عدد اللاعبين (20)" ng-model="parameters.playersCount" class="rtl text-left">
+          <span class="input-label">عدد اللاعبين</span>
+          <input type="tel" placeholder="20" ng-model="parameters.playersCount" class="rtl text-left">
         </label>
+
         <label class="item item-input">
-          <input type="tel" placeholder="عدد الاحتياط (4)" ng-model="parameters.subsetPlayersCount" class="rtl text-left">
+          <span class="input-label">عدد الاحتياط</span>
+          <input type="tel" placeholder="4" ng-model="parameters.subsetPlayersCount" class="rtl text-left">
         </label>
+
         <div>
           <button class="button button-block button-positive rtl" type="submit">إضافة تمرين</button>
-        </div>
-        <div class="text-center rtl">
-          سيبدأ التحضير مُباشرةً بعد الإضافة.
         </div>
       </div>
     </form>
   </ion-content>
+
+  <div class="bar bar-footer bar-light">
+    <div class="title rtl">
+      <small>سيبدأ التحضير مُباشرةً بعد الإضافة.</small>
+    </div>
+  </div>
+
 </ion-view>

@@ -9,7 +9,7 @@
     <button class="button button-icon icon ion-more" ng-click="more()"></button>
   </ion-nav-buttons>
 
-  <ion-content>
+  <ion-content padding="true">
 
     <ion-refresher pulling-text="اسحب للتحديث..." on-refresh="fetchUpdates(group.id)" class="rtl"></ion-refresher>
 
@@ -21,7 +21,7 @@
       
       <a href="#/trainings/{{training.id}}/activities" class="item item-icon-left" ng-repeat="training in trainings">
         
-        <i class="icon ion-trophy"></i>
+        <i class="icon ion-trophy dark"></i>
         <h2 class="rtl text-left">{{training.name}}</h2>
 
         <!-- Status. -->

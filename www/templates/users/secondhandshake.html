@@ -7,15 +7,18 @@
     <form ng-submit="secondHandShake()">
       <div class="list">
         <label class="item item-input">
-          <input type="tel" placeholder="الرمز المؤقت" ng-model="parameters.code" />
+          <span class="input-label">الرمز المؤقت</span>
+          <input type="tel" placeholder="1234" ng-model="parameters.code" />
         </label>
         <div>
           <button class="button button-block button-positive rtl" type="submit">تسجيل الدخول</button>
         </div>
-        <div class="text-center rtl">
-          سوف تصلك رسالةً نصيّةً قصيرة بعد قليلٍ بإذن الله، كُن صبورًا.
-        </div>
       </div>
     </form>
   </ion-content>
+  <div class="bar bar-footer bar-light">
+    <div class="title rtl">
+      <small>ستصلك رسالة نصيّة قصيرة بعد قليلٍ بإذن الله، كُن صبورًا.</small>
+    </div>
+  </div>
 </ion-view>
