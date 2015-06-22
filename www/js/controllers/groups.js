@@ -301,9 +301,9 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 
 				// Check what the service promises.
 				promise.then(function(){
-					TamreenService.helperUserForgetInfo();
+					TamreenService.helperDestroyUserInfo();
 				}, function(response){
-					TamreenService.helperUserForgetInfo();
+					TamreenService.helperDestroyUserInfo();
 				});
 
 				// Anyway, it means let the user log out.

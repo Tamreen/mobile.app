@@ -57,13 +57,11 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 		// Validate if the code is correct.
 		if (!validator.isNumeric($scope.parameters.code)){
 
-			$ionicPopup.alert({
+			return $ionicPopup.alert({
 				title: 'خطأ',
 				template: 'الرجاء التأكّد من تعبئة الحقل بشكلٍ صحيح.',
 				okText: 'حسنًا',
 			});
-
-			return;
 		}
 
 		// Try to make the second handshake using the service.
@@ -72,13 +70,24 @@ starter.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 		// Check what the service promises.
 		promise.then(function(response){
 
-			TamreenService.helperUserRememberInfo(response.data);
-			
-			if (response.data.loginable == 0)
-				return $state.go('players-update');
+			TamreenService.helperSaveUserInfo(response.data)
 
-			// Otherwise.
-			$state.go('groups-list');
+			.then(function(success){
+
+				if (response.data.loginable == 0)
+					return $state.go('players-update');
+
+				// Otherwise.
+				$state.go('groups-list');
+
+			}, function(error){
+
+				return $ionicPopup.alert({
+					title: 'خطأ',
+					template: 'حدث خطأ أثناء محاولة حفظ معلومات الدخول، تأكّد من منح الصلاحيّات اللازمة للتطبيق.',
+					okText: 'حسنًا',
+				});
+			});
 
 		}, function(response){
 			TamreenService.helperHandleErrors(response);

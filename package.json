@@ -19,9 +19,11 @@
     "https://github.com/driftyco/ionic-plugins-keyboard.git",
     "https://github.com/SidneyS/cordova-plugin-nativeaudio.git",
     "https://github.com/whiteoctober/cordova-plugin-app-version.git",
+    "org.apache.cordova.Media",
     "com.ionic.keyboard",
     "org.apache.cordova.contacts",
-    "org.apache.cordova.Media",
+    "cordova-plugin-file",
+    "cordova-plugin-media",
     "org.apache.cordova.device",
     "org.apache.cordova.console"
   ]

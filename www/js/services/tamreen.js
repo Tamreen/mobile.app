@@ -1,6 +1,6 @@
 
 // Tamreen service.
-starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlatform, $cordovaDevice, $cordovaPush, $cordovaAppVersion, $ionicLoading, $ionicPopup, $ionicModal){
+starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlatform, $cordovaDevice, $cordovaPush, $cordovaAppVersion, $ionicLoading, $ionicPopup, $ionicModal, $cordovaFile, $q){
 
 	console.log('Tamreen service has been initialized.');
 
@@ -14,11 +14,12 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	service.user = null;
 
 	// The URL of the API.
-	service.baseUrl = '/api/v1'; // local.
-	// service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
+	// service.baseUrl = '/api/v1'; // local.
+	service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
 
 	service.localStorage = null;
 	service.userTokenKey = 'users-token';
+	service.userTokenFilePath = 'users-token';
   
 	// Device.
 	service.deviceType = null;
@@ -44,40 +45,62 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 		return headers;
 	}
 
-	// Remember the user information.
-	// Private.
-	service.helperUserRememberInfo = function(user){
-		
-		service.user = user;
+	//
+	service.helperLoadUserInfo = function(){
 
-		// Save the user data into a file.
-		// $cordovaFile.writeFile(cordova.file.dataDirectory, service.userTokenFilePath, service.user).then(function(result){
-		// 	console.log('User token file has been created.');
-		// }, function(error){
-		// 	console.log('User token file has not been created.');
-		// 	console.log(JSON.stringify(error));
-		// });
+		var deferred = $q.defer();
 
-		service.localStorage.setItem(service.userTokenKey, JSON.stringify(service.user));
+		// Check if the file exists.
+		$cordovaFile.checkFile(cordova.file.dataDirectory, service.userTokenFilePath)
 
-		return true;
+		.then(function(success){
+
+			// deferred.resolve(success);
+			// Read the file as a text.
+
+			return $cordovaFile.readAsText(cordova.file.dataDirectory, service.userTokenFilePath)
+
+			.then(function(contents){
+				var jsonContents = JSON.parse(contents);
+				return deferred.resolve(jsonContents);
+			}, function(error){
+				return deferred.reject(error);
+			});
+
+		}, function(error){
+			return deferred.reject(error);
+		});
+
+		//
+		return deferred.promise;
 	}
 
-	// Forget the user information.
-	// Private.
-	service.helperUserForgetInfo = function(){
+	//
+	service.helperSaveUserInfo = function(jsonContents){
 
+		//
+		service.user = jsonContents;
+
+		var deferred = $q.defer();
+		var contents = JSON.stringify(jsonContents);
+
+		//
+		$cordovaFile.writeFile(cordova.file.dataDirectory, service.userTokenFilePath, contents, true)
+
+		.then(function(success){
+			return deferred.resolve(success);
+		}, function(error){
+			return deferred.reject(error);
+		});
+
+		//
+		return deferred.promise;
+	}
+
+	//
+	service.helperDestroyUserInfo = function(){
 		service.user = null;
-
-		// $cordovaFile.removeFile(cordova.file.dataDirectory, service.userTokenFilePath).then(function(result){
-		// 	//
-		// }, function(error){
-		// 	//
-		// });
-
-		service.localStorage.removeItem(service.userTokenKey);
-
-		return true;
+		$cordovaFile.removeFile(cordova.file.dataDirectory, service.userTokenFilePath);
 	}
 
 	service.helperMobileNumberValidable = function(mobileNumber){
@@ -713,6 +736,7 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			return;
 		}
 
+		//
 		$cordovaAppVersion.getAppVersion().then(function(version){
 
 			service.appVersion = version;
@@ -756,19 +780,13 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 		// service.localStorage.removeItem(service.userTokenKey);
 
 		// Try to get the user information.
-		var saved = service.localStorage.getItem(service.userTokenKey);
+		// TODO: Update the method of getting the information to be file related.
 
-		if (saved == null)
-		{
-			console.log('Cannot find the user information.');
-			$state.go('users-firsthandshake');
+		service.helperLoadUserInfo()
 
-		}else{
-
-			// Get the user information as JSON.
-			var user = JSON.parse(saved);
-
-			// Make the user logged in.
+		.then(function(user){
+			
+			//
 			user.logginable = 1;
 			service.user = user;
 
@@ -779,7 +797,14 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 			// Go afterward to groups.
 			$state.go('groups-list');
-		}
+
+		}, function(error){
+			
+			//
+			console.log('Cannot find the user information.');
+			$state.go('users-firsthandshake');
+
+		});
 
 	});
 
