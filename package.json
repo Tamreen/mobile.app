@@ -21,10 +21,11 @@
     "https://github.com/whiteoctober/cordova-plugin-app-version.git",
     "org.apache.cordova.Media",
     "com.ionic.keyboard",
-    "org.apache.cordova.contacts",
     "cordova-plugin-file",
     "cordova-plugin-media",
-    "org.apache.cordova.device",
-    "org.apache.cordova.console"
+    "cordova-plugin-console",
+    "cordova-plugin-contacts",
+    "cordova-plugin-device",
+    "cordova-plugin-whitelist"
   ]
 }

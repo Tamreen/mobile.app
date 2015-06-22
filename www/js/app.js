@@ -20,10 +20,21 @@
 // jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keys/TamreenApp.keystore platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp
 // /Users/hossamzee/android-sdk-macosx/build-tools/21.1.2/zipalign -v 4 platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp1.0.1.apk
 
-// TODO: Fix the back button issue.
-// TODO: Explain in a better way.
-// TODO: Fix all forms.
-// TODO: Fix the login page.
+// Your system information:
+
+// Cordova CLI: 5.1.1
+// Gulp version:  CLI version 3.8.10
+// Gulp local:   Local version 3.9.0
+// Ionic Version: 1.0.0-beta.14
+// Ionic CLI Version: 1.5.5
+// Ionic App Lib Version: 0.2.2
+// ios-deploy version: Not installed
+// ios-sim version: 3.1.1 
+// OS: Mac OS X Yosemite
+// Node Version: v0.10.36
+// Xcode version: Xcode 6.2 Build version 6C131e
+
+// <preference name="android-targetSdkVersion" value="19"/>
 
 var starter = angular.module('starter', ['ionic', 'ngCordova']);
 
