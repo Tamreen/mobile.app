@@ -746,7 +746,11 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 				var minClientVersion = response.data.version;
 
-				if (!validator.equals(service.appVersion, minClientVersion)){
+				// As numbers.
+				var appVersionInteger = Number(service.appVersion.replace(/\./g, ''));
+				var minClientVersionInteger = Number(minClientVersion.replace(/\./g, ''));
+
+				if (appVersionInteger < minClientVersionInteger){
 					$ionicModal.fromTemplateUrl('templates/pages/newversion.html').then(function(modal){
 						modal.scope.version = minClientVersion;
 						modal.show();
