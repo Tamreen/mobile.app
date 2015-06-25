@@ -1,6 +1,9 @@
-![Tamreen](https://raw.githubusercontent.com/Tamreen/press/master/ad-name.png)
-![Add a new group](https://raw.githubusercontent.com/Tamreen/press/master/ad-new-group.png)
-![Add a new training](https://raw.githubusercontent.com/Tamreen/press/master/ad-new-training.png)
-![Make a decision](https://raw.githubusercontent.com/Tamreen/press/master/ad-decision.png)
-![Training is completed](https://raw.githubusercontent.com/Tamreen/press/master/ad-completed.png)
-![Now it is available](https://raw.githubusercontent.com/Tamreen/press/master/ad-available.png)
+
+= How to install?
+- Install node.js, npm, bower, cordova, ionic.
+- In the application root directory (tamreen), run the command <code>npm install</code>.
+- In the application root directory (tamreen), run the command <code>bower install</code>.
+- In the directory <code>www/js</code>, duplicate the file <code>configs.template.js</code> and give the new file the name <code>configs.js</code>.
+- Run <code>ionic emulate ios</code> for iOS.
+- If you want to test it on Android, you must install Genymotion, and have inside it any Android device (e.g. Nexus 5), and then keep it running.
+- Run <code>ionic run android</code> for Android.
