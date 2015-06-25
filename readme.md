@@ -1,5 +1,5 @@
 
-= How to install?
+== How to install?
 - Install node.js, npm, bower, cordova, ionic.
 - In the application root directory (tamreen), run the command <code>npm install</code>.
 - In the application root directory (tamreen), run the command <code>bower install</code>.
