@@ -1,0 +1,6 @@
+
+var configs = {
+	android: {
+		"senderID": "",
+	},
+};
