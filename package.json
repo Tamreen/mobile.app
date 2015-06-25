@@ -15,17 +15,5 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "https://github.com/phonegap-build/PushPlugin.git",
-    "https://github.com/driftyco/ionic-plugins-keyboard.git",
-    "https://github.com/SidneyS/cordova-plugin-nativeaudio.git",
-    "https://github.com/whiteoctober/cordova-plugin-app-version.git",
-    "org.apache.cordova.Media",
-    "com.ionic.keyboard",
-    "cordova-plugin-file",
-    "cordova-plugin-media",
-    "cordova-plugin-console",
-    "cordova-plugin-contacts",
-    "cordova-plugin-device",
-    "cordova-plugin-whitelist"
   ]
 }
