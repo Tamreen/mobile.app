@@ -123,6 +123,26 @@ starter.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 
   $stateProvider
 
+    // Tab states.
+
+    // Parent.
+    .state('tabs', {
+      url: '/tabs',
+      abstract: true,
+      templateUrl: 'templates/tabs/index.html',
+    })
+
+    .state('tabs.groups', {
+      url: '/tabs/groups',
+      views: {
+        'groups-tab': {
+          // templateUrl: 'templates/groups/list.html',
+          // controller: 'GroupsController',
+          // cache: false,
+        }
+      }
+    })
+
     // Page states.
 
     // About.

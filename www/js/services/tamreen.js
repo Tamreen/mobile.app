@@ -14,8 +14,8 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 	service.user = null;
 
 	// The URL of the API.
-	// service.baseUrl = '/api/v1'; // local.
-	service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
+	service.baseUrl = '/api/v1'; // local.
+	// service.baseUrl = 'https://tamreen-app.com:4000/api/v1';
 
 	service.localStorage = null;
 	service.userTokenKey = 'users-token';
@@ -684,6 +684,9 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 	$ionicPlatform.ready(function(){
 
+		// $state.go('tabs.groups');
+		// return;
+
 		// Listen to whenever a notification received.
 		$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification){
 
@@ -704,7 +707,6 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 			if (notification.alert){
 				service.helperToast(notification.alert);
 			}
-
 		});
 
 		console.log('localStorage');
