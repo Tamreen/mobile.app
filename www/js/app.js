@@ -78,6 +78,16 @@ starter.filter('fromNow', [
     }
 ]);
 
+// Calendar filter.
+starter.filter('calendar', [
+    '$filter', function($filter){
+        return function(input){
+          moment.locale('ar-sa');
+          return moment(input).calendar();
+        };
+    }
+]);
+
 // Arabic date.
 starter.filter('arDate', [
     '$filter', function($filter){
@@ -89,7 +99,9 @@ starter.filter('arDate', [
 ]);
 
 // Routes and loading.
-starter.config(function($stateProvider, $urlRouterProvider, $httpProvider){
+starter.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider){
+
+  $ionicConfigProvider.backButton.text('عودة').icon('ion-ios-arrow-back').previousTitleText(false);
 
   $httpProvider.interceptors.push(function($rootScope, $q){
 
@@ -130,15 +142,35 @@ starter.config(function($stateProvider, $urlRouterProvider, $httpProvider){
       url: '/tabs',
       abstract: true,
       templateUrl: 'templates/tabs/index.html',
+      controller: 'TabsController',
+    })
+
+    .state('tabs.trainings', {
+      url: '/trainings',
+      views: {
+        'tabs-trainings': {
+          templateUrl: 'templates/tabs/trainings.html',
+          controller: 'TabsController',
+        }
+      }
     })
 
     .state('tabs.groups', {
-      url: '/tabs/groups',
+      url: '/groups',
       views: {
-        'groups-tab': {
-          // templateUrl: 'templates/groups/list.html',
-          // controller: 'GroupsController',
-          // cache: false,
+        'tabs-groups': {
+          templateUrl: 'templates/tabs/groups.html',
+          controller: 'TabsController',
+        }
+      }
+    })
+
+    .state('tabs.profile', {
+      url: '/profile',
+      views: {
+        'tabs-profile': {
+          templateUrl: 'templates/tabs/profile.html',
+          controller: 'TabsController',
         }
       }
     })

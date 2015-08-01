@@ -19,9 +19,9 @@
         لم يتم إضافة لاعبين حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '+' في الأعلى.
       </div>
       
-      <ion-item class="item item-icon-left item-icon-right" ng-repeat="player in players" ng-click="playerMore(player.id)">
+      <ion-item class="item item-avatar item-icon-right" ng-repeat="player in players" ng-click="playerMore(player.id)">
 
-        <i class="icon ion-person dark"></i>
+        <img src="http://api.adorable.io/avatars/70/{{player.id}}" />
         <h2 class="rtl text-left">{{player.fullname}}</h2>
 
         <p class="rtl text-left">

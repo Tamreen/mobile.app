@@ -684,8 +684,8 @@ starter.factory('TamreenService', function($http, $rootScope, $state, $ionicPlat
 
 	$ionicPlatform.ready(function(){
 
-		// $state.go('tabs.groups');
-		// return;
+		$state.go('tabs.trainings');
+		return;
 
 		// Listen to whenever a notification received.
 		$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification){

@@ -14,6 +14,7 @@ $energized:                       #ffc900 !default;
 $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
+$abdulellah						  #942dab !default;
 */
 /*!
   Ionicons, v2.0.1
@@ -7693,6 +7694,21 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.list {
+  direction: rtl; }
+
+.item-avatar {
+  padding-left: 0;
+  padding-right: 72px; }
+
+.item-avatar > img:first-child {
+  right: 16px; }
+
+.item .badge {
+  left: 32px;
+  right: auto;
+  font-weight: normal; }
+
 .rtl, .popup-body, .loading-container .loading, .popup-buttons, .action-sheet-title {
   direction: rtl; }
 
@@ -7752,3 +7768,6 @@ a {
   -ms-flex: 1 0 180px;
   flex: 1 0 180px;
   text-align: right; }
+
+.item-avatar img {
+  background-color: #f1f1f1; }
