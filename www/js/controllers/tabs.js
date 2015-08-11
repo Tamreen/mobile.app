@@ -22,7 +22,7 @@ starter.controller('TabsController', function($scope, $state){
 		//
 		$scope.specifiedTrainings.push({id: 1, name: 'الرياض، السليّ، ملاعب الشرق', status: 'gathering', activitiesCount: 1, startedAt: new Date()});
 		$scope.specifiedTrainings.push({id: 2, name: 'الرياض، الإزدهار، ملاعب الروّاد', status: 'completed', activitiesCount: 1, startedAt: new Date()});
-		$scope.specifiedTrainings.push({id: 3, name: 'البدائع، الأندلس، هاتريك', status: 'canceled', activitiesCount: 1, startedAt: new Date()});
+		$scope.specifiedTrainings.push({id: 3, name: 'البدائع، جادّة الجماميل، هاتريك', status: 'canceled', activitiesCount: 1, startedAt: new Date()});
 
 		//
 		$scope.aroundTrainings.push({id: 3, name: 'الرياض، الإزدهار، ملاعب الروّاد', status: 'gathering', activitiesCount: 1, startedAt: new Date(), });

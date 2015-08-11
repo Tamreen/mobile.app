@@ -102,6 +102,7 @@ starter.filter('arDate', [
 starter.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider){
 
   $ionicConfigProvider.backButton.text('عودة').icon('ion-ios-arrow-back').previousTitleText(false);
+  $ionicConfigProvider.tabs.position('bottom');
 
   $httpProvider.interceptors.push(function($rootScope, $q){
 
@@ -249,9 +250,16 @@ starter.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ioni
       cache: false,
     })
 
+    // // Add.
+    // .state('trainings-add', {
+    //   url: '/groups/:groupId/trainings/add',
+    //   templateUrl: 'templates/trainings/add.html',
+    //   controller: 'TrainingsController'
+    // })
+
     // Add.
     .state('trainings-add', {
-      url: '/groups/:groupId/trainings/add',
+      url: '/trainings/add',
       templateUrl: 'templates/trainings/add.html',
       controller: 'TrainingsController'
     })

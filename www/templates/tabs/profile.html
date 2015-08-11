@@ -10,6 +10,8 @@
 
   <ion-content padding="true">
 
+  	<ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
+
     <div class="list">
 
 	    <div class="item item-avatar">
@@ -19,8 +21,8 @@
 	    </div>
 
 	    <div class="item button-bar">
-			<a class="button button-clear button-positive">تحديث المعلومات</a>
-			<a class="button button-outline button-assertive">تسجيل الخروج</a>
+			<a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
+			<a class="button button-clear button-assertive">تسجيل الخروج</a>
 		</div>
 
 	    <!-- <div class="padding rtl text-center dark">

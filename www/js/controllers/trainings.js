@@ -1,6 +1,6 @@
 
 // Trainings controller.
-starter.controller('TrainingsController', function($scope, $state, $stateParams, $ionicActionSheet, $ionicPopup, TamreenService){
+starter.controller('TrainingsController', function($scope, $state, $stateParams, $ionicActionSheet, $ionicPopup, $ionicNavBarDelegate, TamreenService){
 
 	console.log('Trainings controller has been initialized.');
 
@@ -12,7 +12,40 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 
 	// Chosen group and/or trainig.
 	$scope.group = null;
-	$scope.training = null;
+
+	// TODO: This should be null.
+	$scope.training = {
+
+		id: 1,
+		name: 'Whatever lovely name',
+
+		//
+		willcomePlayers: [
+			{id: 1, fullname: 'محمد الخالد', decidedAt: new Date()},
+			{id: 2, fullname: 'فؤاد السليمان', decidedAt: new Date()},
+			{id: 3, fullname: 'محسن المحمد', decidedAt: new Date()},
+			{id: 4, fullname: 'حمد الحمد', decidedAt: new Date()},
+			{id: 5, fullname: 'فهد الصالح', decidedAt: new Date()},
+			{id: 6, fullname: 'صالح العلي', decidedAt: new Date()},
+			{id: 7, fullname: 'علي العلي', decidedAt: new Date()},
+		],
+
+		//
+		apologizePlayers: [
+			{id: 1, fullname: 'جمال الهادي', decidedAt: new Date()},
+			{id: 2, fullname: 'عبدالله التركي', decidedAt: new Date()},
+			{id: 3, fullname: 'فهد الفهد', decidedAt: new Date()},
+			{id: 4, fullname: 'صالح الحاتم', decidedAt: new Date()},
+			{id: 5, fullname: 'حاتم الناصر', decidedAt: new Date()},
+		],
+
+		//
+		notyetPlayers: [
+			{id: 1, fullname: 'وليد الإبراهيم', decidedAt: new Date()},
+			{id: 2, fullname: 'خالد المازن', decidedAt: new Date()},
+			{id: 3, fullname: 'مازن العبدالله', decidedAt: new Date()},
+		],
+	};
 
 	// Set the locale of moment.
 	moment.locale('ar-sa');
@@ -429,14 +462,14 @@ starter.controller('TrainingsController', function($scope, $state, $stateParams,
 		});
 	}
 
-	// Define a training if any.
-	if ($stateParams.trainingId){
-		$scope.training = {id: $stateParams.trainingId};
-	}
+	// // Define a training if any.
+	// if ($stateParams.trainingId){
+	// 	$scope.training = {id: $stateParams.trainingId};
+	// }
 
-	// Having already the information that needed.
-	if ($state.current.name == 'trainings-details'){
-		$scope.detail($scope.training.id);
-	}
+	// // Having already the information that needed.
+	// if ($state.current.name == 'trainings-details'){
+	// 	$scope.detail($scope.training.id);
+	// }
 
 });

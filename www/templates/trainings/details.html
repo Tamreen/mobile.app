@@ -1,88 +1,119 @@
 
-<ion-view view-title="تفاصيل التمرين">
+<ion-view view-title="التمارين" >
 
-  <ion-nav-bar>
-    <ion-nav-back-button>
-    </ion-nav-back-button>
-  </ion-nav-bar>
+<ion-nav-bar>
+</ion-nav-bar>
 
-  <ion-content padding="true">
+<ion-nav-buttons side="primary">
+  <button class="button button-icon icon ion-ios-arrow-back" ui-sref="tabs.trainings"></button>
+</ion-nav-buttons>
+
+<ion-nav-buttons side="secondary">
+  <button class="button button-icon icon ion-ios-more"></button>
+</ion-nav-buttons>
+
+<ion-tabs class="tabs-striped tabs-top tabs-icon-only">
+
+<ion-tab title="الملعب">
+
+<ion-nav-view name="tab-a">
+
+  <ion-content class="padding">
+
+    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
+
+        <div class="list">
+
+      <div class="item" style="padding: 0; margin-bottom: -16px;">
+        <img src="http://maps.googleapis.com/maps/api/staticmap?center=البدائع&zoom=14&scale=false&size=400x260&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff2600%7Clabel:1%7Cالبدائع" />
+      </div>
+
+      <div class="item item-avatar">
+        <img src="img/pie-chart.png" />
+        <h2>ملعب الإبداع</h2>
+        <p>{{training.startedAt|arDate}}</p>
+        <!-- <span class="badge">13/20</span> -->
+      </div>
+
+      <div class="item">
+        <div class="button-bar">
+          <a class="button button-balanced">سأحضر بإذن الله</a>
+          <a class="button button-clear button-positive">أعتذر عن الحضور</a>
+        </div>
+    </div>
+
+      <!-- <div class="padding rtl text-center dark">
+        2.0.4
+      </div> -->
+
+    </div>
+
+  </ion-content>
+</ion-nav-view>
+
+</ion-tab>
+
+<ion-tab title="اللاعبون">
+
+<ion-nav-view name="tab-b">
+
+  <ion-content class="padding">
+
+    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
 
     <ion-list>
 
-        <!-- Stadium and start date information. -->
-        <div class="item">
-          <span class="rtl">{{training.stadium}}</span>
-          <span class="item-note rtl">{{training.startedAt | arDate }}</span>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <button class="button button-block button-small">
-              <i class="icon ion-person"></i>
-              اللاعبون {{training.willcomePlayersCount}} / {{training.playersCount}}
-            </button>
-          </div>
-          <div class="col">
-            <button class="button button-block button-small">
-              <i class="icon ion-person-add"></i>
-              الاحتياط {{training.registerAsSubsetPlayersCount}} / {{training.subsetPlayersCount}}
-            </button>
-          </div>
-        </div>
-
         <!-- Will come players. -->
-        <div class="item item-divider">
+        <!-- <div class="item item-divider item-dark">
           <span class="rtl">قرّروا الحضور</span>
           <span class="badge badge-light">{{training.willcomePlayers.length}}</span>
+        </div> -->
+        <h5 class="padding">قرّروا الحضور</h5>
+
+        <div class="item item-avatar" ng-repeat="player in training.willcomePlayers">
+            <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
+            <h2>{{player.fullname}}</h2>
+            <p>{{decidedAt | arDate }}</p>
         </div>
 
-        <div class="item" ng-repeat="player in training.willcomePlayers">
-          <span class="rtl">{{player.fullname}}</span>
-          <span class="item-note">{{$index+1}}</span>
-        </div>
+        <!-- <div class="row"><div class="col"></div></div>
 
-        <div class="row"><div class="col"></div></div>
-
-        <!-- Subset players. -->
         <div class="item item-divider">
-          <span class="rtl">سجّلوا كاحتياط</span>
-          <span class="badge badge-light">{{training.subsetPlayers.length}}</span>
+            <span class="rtl">اعتذروا عن الحضور</span>
+            <span class="badge badge-light">{{training.apologizePlayers.length}}</span>
+        </div> -->
+
+        <h5 class="padding">اعتذروا عن الحضور</h5>
+
+        <div class="item item-avatar" ng-repeat="player in training.apologizePlayers">
+            <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
+            <h2>{{player.fullname}}</h2>
+            <p>{{decidedAt | arDate }}</p>
         </div>
 
-        <div class="item" ng-repeat="player in training.subsetPlayers">
-          <span class="rtl">{{player.fullname}}</span>
-          <span class="item-note">{{$index+1}}</span>
-        </div>
+        <!-- <div class="row"><div class="col"></div></div>
 
-        <div class="row"><div class="col"></div></div>
-
-        <!-- Apologize players. -->
         <div class="item item-divider">
-          <span class="rtl">اعتذروا عن الحضور</span>
-          <span class="badge badge-light">{{training.apologizePlayers.length}}</span>
+            <span class="rtl">لم يقرّروا حتّى الآن</span>
+            <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
+        </div> -->
+
+        <h5 class="padding">لم يقرّروا حتّى الآن</h5>
+
+        <div class="item item-avatar item-icon-left" ng-repeat="player in training.notyetPlayers" ng-click="notyetPlayerMore(player.id)">
+            <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
+            <h2>{{player.fullname}}</h2>
+            <p>{{decidedAt | arDate }}</p>
+            <i class="icon ion-ios-more"></i>
         </div>
 
-        <div class="item" ng-repeat="player in training.apologizePlayers">
-          <span class="rtl">{{player.fullname}}</span>
-          <span class="item-note">{{$index+1}}</span>
-        </div>
-
-        <div class="row"><div class="col"></div></div>
-
-        <!-- Not yet players. -->
-        <div class="item item-divider">
-          <span class="rtl">لم يقرّروا حتّى الآن</span>
-          <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
-        </div>
-
-        <div class="item item-icon-right" ng-repeat="player in training.notyetPlayers" ng-click="notyetPlayerMore(player.id)">
-          <span class="rtl">{{player.fullname}}</span>
-          <i class="icon ion-more" ng-if="training.adminable"></i>
-        </div>
-      
     </ion-list>
 
   </ion-content>
+</ion-nav-view>
+
+</ion-tab>
+
+</ion-tabs>
 
 </ion-view>

@@ -11,7 +11,15 @@ starter.controller('GroupsController', function($ionicHistory, $scope, $state, $
 	$scope.groups = [];
 
 	// Players.
-	$scope.players = [];
+	$scope.players = [
+
+		{id: 1, fullname: 'خالد العمر', joinedAt: new Date()},
+		{id: 2, fullname: 'محمد الحمود', joinedAt: new Date()},
+		{id: 3, fullname: 'عبدالله الراشد', joinedAt: new Date()},
+		{id: 4, fullname: 'صالح الإبراهيم', joinedAt: new Date()},
+		{id: 5, fullname: 'علي المحمد', joinedAt: new Date()},
+
+	];
 
 	// Chosen group and/or player.
 	$scope.group = null;

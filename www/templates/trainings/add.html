@@ -2,25 +2,46 @@
 <ion-view title="إضافة تمرين">
 
   <ion-nav-bar>
-    <ion-nav-back-button>
-    </ion-nav-back-button>
   </ion-nav-bar>
+
+  <ion-nav-buttons side="primary">
+    <button class="button button-icon icon ion-ios-arrow-back" ui-sref="tabs.trainings"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-ios-checkmark-outline" ng-click="more()"></button>
+  </ion-nav-buttons>
 
   <ion-content padding="true">
     <form ng-submit="add(group.id)">
+
       <div class="list">
+
+        <!-- <div class="item item-divider">
+          <span>المكان</span>
+        </div> -->
+
+        <h5 class="padding">المكان</h5>
 
         <label class="item item-input">
           <span class="input-label">اسم الملعب</span>
-          <input type="text" placeholder="الإبداع" ng-model="parameters.stadium" class="rtl text-left">
+          <input type="text" placeholder="الإبداع" ng-model="parameters.stadium">
         </label>
 
-        <!--<label class="item" ng-click="pickDate()">
-          <input type="text" placeholder="وقت البدء" ng-model="parameters.startedAt" class="rtl text-left" ng-focus="pickDate()">
-          <p>التاريخ</p>
-        </label> -->
+        <a class="item item-icon-left" href="#">
+    <i class="icon ion-ios-location-outline dark"></i>
+    حدّد الموقع إن أحببت (اختياريّ).
+  </a>
 
-        <label class="item item-input item-select">
+  <!-- <div class="row"><div class="col"></div></div>
+
+          <div class="item item-divider">
+          <span>الزمان</span>
+        </div> -->
+
+  <h5 class="padding">الزمان</h5>
+
+  <label class="item item-input item-select">
           <span class="input-label">التاريخ</span>
           <select ng-model="parameters.startedAtDate">
             <option value="" ng-selected="selected">اختر تاريخًا</option>
@@ -40,6 +61,51 @@
           </select>
         </label>
 
+        <!-- <div class="row"><div class="col"></div></div>
+
+        <div class="item item-divider">
+          <span>المدعوون</span>
+        </div> -->
+
+        <h5 class="padding">الزمان</h5>
+
+        <div class="item item-checkbox">
+          <label class="checkbox"><input type="checkbox"></label> لعب الليقا
+        </div>
+
+        <div class="item item-checkbox">
+          <label class="checkbox"><input type="checkbox"></label> لعب حيّ الريّان
+        </div>
+
+        <div class="item item-checkbox">
+          <label class="checkbox checkbox-balanced"><input type="checkbox"></label> الدعوة عامّة
+        </div>
+
+        <div class="row"><div class="col"></div></div>
+
+<!--         <div class="item item-divider">
+          <span>اللاعبون</span>
+        </div> -->
+
+        <label class="item item-input">
+          <span class="input-label">عدد اللاعبين</span>
+          <input type="text" placeholder="20" ng-model="parameters.playersCount">
+        </label>
+
+<!--   <div class="item item-checkbox">
+     <label class="checkbox">
+       <input type="checkbox">
+     </label>
+     Flux Capacitor
+  </div> -->
+
+        <!--<label class="item" ng-click="pickDate()">
+          <input type="text" placeholder="وقت البدء" ng-model="parameters.startedAt" class="rtl text-left" ng-focus="pickDate()">
+          <p>التاريخ</p>
+        </label> -->
+
+<!--     
+
         <label class="item item-input">
           <span class="input-label">عدد اللاعبين</span>
           <input type="tel" placeholder="20" ng-model="parameters.playersCount" class="rtl text-left">
@@ -48,19 +114,20 @@
         <label class="item item-input">
           <span class="input-label">عدد الاحتياط</span>
           <input type="tel" placeholder="4" ng-model="parameters.subsetPlayersCount" class="rtl text-left">
-        </label>
+        </label> -->
 
-        <div>
-          <button class="button button-block button-positive rtl" type="submit">إضافة تمرين</button>
-        </div>
+        <!-- <div>
+          <a class="button button-block button-positive" ui-sref="trainings-add-second-step">تحديد وقت التمرين وَ عدد اللاعبين</a>
+        </div> -->
+
       </div>
     </form>
   </ion-content>
 
-  <div class="bar bar-footer bar-light">
+  <!-- <div class="bar bar-footer bar-light">
     <div class="title rtl">
-      <small>سيبدأ التحضير مُباشرةً بعد الإضافة.</small>
+      <small>"الجميع" تعني أنّ الدعوة عامّة.</small>
     </div>
-  </div>
+  </div> -->
 
 </ion-view>

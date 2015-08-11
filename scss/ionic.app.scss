@@ -27,9 +27,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-.list{
+ion-content, .tabs{
 	direction: rtl;
 }
+
 .item-avatar
 {
 	padding-left: 0;
@@ -41,7 +42,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .item .badge{
-	left: 32px;
+	left: 16px;
 	right: auto;
 	font-weight: normal;
 }
@@ -107,6 +108,32 @@ a{
 	text-align: right;
 }
 
+.item-select select{
+	right: auto;
+}
+
+.item-select:after{
+	left: 16px;
+	right: auto;
+}
+
 .item-avatar img{
 	background-color: #f1f1f1;
 }
+
+.item-checkbox{
+	padding-left: 0;
+	padding-right: 60px;
+}
+
+.button-bar > .button{
+	border-width: 1px 1px 1px 1px;
+}
+
+.item-note{
+	float: left;
+}
+
+/*.button-bar > .button:first-child{
+	border-radius: 0px 2px 2px 0px;
+}*/
