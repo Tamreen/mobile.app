@@ -8,3 +8,8 @@
 - Run <code>ionic emulate ios</code> for iOS.
 - If you want to test it on Android, you must install Genymotion, and have inside it any Android device (e.g. Nexus 5), and then keep it running.
 - Run <code>ionic run android</code> for Android.
+
+## How to build a release?
+- <code>cordova build --release</code>.
+- <code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keys/TamreenApp.keystore platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp</code>.
+- <code>/Users/hossamzee/android-sdk-macosx/build-tools/21.1.2/zipalign -v 4 platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp1.0.1.apk</code>.
