@@ -27,7 +27,7 @@ $ionicons-font-path: "../libraries/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/libraries/ionic/scss/ionic";
 
-ion-content, .tabs{
+ion-content, .tabs, .bar{
 	direction: rtl;
 }
 
@@ -110,6 +110,8 @@ a{
 
 .item-select select{
 	right: auto;
+	padding: 0;
+	padding-right: 24px;
 }
 
 .item-select:after{

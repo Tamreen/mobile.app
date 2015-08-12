@@ -1,1 +1,36 @@
-secondhandshake.html
+
+
+<ion-view title="تسجيل الدخول">
+
+    <ion-nav-bar></ion-nav-bar>
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-checkmark-outline" ui-sref="users-secondhandshake"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+
+        <form name="firstHandShakeForm" ng-submit="firstHandShake()">
+
+            <div class="list">
+                <!-- <div class="item text-center item-logo">
+                    صورة
+                </div> -->
+                <label class="item item-input">
+                	<span class="input-label">الرمز المؤقت</span>
+                	<input type="tel" placeholder="1234" ng-model="parameters.mobileNumber" />
+                </label>
+                <!-- <div>
+                    <button class="button button-block button-positive rtl" type="submit">إرسال الرمز المؤقت عبر SMS</button>
+                </div> -->
+            </div>
+        </form>
+    </ion-content>
+
+    <div class="bar bar-footer bar-light">
+        <div class="title">
+            <small>ستصلك رسالة نصيّة قصيرة بعد قليلٍ بإذن الله، كُن صبورًا.</small>
+        </div>
+    </div>
+
+</ion-view>
