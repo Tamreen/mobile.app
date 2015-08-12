@@ -22,10 +22,10 @@ $positive: #8962ed !default;
 $dark: #524b57 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../lib/ionic/fonts" !default;
+$ionicons-font-path: "../libraries/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "www/libraries/ionic/scss/ionic";
 
 ion-content, .tabs{
 	direction: rtl;
