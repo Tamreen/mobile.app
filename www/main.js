@@ -60,6 +60,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 		views: {
 			'home-trainings': {
 				templateUrl: 'views/home.trainings.html',
+				controller: 'TrainingsController',
 			}
 		},
 	})
@@ -70,6 +71,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 		views: {
 			'home-groups': {
 				templateUrl: 'views/home.groups.html',
+				controller: 'GroupsController',
 			}
 		}
 	})

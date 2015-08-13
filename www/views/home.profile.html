@@ -1,1 +1,25 @@
-home.profile.html
+
+<ion-view view-title="الملف الشخصي">
+    <ion-nav-bar>
+    </ion-nav-bar>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-ios-help-outline" ng-click="more()"></button>
+    </ion-nav-buttons>
+    <ion-content padding="true">
+        <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
+        <div class="list">
+            <div class="item item-avatar">
+                <img src="http://api.adorable.io/avatars/70/20">
+                <h2>حسام الزغيبي</h2>
+                <p>السعودية، الرياض.</p>
+            </div>
+            <div class="item button-bar">
+                <a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
+                <a class="button button-clear button-assertive">تسجيل الخروج</a>
+            </div>
+            <!-- <div class="padding rtl text-center dark">
+                2.0.4
+                </div> -->
+        </div>
+    </ion-content>
+</ion-view>
