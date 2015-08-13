@@ -27,7 +27,7 @@ $ionicons-font-path: "../libraries/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/libraries/ionic/scss/ionic";
 
-ion-content, .tabs, .bar{
+ion-content, .tabs, .bar .title, .bar small{
 	direction: rtl;
 }
 
@@ -63,13 +63,6 @@ ion-content, .tabs, .bar{
 a{
 	color: $positive; text-decoration: none;
 	border-bottom: 1px dotted $positive;
-}
-
-.item-logo{
-	padding-top: 30px;
-	padding-bottom: 30px;
-	background-color: #f3f3f3;
-	background-image: url('../img/swirl-pattern.png');
 }
 
 .vertical-center{
@@ -136,6 +129,23 @@ a{
 	float: left;
 }
 
+.item-photo{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	background-color: #f3f3f3;
+}
+
+.item-photo img{
+	border-radius: 50%;
+	background-color: #fff;
+	height: 70px;
+}
+
 /*.button-bar > .button:first-child{
 	border-radius: 0px 2px 2px 0px;
 }*/
+
+.slider{
+	height: 100%;
+	background-color: #f0da5e;
+}

@@ -36,10 +36,53 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 	})
 
 	//
-	.state('users-update', {
-		url: '/users/update',
-		templateUrl: 'views/users.update.html',
-	});
+	.state('players-update', {
+		url: '/players/update',
+		templateUrl: 'views/players.update.html',
+	})
+
+	//
+	.state('pages-walkthrough', {
+		url: '/pages/walkthrough',
+		templateUrl: 'views/pages.walkthrough.html',
+	})
+
+	//
+	.state('home', {
+		url: '/home',
+		abstract: true,
+		templateUrl: 'views/home.html',
+	})
+
+	//
+	.state('home.trainings', {
+		url: '/trainings',
+		views: {
+			'home-trainings': {
+				templateUrl: 'views/home.trainings.html',
+			}
+		},
+	})
+
+	//
+	.state('home.groups', {
+		url: '/groups',
+		views: {
+			'home-groups': {
+				templateUrl: 'views/home.groups.html',
+			}
+		}
+	})
+
+	//
+	.state('home.profile', {
+		url: '/profile',
+		views: {
+			'home-profile': {
+				templateUrl: 'views/home.profile.html',
+			}
+		}
+	})
 
 	// Set the default route.
 	$urlRouterProvider.otherwise('/users/firsthandshake');

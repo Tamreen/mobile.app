@@ -7694,7 +7694,7 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-ion-content, .tabs, .bar {
+ion-content, .tabs, .bar .title, .bar small {
   direction: rtl; }
 
 .item-avatar {
@@ -7723,12 +7723,6 @@ a {
   color: #8962ed;
   text-decoration: none;
   border-bottom: 1px dotted #8962ed; }
-
-.item-logo {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  background-color: #f3f3f3;
-  background-image: url('../img/swirl-pattern.png'); }
 
 .vertical-center {
   display: -webkit-box;
@@ -7791,6 +7785,19 @@ a {
 .item-note {
   float: left; }
 
+.item-photo {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #f3f3f3; }
+
+.item-photo img {
+  border-radius: 50%;
+  background-color: #fff;
+  height: 70px; }
+
 /*.button-bar > .button:first-child{
 	border-radius: 0px 2px 2px 0px;
 }*/
+.slider {
+  height: 100%;
+  background-color: #f0da5e; }

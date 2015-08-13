@@ -3,13 +3,10 @@
 
     <ion-nav-bar></ion-nav-bar>
 
-    <ion-nav-buttons side="secondary">
-        <button class="button button-icon icon ion-ios-checkmark-outline" ui-sref="users-secondhandshake"></button>
-    </ion-nav-buttons>
-
     <ion-content padding="true">
 
-        <form name="firstHandShakeForm" ng-submit="firstHandShake()">
+        <!-- ng-submit="firstHandShake()" -->
+        <form name="firstHandShakeForm">
 
             <div class="list">
                 <!-- <div class="item text-center item-logo">
@@ -41,19 +38,19 @@
                     </select>
                 </label>
                 <label class="item item-input">
-                <span class="input-label">الجوّال</span>
-                <input type="tel" placeholder="05XXXXXXXX" ng-model="parameters.mobileNumber" />
+                    <span class="input-label">الجوّال</span>
+                    <input type="tel" placeholder="05XXXXXXXX" ng-model="parameters.mobileNumber" />
                 </label>
-                <!-- <div>
-                    <button class="button button-block button-positive rtl" type="submit">إرسال الرمز المؤقت عبر SMS</button>
-                </div> -->
+                <div>
+                    <a ui-sref="users-secondhandshake" class="button button-block button-positive" type="submit">إرسال الرمز المؤقت عبر SMS</a>
+                </div>
             </div>
         </form>
     </ion-content>
 
     <div class="bar bar-footer bar-light">
         <div class="title">
-            <small>إنّك بتسجيلك الدخول تُوافق على <a href="#/pages/tos">شروط الخدمة</a>.</small>
+            <small>إنّك بتسجيلك الدخول تُوافق على <a ui-sref="pages-tos">شروط الخدمة</a>.</small>
         </div>
     </div>
 
