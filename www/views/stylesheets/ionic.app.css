@@ -7694,7 +7694,7 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-ion-content, .tabs, .bar .title, .bar small {
+ion-content, .bar .title, .bar small {
   direction: rtl; }
 
 .item-avatar {

@@ -27,7 +27,7 @@ $ionicons-font-path: "../libraries/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/libraries/ionic/scss/ionic";
 
-ion-content, .tabs, .bar .title, .bar small{
+ion-content, .bar .title, .bar small{
 	direction: rtl;
 }
 

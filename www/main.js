@@ -10,6 +10,14 @@ tamreen.run(function($ionicPlatform){
 });
 
 // Filters.
+tamreen.filter('arDate', [
+	'$filter', function($filter){
+		return function(input){
+			moment.locale('ar-sa');
+			return moment(input).format('DD MMMM YYYY، hh:mm a');
+		};
+	}
+]);
 
 // Configs and routes.
 tamreen.config(function($stateProvider, $urlRouterProvider){
@@ -52,6 +60,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 		url: '/home',
 		abstract: true,
 		templateUrl: 'views/home.html',
+		controller: 'HomeController',
 	})
 
 	//
