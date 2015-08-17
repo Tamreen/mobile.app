@@ -8,18 +8,23 @@ tamreen.controller('TrainingsController', function($scope){
 	$scope.specifiedTrainings = [];
 	$scope.aroundTrainings = [];
 
-	$scope.specifiedTrainingsPullToRefresh = function(){
+	//
+	$scope.training = {
+		
+	};
+
+	$scope.specifiedPullToRefresh = function(){
 
 		// Truncate the trainings list.
 		$scope.specifiedTrainings = [];
 
 		//
-		$scope.specifiedTrainings.push({id: 1, name: 'الرياض، السليّ، ملاعب الشرق', status: 'gathering', startedAt: new Date()});
-		$scope.specifiedTrainings.push({id: 2, name: 'الرياض، الإزدهار، ملاعب الروّاد', status: 'completed', startedAt: new Date()});
-		$scope.specifiedTrainings.push({id: 3, name: 'البدائع، جادّة الجماميل، هاتريك', status: 'canceled', startedAt: new Date()});
+		$scope.specifiedTrainings.push({id: 1, name: 'الرياض، السليّ، ملاعب الشرق', status: 'gathering', percentage: 80, startedAt: new Date(), });
+		$scope.specifiedTrainings.push({id: 2, name: 'الرياض، الإزدهار، ملاعب الروّاد', status: 'completed', percentage: 43, startedAt: new Date(), });
+		$scope.specifiedTrainings.push({id: 3, name: 'البدائع، جادّة الجماميل، هاتريك', status: 'canceled', percentage: 21, startedAt: new Date(), });
 
 		//
-		$scope.$broadcast('scroll.refreshComplete');	
+		$scope.$broadcast('scroll.refreshComplete');
 
 	}
 

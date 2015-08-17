@@ -7801,3 +7801,7 @@ a {
 .slider {
   height: 100%;
   background-color: #f0da5e; }
+
+ion-slide {
+  margin-top: 50%;
+  text-align: center; }

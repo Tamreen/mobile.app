@@ -11,7 +11,7 @@
         <ion-tab title="خاصّةٌ بي">
             <ion-nav-view name="tab-b">
                 <ion-content class="padding">
-                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
+                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="aroundPullToRefresh()"></ion-refresher>
                     <ion-list>
                         <div class="text-center padding" style="margin-top: 50%;" >
                             <img src="http://api.adorable.io/avatars/70/24" style="border-radius: 50%; background-color: #fff; height: 70px;" / ><br /><br />
@@ -26,7 +26,7 @@
         <ion-tab title="قريبةٌ منّي">
             <ion-nav-view name="tab-a">
                 <ion-content class="padding">
-                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="specifiedTrainingsPullToRefresh()"></ion-refresher>
+                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="specifiedPullToRefresh()"></ion-refresher>
                     <ion-list>
 
                         <div class="text-center padding" style="margin-top: 50%;" ng-if="specifiedTrainings.length == 0">

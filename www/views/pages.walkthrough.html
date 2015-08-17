@@ -3,17 +3,17 @@
 
     <ion-nav-bar></ion-nav-bar>
 
-	<ion-nav-buttons side="right">
+	<!-- <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios-checkmark-outline" ui-sref="home.trainings"></button>
-    </ion-nav-buttons>
+    </ion-nav-buttons> -->
 
     <!-- on-slide-changed="slideChanged(index)" -->
 	<ion-slide-box>
-		<ion-slide>
+		<ion-slide class="padding">
 			Hello World!
 		</ion-slide>
 		<ion-slide>
-			Bye World!
+			<a ui-sref="home.trainings" class="button button-positive">تخطّي</a>
 		</ion-slide>
 	</ion-slide-box>
 

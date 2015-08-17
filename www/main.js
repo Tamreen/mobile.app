@@ -86,6 +86,12 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 	})
 
 	//
+	.state('groups-details', {
+		url: '/groups/:groupId/details',
+		templateUrl: 'views/groups.details.html',
+	})
+
+	//
 	.state('home.profile', {
 		url: '/profile',
 		views: {

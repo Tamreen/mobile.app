@@ -1,0 +1,25 @@
+
+<ion-view title="إضافة مجموعة">
+    <ion-nav-bar>
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content padding="true">
+        <form name="addForm" ng-submit="add()">
+            <div class="list">
+                <label class="item item-input">
+	                <span class="input-label">اسم المجموعة</span>
+	                <input type="text" placeholder="المحترفون" ng-model="parameters.name" class="rtl text-left" />
+                </label>
+                <div>
+                    <button class="button button-block button-positive rtl" type="submit">إضافة مجموعة</button>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+    <div class="bar bar-footer bar-light">
+        <div class="title rtl">
+            <small>إضافة اللاعبين إلى المجموعة ستأتي تباعًا.</small>
+        </div>
+    </div>
+</ion-view>
