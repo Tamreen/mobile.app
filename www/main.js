@@ -19,6 +19,16 @@ tamreen.filter('arDate', [
 	}
 ]);
 
+// From now filter.
+tamreen.filter('fromNow', [
+    '$filter', function($filter){
+        return function(input){
+			moment.locale('ar-sa');
+			return moment(input).fromNow();
+        };
+    }
+]);
+
 // Configs and routes.
 tamreen.config(function($stateProvider, $urlRouterProvider){
 
@@ -89,6 +99,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 	.state('groups-details', {
 		url: '/groups/:groupId/details',
 		templateUrl: 'views/groups.details.html',
+		controller: 'GroupsController',
 	})
 
 	//
