@@ -20,7 +20,8 @@
 			</div>
 
 			<ion-item class="item item-avatar item-icon-left" ng-repeat="player in group.players" ng-click="playerMore(player.id)">
-			    <img src="http://api.adorable.io/avatars/70/{{player.id}}" />
+			    <!-- <img src="http://api.adorable.io/avatars/70/{{player.id}}" /> -->
+                <img src="http://www.avatarpro.biz/avatar?s=70&player={{player.id}}" />
 			    <h2>{{player.fullname}}</h2>
 			    <p>
 			        <span ng-if="player.role == 'member'">انضم {{player.joinedAt | fromNow }}</span>
@@ -29,7 +30,14 @@
 			    <span class="icon ion-ios-more"></span>
 			</ion-item>
 
-            <a href="#" class="button button-block button-assertive">مُغادرة هذه المجموعة</a>
+            <!-- <a href="#" class="button button-block button-assertive">مُغادرة هذه المجموعة</a> -->
+
+            <div class="item">
+                <div class="button-bar">
+                    <a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
+                    <a class="button button-clear button-assertive">مُغادرة المجموعة</a>
+                </div>
+            </div>
 
         </ion-list>
     </ion-content>

@@ -133,6 +133,12 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 		}
 	})
 
+	//
+	.state('pages-about', {
+		url: '/pages/about',
+		templateUrl: 'views/pages.about.html',
+	});
+
 	// Set the default route.
 	$urlRouterProvider.otherwise('/users/firsthandshake');
 

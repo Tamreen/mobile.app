@@ -2,8 +2,8 @@
 <ion-view view-title="الملف الشخصي">
     <ion-nav-bar>
     </ion-nav-bar>
-    <ion-nav-buttons side="secondary">
-        <button class="button button-icon icon ion-ios-help-outline" ng-click="more()"></button>
+    <ion-nav-buttons side="right">
+        <a class="button button-icon icon ion-ios-help-outline" ui-sref="pages-about"></a>
     </ion-nav-buttons>
     <ion-content padding="true">
         <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
@@ -13,9 +13,11 @@
                 <h2>حسام الزغيبي</h2>
                 <p>السعودية، الرياض.</p>
             </div>
-            <div class="item button-bar">
-                <a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
-                <a class="button button-clear button-assertive">تسجيل الخروج</a>
+            <div class="item">
+                <div class="button-bar">
+                    <a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
+                    <a class="button button-clear button-assertive">تسجيل الخروج</a>
+                </div>
             </div>
             <!-- <div class="padding rtl text-center dark">
                 2.0.4

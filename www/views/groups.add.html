@@ -1,12 +1,16 @@
 
 <ion-view title="إضافة مجموعة">
     <ion-nav-bar>
-        <ion-nav-back-button>
-        </ion-nav-back-button>
     </ion-nav-bar>
+    <ion-nav-buttons side="left">
+        <a class="button button-icon icon ion-ios-arrow-back" ui-sref="home.groups"></a>
+    </ion-nav-buttons>
     <ion-content padding="true">
         <form name="addForm" ng-submit="add()">
             <div class="list">
+                <div class="item text-center item-photo">
+                    <img src="http://api.adorable.io/avatars/70/24" />
+                </div>
                 <label class="item item-input">
 	                <span class="input-label">اسم المجموعة</span>
 	                <input type="text" placeholder="المحترفون" ng-model="parameters.name" class="rtl text-left" />

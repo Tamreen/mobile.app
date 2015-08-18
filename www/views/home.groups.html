@@ -2,8 +2,8 @@
 <ion-view view-title="المجموعات">
     <ion-nav-bar>
     </ion-nav-bar>
-    <ion-nav-buttons side="secondary">
-        <button class="button button-icon icon ion-ios-plus-outline" ng-click="more()"></button>
+    <ion-nav-buttons side="right">
+        <a class="button button-icon icon ion-ios-plus-outline" ui-sref="groups-add"></a>
     </ion-nav-buttons>
     <ion-content padding="true">
         <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefresh()" class="rtl"></ion-refresher>
