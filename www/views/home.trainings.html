@@ -3,7 +3,7 @@
 
     <ion-nav-bar></ion-nav-bar>
 
-    <ion-nav-buttons side="secondary">
+    <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios-plus-outline" ui-sref="trainings-add"></button>
     </ion-nav-buttons>
 
@@ -36,7 +36,7 @@
                             كما يُمكنك استعراض التمارين السابقة من خلال اللّمس على أيقونة <span class="ion-ios-clock-outline" /> في الأعلى.
                         </div>
 
-                        <a href="#/trainings/{{training.id}}" class="item item-avatar item-icon-left" ng-repeat="training in specifiedTrainings">
+                        <a ui-sref="trainings-details({trainingId: training.id})" class="item item-avatar item-icon-left" ng-repeat="training in specifiedTrainings">
                             <img ng-src="views/images/{{training.status}}.png"></img>
                             <h2>{{training.name}}</h2>
                             <p>{{training.startedAt|arDate}}</p>

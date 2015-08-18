@@ -1,6 +1,6 @@
 
 //
-tamreen.controller('GroupsController', function($scope){
+tamreen.controller('GroupsController', function($scope, $ionicActionSheet){
 
 	//
 	$scope.groups = [];
@@ -43,6 +43,30 @@ tamreen.controller('GroupsController', function($scope){
 		//
 		$scope.$broadcast('scroll.refreshComplete');
 
-	}
+	};
+
+	//
+	$scope.playerMore = function(){
+
+		//
+		$ionicActionSheet.show({
+
+			buttons: [
+				{text: 'إضافة اللاعب إلى المُدراء'},
+			],
+
+			destructiveText: 'حذف اللاعب من المجموعة',
+			titleText: 'فيمَ تفكّر؟',
+			cancelText: 'إلغاء',
+
+			cancel: function(){
+
+			},
+
+			buttonClicked: function(index) {
+				return true;
+			}
+		});
+	};
 
 });

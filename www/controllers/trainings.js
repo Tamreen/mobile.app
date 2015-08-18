@@ -1,6 +1,6 @@
 
 //
-tamreen.controller('TrainingsController', function($scope){
+tamreen.controller('TrainingsController', function($scope, $ionicActionSheet){
 
 	console.log('TrainingsController has been initialized.');
 
@@ -10,9 +10,36 @@ tamreen.controller('TrainingsController', function($scope){
 
 	//
 	$scope.training = {
-		
+
+		//
+		id: 13,
+		status: 'gathering',
+		adminable: true,
+		startedAt: new Date(),
+		stadium: 'ملعب الإبداع',
+
+		//
+		willcomePlayers: [
+			{id: 1, fullname: 'محمد الخالد', decidedAt: new Date(), },
+			{id: 2, fullname: 'خالد الموسى', decidedAt: new Date(), },
+			{id: 3, fullname: 'فهد الفهد', decidedAt: new Date(), },
+			{id: 4, fullname: 'عبدالعزيز الصالح', decidedAt: new Date(), },
+		],
+
+		//
+		apologizePlayers: [
+			{id: 5, fullname: 'عبدالعزيز الصالح', decidedAt: new Date(), },
+		],
+
+		//
+		notyetPlayers: [
+			{id: 6, fullname: 'محمد الخالد', decidedAt: new Date(), },
+			{id: 7, fullname: 'خالد الموسى', decidedAt: new Date(), },
+			{id: 8, fullname: 'فهد الفهد', decidedAt: new Date(), },
+		],
 	};
 
+	//
 	$scope.specifiedPullToRefresh = function(){
 
 		// Truncate the trainings list.
@@ -25,6 +52,57 @@ tamreen.controller('TrainingsController', function($scope){
 
 		//
 		$scope.$broadcast('scroll.refreshComplete');
+
+	};
+
+	//
+	$scope.more = function(){
+
+		//
+		$ionicActionSheet.show({
+
+			buttons: [
+				{text: 'فتح الباب لجب محترفين'},
+				{text: 'جعل التمرين عامًا'},
+				{text: 'وكز'},
+			],
+
+			destructiveText: 'إلغاء التمرين',
+			titleText: 'فيمَ تفكّر؟',
+			cancelText: 'إلغاء',
+
+			cancel: function(){
+
+			},
+
+			buttonClicked: function(index) {
+				return true;
+			}
+		});
+	};
+
+	//
+	$scope.notyetPlayerMore = function(playerId){
+
+		//
+		$ionicActionSheet.show({
+
+			buttons: [
+				{text: 'سيحضر بإذن الله'},
+				{text: 'يعتذر عن الحضور'},
+			],
+
+			titleText: 'فيمَ يفكّر محمّد الخالد؟',
+			cancelText: 'إلغاء',
+
+			cancel: function(){
+
+			},
+
+			buttonClicked: function(index) {
+				return true;
+			}
+		});
 
 	}
 
