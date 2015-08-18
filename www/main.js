@@ -85,6 +85,20 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 	})
 
 	//
+	.state('trainings-add', {
+		url: '/trainings/add',
+		templateUrl: 'views/trainings.add.html',
+		controller: 'TrainingsController',
+	})
+
+	//
+	.state('trainings-details', {
+		url: '/trainings/:trainingId/details',
+		templateUrl: 'views/trainings.details.html',
+		controller: 'TrainingsController',
+	})
+
+	//
 	.state('home.groups', {
 		url: '/groups',
 		views: {
@@ -93,6 +107,13 @@ tamreen.config(function($stateProvider, $urlRouterProvider){
 				controller: 'GroupsController',
 			}
 		}
+	})
+
+	//
+	.state('groups-add', {
+		url: '/groups/add',
+		templateUrl: 'views/groups.add.html',
+		controller: 'GroupsController',
 	})
 
 	//
