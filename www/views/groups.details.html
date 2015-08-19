@@ -20,8 +20,7 @@
 			</div>
 
 			<ion-item class="item item-avatar item-icon-left" ng-repeat="player in group.players" ng-click="playerMore(player.id)">
-			    <!-- <img src="http://api.adorable.io/avatars/70/{{player.id}}" /> -->
-                <img src="http://www.avatarpro.biz/avatar?s=70&player={{player.id}}" />
+			    <img src="http://api.adorable.io/avatars/70/{{player.id}}" />
 			    <h2>{{player.fullname}}</h2>
 			    <p>
 			        <span ng-if="player.role == 'member'">انضم {{player.joinedAt | fromNow }}</span>
