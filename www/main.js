@@ -3,7 +3,7 @@
 tamreen = angular.module('tamreen', ['ionic']);
 
 // Run at the begining.
-tamreen.run(function($ionicPlatform){
+tamreen.run(function($ionicPlatform, TamreenService){
 
 	// TODO: Whenever ionic platform is ready.
 
@@ -30,7 +30,10 @@ tamreen.filter('fromNow', [
 ]);
 
 // Configs and routes.
-tamreen.config(function($stateProvider, $urlRouterProvider){
+tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
+
+	//
+	$ionicConfigProvider.tabs.position('bottom');
 
 	//
 	$stateProvider
