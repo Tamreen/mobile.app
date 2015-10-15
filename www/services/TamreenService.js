@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('TamreenService', function($q, $ionicModal, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
+tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $state, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
 
 	console.log('TamreenService has been called.');
 
@@ -13,6 +13,10 @@ tamreen.factory('TamreenService', function($q, $ionicModal, InternetService, App
 	service.device = null;
 	service.pushNotification = null;
 	service.storage = null;
+
+	//
+	service.regionCode = null;
+	service.user = null;
 
 	//
 	InternetService.initialize()
@@ -43,24 +47,29 @@ tamreen.factory('TamreenService', function($q, $ionicModal, InternetService, App
 
 	//
 	.then(function(storage){
+
 		service.storage = storage;
+
+		$ionicPlatform.ready(function(){
+
+			console.log('$ionicPlatform is ready.');
+
+			// TODO: Check if the user is logged in or redirect to firsthandshake.
+			$state.go('users-firsthandshake');
+
+		});
 	})
 
 	// TODO: The media and the contacts and so.
 
-	//
+	// The app cannot run without these services.
 	.catch(function(error){
-		//alert(error);
-		$ionicModal.fromTemplateUrl('views/pages.tos.html').then(function(modal){
-			// modal.scope.version = minClientVersion;
+		$ionicModal.fromTemplateUrl('views/pages.modal.html').then(function(modal){
+			modal.scope.message = error;
+			// modal.scope.details = '1.0.0';
 			modal.show();
 		});
 	});
-
-	//
-	service.hello = function(){
-
-	};
 
 	return service;
 });

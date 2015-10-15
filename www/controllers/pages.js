@@ -1,1 +1,4 @@
-pages.js
+
+tamreen.controller('PagesController', function($scope){
+
+});

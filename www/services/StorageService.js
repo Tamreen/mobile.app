@@ -22,7 +22,7 @@ tamreen.factory('StorageService', function($q, $injector){
 			console.log('initialize StorageService.');
 
 			//
-			deferred.reject('Hello');
+			deferred.resolve('Hello');
 
 			//
 			return deferred.promise;

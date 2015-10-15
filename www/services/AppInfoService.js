@@ -31,6 +31,7 @@ tamreen.factory('AppInfoService', function($q, $http){
 			}
 
 			return service;
+
 		});
 
 	}

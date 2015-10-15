@@ -42,6 +42,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	.state('users-firsthandshake', {
 		url: '/users/firsthandshake',
 		templateUrl: 'views/users.firsthandshake.html',
+		controller: 'UsersController',
 	})
 
 	//
@@ -54,12 +55,14 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	.state('users-secondhandshake', {
 		url: '/users/secondhandshake',
 		templateUrl: 'views/users.secondhandshake.html',
+		controller: 'UsersController',
 	})
 
 	//
 	.state('players-update', {
 		url: '/players/update',
 		templateUrl: 'views/players.update.html',
+		controller: 'PlayersController',
 	})
 
 	//
@@ -143,6 +146,6 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	});
 
 	// Set the default route.
-	$urlRouterProvider.otherwise('/users/firsthandshake');
+	//$urlRouterProvider.otherwise('/users/firsthandshake');
 
 });

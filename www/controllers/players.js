@@ -1,1 +1,4 @@
-players.js
+
+tamreen.controller('PlayersController', function($scope){
+
+});
