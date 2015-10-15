@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('TamreenService', function($q, DeviceService, PushNotificationService){
+tamreen.factory('TamreenService', function($q, $ionicModal, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
 
 	console.log('TamreenService has been called.');
 
@@ -8,17 +8,26 @@ tamreen.factory('TamreenService', function($q, DeviceService, PushNotificationSe
 	var service = {};
 
 	//
+	service.internet = null;
+	service.appInfo = null;
 	service.device = null;
 	service.pushNotification = null;
 	service.storage = null;
 
-	// TODO: The internet is very important.
-	// TODO: The device is very important.
-	// TODO: The push notification is very important.
-	// TODO: The storage is very important.
+	//
+	InternetService.initialize()
 
 	//
-	DeviceService.initialize()
+	.then(function(internet){
+		service.internet = internet;
+		return AppInfoService.initialize(internet);
+	})
+
+	//
+	.then(function(appInfo){
+		service.appInfo = appInfo;
+		return DeviceService.initialize(appInfo);
+	})
 
 	//
 	.then(function(device){
@@ -29,13 +38,29 @@ tamreen.factory('TamreenService', function($q, DeviceService, PushNotificationSe
 	//
 	.then(function(pushNotification){
 		service.pushNotification = pushNotification;
-		return console.log(pushNotification);
+		return StorageService.initialize(pushNotification);
 	})
 
 	//
+	.then(function(storage){
+		service.storage = storage;
+	})
+
+	// TODO: The media and the contacts and so.
+
+	//
 	.catch(function(error){
-		console.error(error);
+		//alert(error);
+		$ionicModal.fromTemplateUrl('views/pages.tos.html').then(function(modal){
+			// modal.scope.version = minClientVersion;
+			modal.show();
+		});
 	});
+
+	//
+	service.hello = function(){
+
+	};
 
 	return service;
 });

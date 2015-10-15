@@ -14,7 +14,7 @@ tamreen.factory('StorageService', function($q, $injector){
 
 	return {
 
-		initialize: function(){
+		initialize: function(services){
 
 			//
 			var deferred = $q.defer();
