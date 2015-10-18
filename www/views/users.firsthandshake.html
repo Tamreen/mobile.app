@@ -5,8 +5,7 @@
 
     <ion-content padding="true">
 
-        <!-- ng-submit="firstHandShake()" -->
-        <form name="firstHandShakeForm">
+        <form name="firstHandShakeForm" ng-submit="firstHandShake()">
 
             <div class="list">
                 <!-- <div class="item text-center item-logo">
@@ -42,7 +41,7 @@
                     <input type="tel" placeholder="05XXXXXXXX" ng-model="parameters.mobileNumber" />
                 </label>
                 <div>
-                    <a ui-sref="users-secondhandshake" class="button button-block button-positive" type="submit">إرسال الرمز المؤقت عبر SMS</a>
+                    <input class="button button-block button-positive" type="submit" value="إرسال الرمز المؤقت عبر SMS" />
                 </div>
             </div>
         </form>

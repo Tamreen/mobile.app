@@ -10,7 +10,7 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $sta
 	//
 	service.internet = null;
 	service.appInfo = null;
-	service.device = null;
+	service.device = null;y
 	service.pushNotification = null;
 	service.storage = null;
 
