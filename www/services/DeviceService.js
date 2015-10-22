@@ -8,7 +8,7 @@ tamreen.factory('DeviceService', function($q, $injector){
 	var service = {};
 
 	//
-	service.platform = null;
+	service.deviceType = null;
 
 	//
 	service.initialize = function(){
@@ -17,7 +17,7 @@ tamreen.factory('DeviceService', function($q, $injector){
 		var deferred = $q.defer();
 
 		if (configs.environment == 'development'){
-			service.platform = 'android';
+			service.deviceType = 'android';
 			deferred.resolve(service);
 		}
 

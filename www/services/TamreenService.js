@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $state, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
+tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $state, $http, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
 
 	console.log('TamreenService has been called.');
 
@@ -10,12 +10,15 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $sta
 	//
 	service.internet = null;
 	service.appInfo = null;
-	service.device = null;y
+	service.device = null;
 	service.pushNotification = null;
 	service.storage = null;
 
 	//
 	service.regionCode = null;
+	service.e164formattedMobileNumber = null;
+
+	//
 	service.user = null;
 
 	//
@@ -70,6 +73,120 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $sta
 			modal.show();
 		});
 	});
+
+	// TODO: Most of methods to be here.
+
+	//
+	service.helperDestroyUserInfo = function(){
+		service.user = null;
+		$cordovaFile.removeFile(cordova.file.dataDirectory, service.userTokenFilePath);
+	}
+
+	//
+	service.helperMobileNumberValidable = function(mobileNumber){
+		try{
+			return phoneUtils.isValidNumberForRegion(mobileNumber, service.regionCode);
+		}catch (e){
+			return false;
+		}
+    };
+
+    //
+    service.helperMobileRegionCode = function(mobileNumber){
+		try{
+			return phoneUtils.getRegionCodeForNumber(mobileNumber).toLowerCase();
+		}catch (e){
+			return null;
+		}
+    };
+
+    // Return the mobile number in e164 format.
+    service.helperMobileNumberE164Format = function(mobileNumber){
+		try{
+			return phoneUtils.formatE164(mobileNumber, service.regionCode);
+		}catch (e){
+			return '';
+		}
+    };
+
+	// A helper method to return the user token as an HTTP header.
+	// Private.
+	service.helperUserTokenHeader = function(){
+
+		var headers = {
+			'X-User-Device-Type': service.device.deviceType,
+			'X-User-Device-Token': service.pushNotification.deviceToken,
+		};
+
+		if (!validator.isNull(service.user)){
+			headers['X-User-Token'] = service.user.token;
+		}
+
+		return headers;
+	};
+
+	//
+	service.helperHandleErrors = function(response){
+
+		var errorMessage = null;
+
+		if (!validator.isNull(response) && !validator.isNull(response.data) && !validator.isNull(response.data.message)){
+			errorMessage = response.data.message;
+		}else{
+			errorMessage = 'يبدو أنّ هناك خطأ ما، حاول مرّة أخرى لاحقًا.';
+		}
+
+		//
+		$ionicPopup.alert({
+			title: 'خطأ',
+			template: errorMessage,
+			okText: 'حسنًا',
+		});
+	};
+
+	// Handshake the user for the first time.
+	// PUT /users/firsthandshake
+	service.userFirstHankShake = function(e164formattedMobileNumber){
+
+		// Save the mobile in a variable to be used always.
+		service.e164formattedMobileNumber = e164formattedMobileNumber;
+
+		var callableUrl = configs.apiBaseurl + '/users/firsthandshake';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		// This way is more readable.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: {
+				'e164formattedMobileNumber': e164formattedMobileNumber,
+			}
+		});
+	};
+
+	// Handshake the user for the second time and log him/er in.
+	// POST /users/secondhandshake
+	service.userSecondHandShake = function(code){
+
+		var callableUrl = service.baseUrl + '/users/secondhandshake';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'POST',
+			url: callableUrl,
+			data: {
+				'e164formattedMobileNumber': service.e164formattedMobileNumber,
+				'code': code,
+			}
+		});
+	};
 
 	return service;
 });

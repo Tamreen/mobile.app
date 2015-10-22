@@ -8,7 +8,7 @@ tamreen.factory('PushNotificationService', function($q, $injector){
 	var service = {};
 
 	//
-	service.token = null;
+	service.deviceToken = null;
 
 	//
 	service.initialize = function(device){
@@ -16,10 +16,10 @@ tamreen.factory('PushNotificationService', function($q, $injector){
 		//
 		var deferred = $q.defer();
 
-		// if (configs.environment == 'development'){
-		// 	service.platform = 'android';
-		// 	deferred.resolve(service);
-		// }
+		if (configs.environment == 'development'){
+			service.deviceToken = '12321312321';
+			deferred.resolve(service);
+		}
 
 		// TODO: If the environment is not development.
 

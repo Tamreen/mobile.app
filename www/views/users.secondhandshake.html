@@ -4,18 +4,9 @@
 
     <ion-nav-bar></ion-nav-bar>
 
-    <!-- <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-ios-checkmark-outline" ui-sref="players-update"></button>
-    </ion-nav-buttons> -->
-
-    <!-- <ion-nav-buttons side="left">
-        <button class="button button-icon icon ion-ios-arrow-back" ui-sref="users-firsthandshake"></button>
-    </ion-nav-buttons> -->
-
     <ion-content padding="true">
 
-        <!-- ng-submit="firstHandShake()" -->
-        <form name="firstHandShakeForm">
+        <form name="secondHandShakeForm" ng-submit="secondHandShake()">
 
             <div class="list">
                 <!-- <div class="item text-center item-logo">
@@ -23,10 +14,10 @@
                 </div> -->
                 <label class="item item-input">
                 	<span class="input-label">الرمز المؤقت</span>
-                	<input type="tel" placeholder="1234" ng-model="parameters.mobileNumber" />
+                	<input type="tel" placeholder="1234" ng-model="parameters.code" />
                 </label>
                 <div>
-                    <a ui-sref="players-update" class="button button-block button-positive rtl" type="submit">تسجيل الدخول</a>
+                    <input class="button button-block button-positive" type="submit" value="تسجيل الدخول" />
                 </div>
             </div>
         </form>

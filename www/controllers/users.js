@@ -74,6 +74,8 @@ tamreen.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 
 			.then(function(success){
 
+				console.log(response.data);
+
 				if (response.data.loginable == 0)
 					return $state.go('players-update');
 
