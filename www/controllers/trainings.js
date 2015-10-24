@@ -74,11 +74,12 @@ tamreen.controller('TrainingsController', function($scope, $ionicActionSheet, Ta
 
 			console.log(coordinates);
 
-			return TamreenService.trainingListAround()
+			return TamreenService.trainingListAround(coordinates)
 
 			//
 			.then(function(response){
-				console.log(response);
+				$scope.aroundTrainings = response.data;
+				$scope.triggerBadgesRead();
 			})
 
 		}, function(error){

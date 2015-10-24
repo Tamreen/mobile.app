@@ -8,7 +8,7 @@ tamreen.factory('LocationService', function($q, $injector){
 	var service = {};
 
 	//
-	service.coordinates = null;
+	service.coordinates = {x: 0, y: 0};
 
 	//
 	service.getCurrent = function(){
@@ -22,8 +22,12 @@ tamreen.factory('LocationService', function($q, $injector){
 
 			// This should be a promise.
 			navigator.geolocation.getCurrentPosition(function(position){
-				service.coordinates = position.coords;
+
+				service.coordinates.x = position.coords.longitude;
+				service.coordinates.y = position.coords.latitude;
+
 				deferred.resolve(service.coordinates);
+
 			}, function(error){
 				deferred.reject(error);
 			});

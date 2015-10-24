@@ -266,6 +266,7 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// TODO: I used PUT and I do not want to use it.
 	// List all trainings that the user is around.
 	// (Auth) GET /trainings/around
 	service.trainingListAround = function(coordinates){
@@ -275,10 +276,13 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		// Do tell about calling the URL.
 		console.log('Calling ' + callableUrl + '...');
 
+		console.log(coordinates);
+
 		// Done.
 		return $http({
-			method: 'GET',
+			method: 'PUT',
 			url: callableUrl,
+			data: {'coordinates': coordinates},
 			headers: service.helperUserTokenHeader(),
 		});
 	};
