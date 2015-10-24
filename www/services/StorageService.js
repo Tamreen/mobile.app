@@ -12,21 +12,71 @@ tamreen.factory('StorageService', function($q, $injector){
 	// 	console.log('It was ready and I was called.');
 	// });
 
-	return {
+	//
+	var service = {};
 
-		initialize: function(services){
+	//
+	// service.deviceToken = null;
 
-			//
-			var deferred = $q.defer();
+	//
+	service.initialize = function(services){
 
-			console.log('initialize StorageService.');
+		//
+		var deferred = $q.defer();
 
-			//
-			deferred.resolve('Hello');
+		console.log('initialize StorageService.');
 
-			//
-			return deferred.promise;
-		},
+		//
+		deferred.resolve(service);
+
+		//
+		return deferred.promise;
+	};
+
+	// TODO: Check if the environmet is development or not.
+	service.store = function(key, value){
+
+		//
+		var deferred = $q.defer();
+
+		//deferred.resolve('Stored!');
+		if (configs.environment == 'development'){
+			localStorage.setItem(key, JSON.stringify(value));
+			deferred.resolve(true);
+		}
+
+		//
+		return deferred.promise;
+	};
+
+	// TODO: Check if the environmet is development or not.
+	service.retrieve = function(key){
+		
+		//
+		var deferred = $q.defer();
+
+		if (configs.environment == 'development'){
+
+			var objectString = localStorage.getItem(key);
+
+			if (validator.isNull(objectString)){
+				deferred.reject('Cannot find the variable.');
+			}
+
+			deferred.resolve(JSON.parse(objectString));
+		}
+
+		//
+		return deferred.promise;
 
 	};
+
+	// TODO: Check if the environmet is development or not.
+	service.destroy = function(key){
+		return 'Destroyed!';
+	};
+
+	//
+	return service;
+
 });

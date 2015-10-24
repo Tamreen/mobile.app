@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $state, $http, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
+tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicPlatform, $state, $http, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
 
 	console.log('TamreenService has been called.');
 
@@ -58,7 +58,26 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $sta
 			console.log('$ionicPlatform is ready.');
 
 			// TODO: Check if the user is logged in or redirect to firsthandshake.
-			$state.go('users-firsthandshake');
+			//$state.go('users-firsthandshake');
+
+			service.helperLoadUserInfo()
+
+			//
+			.then(function(user){
+
+				//user.logginable = 1;
+				service.user = user;
+
+				// Set the region code.
+				service.regionCode = service.helperMobileRegionCode(user.e164formattedMobileNumber);
+
+				// Go afterward to groups.
+				$state.go('home.trainings');
+				
+			//
+			}, function(error){
+				$state.go('users-firsthandshake');
+			});
 
 		});
 	})
@@ -126,6 +145,48 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $sta
 	};
 
 	//
+	service.helperSaveUserInfo = function(object){
+
+		//
+		service.user = object;
+
+		//
+		var deferred = $q.defer();
+
+		//
+		service.storage.store(configs['userKey'], object)
+
+		//
+		.then(function(success){
+			return deferred.resolve(success);
+		}, function(error){
+			return deferred.reject(error);
+		});
+
+		//
+		return deferred.promise;
+	};
+
+	//
+	service.helperLoadUserInfo = function(){
+
+		var deferred = $q.defer();
+
+		//
+		service.storage.retrieve(configs['userKey'])
+
+		//
+		.then(function(user){
+			return deferred.resolve(user);
+		}, function(error){
+			return deferred.reject(error);
+		});
+
+		//
+		return deferred.promise;
+	};
+
+	//
 	service.helperHandleErrors = function(response){
 
 		var errorMessage = null;
@@ -169,17 +230,17 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPlatform, $sta
 	};
 
 	// Handshake the user for the second time and log him/er in.
-	// POST /users/secondhandshake
+	// PUT /users/secondhandshake
 	service.userSecondHandShake = function(code){
 
-		var callableUrl = service.baseUrl + '/users/secondhandshake';
+		var callableUrl = configs.apiBaseurl + '/users/secondhandshake';
 
 		// Do tell about calling the URL.
 		console.log('Calling ' + callableUrl + '...');
 
 		// Done.
 		return $http({
-			method: 'POST',
+			method: 'PUT',
 			url: callableUrl,
 			data: {
 				'e164formattedMobileNumber': service.e164formattedMobileNumber,

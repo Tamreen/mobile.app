@@ -80,7 +80,7 @@ tamreen.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 					return $state.go('players-update');
 
 				// Otherwise.
-				$state.go('groups-list');
+				$state.go('home.trainings');
 
 			}, function(error){
 
