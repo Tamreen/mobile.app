@@ -1,4 +1,7 @@
 
+<!-- TODO: Fix the inner styles. -->
+<!-- TODO: If there is a possibility to create a sub template. -->
+
 <ion-view view-title="التمارين">
 
     <ion-nav-bar></ion-nav-bar>
@@ -8,23 +11,9 @@
     </ion-nav-buttons>
 
     <ion-tabs class="tabs-striped tabs-top tabs-icon-only">
-        <ion-tab title="خاصّةٌ بي">
+
+        <ion-tab title="خاصّةٌ بي" on-select="fethcSpecifiedTrainings()">
             <ion-nav-view name="tab-b">
-                <ion-content class="padding">
-                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="aroundPullToRefresh()"></ion-refresher>
-                    <ion-list>
-                        <div class="text-center padding" style="margin-top: 30%;" >
-                            <img src="http://api.adorable.io/avatars/70/24" style="border-radius: 50%; background-color: #fff; height: 70px;" / ><br /><br />
-                            لم يتم العثور على أيّ تمرين، يُمكنك إضافة تمرينٍ جديدٍ من خلال اللّمس على أيقونة <span class="ion-ios-plus-outline" /> في الأعلى.
-                            كذلك يُمكنك البحث عن تمرينٍ أضافهُ آخرون من خلال السحب من الأعلى إلى الأسفل.
-                            كما يُمكنك استعراض التمارين السابقة من خلال اللّمس على أيقونة <span class="ion-ios-clock-outline" /> في الأعلى.
-                        </div>
-                    </ion-list>
-                </ion-content>
-            </ion-nav-view>
-        </ion-tab>
-        <ion-tab title="قريبةٌ منّي">
-            <ion-nav-view name="tab-a">
                 <ion-content class="padding">
                     <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="specifiedPullToRefresh()"></ion-refresher>
                     <ion-list>
@@ -41,11 +30,36 @@
                             <h2>{{training.name}}</h2>
                             <p>{{training.startedAt|arDate}}</p>
                         </a>
+
+                    </ion-list>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="قريبةٌ منّي" on-select="fethcAroundTrainings()">
+            <ion-nav-view name="tab-a">
+                <ion-content class="padding">
+                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="aroundPullToRefresh()"></ion-refresher>
+                    <ion-list>
+
+                        <div class="text-center padding" style="margin-top: 30%;" ng-if="aroundTrainings.length == 0">
+                            <img src="http://api.adorable.io/avatars/70/24" style="border-radius: 50%; background-color: #fff; height: 70px;" / ><br /><br />
+                            لم يتم العثور على أيّ تمرين، يُمكنك إضافة تمرينٍ جديدٍ من خلال اللّمس على أيقونة <span class="ion-ios-plus-outline" /> في الأعلى.
+                            كذلك يُمكنك البحث عن تمرينٍ أضافهُ آخرون من خلال السحب من الأعلى إلى الأسفل.
+                            كما يُمكنك استعراض التمارين السابقة من خلال اللّمس على أيقونة <span class="ion-ios-clock-outline" /> في الأعلى.
+                        </div>
+
+                        <a ui-sref="trainings-details({trainingId: training.id})" class="item item-avatar item-icon-left" ng-repeat="training in aroundTrainings">
+                            <img ng-src="views/images/{{training.status}}.png"></img>
+                            <h2>{{training.name}}</h2>
+                            <p>{{training.startedAt|arDate}}</p>
+                        </a>
                         
                     </ion-list>
                 </ion-content>
             </ion-nav-view>
         </ion-tab>
+
     </ion-tabs>
     <!--   <ion-header-bar class="bar bar-subheader rtl">
         <div class="button-bar">
@@ -55,4 +69,5 @@
         </ion-header-bar> -->
     <!-- <ion-content padding="true" class="has-header has-tabs-top has-tabs">
         </ion-content> -->
+
 </ion-view>

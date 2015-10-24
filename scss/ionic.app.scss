@@ -22,7 +22,7 @@ $positive: #8962ed !default;
 $dark: #524b57 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../libraries/ionic/fonts" !default;
+$ionicons-font-path: "/libraries/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/libraries/ionic/scss/ionic";

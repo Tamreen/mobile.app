@@ -8,4 +8,11 @@ tamreen.controller('HomeController', function($scope){
 		profile: 0,
 	};
 
+	// TODO: Call a method for updating the badges.
+	ionic.EventController.on('badges.update', function(event){
+		//$scope.badges = event;
+		$scope.badges.trainings = 0;
+
+	});
+
 });

@@ -1,6 +1,6 @@
 
 //
-tamreen.controller('TrainingsController', function($scope, $ionicActionSheet){
+tamreen.controller('TrainingsController', function($scope, $ionicActionSheet, TamreenService, LocationService){
 
 	console.log('TrainingsController has been initialized.');
 
@@ -39,6 +39,55 @@ tamreen.controller('TrainingsController', function($scope, $ionicActionSheet){
 		],
 	};
 
+	// TODO: What if an error occur.
+	$scope.fethcSpecifiedTrainings = function(){
+
+		return TamreenService.trainingListSpecified()
+
+		//
+		.then(function(response){
+
+			//console.log(response.data);
+			$scope.specifiedTrainings = response.data;
+			$scope.triggerBadgesRead();
+		});
+
+	};
+
+	//
+	$scope.fethcAroundTrainings = function(){
+
+		// return TamreenService.trainingListSpecified()
+
+		// //
+		// .then(function(response){
+
+		// 	//console.log(response.data);
+		// 	$scope.specifiedTrainings = response.data;
+		// 	$scope.triggerBadgesRead();
+		// });
+
+		return LocationService.getCurrent()
+
+		//
+		.then(function(coordinates){
+
+			console.log(coordinates);
+
+			return TamreenService.trainingListAround()
+
+			//
+			.then(function(response){
+				console.log(response);
+			})
+
+		}, function(error){
+
+			alert('Error occur');
+		});
+
+	};
+
 	//
 	$scope.specifiedPullToRefresh = function(){
 
@@ -46,14 +95,16 @@ tamreen.controller('TrainingsController', function($scope, $ionicActionSheet){
 		$scope.specifiedTrainings = [];
 
 		//
-		$scope.specifiedTrainings.push({id: 1, name: 'الرياض، السليّ، ملاعب الشرق', status: 'gathering', percentage: 80, startedAt: new Date(), });
-		$scope.specifiedTrainings.push({id: 2, name: 'الرياض، الإزدهار، ملاعب الروّاد', status: 'completed', percentage: 43, startedAt: new Date(), });
-		$scope.specifiedTrainings.push({id: 3, name: 'البدائع، جادّة الجماميل، هاتريك', status: 'canceled', percentage: 21, startedAt: new Date(), });
-
+		$scope.fethcSpecifiedTrainings();
 		//
 		$scope.$broadcast('scroll.refreshComplete');
 
 	};
+
+	// TODO:
+	$scope.triggerBadgesRead = function(){
+		ionic.EventController.trigger('badges.update', {trainings: 2, groups: 0, profile: 0,});
+	}
 
 	//
 	$scope.more = function(){
@@ -103,7 +154,9 @@ tamreen.controller('TrainingsController', function($scope, $ionicActionSheet){
 				return true;
 			}
 		});
+	};
 
-	}
+	//
+	$scope.fethcSpecifiedTrainings();
 
 });

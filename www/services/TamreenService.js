@@ -249,5 +249,39 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// List all trainings that the user is invited to.
+	// (Auth) GET /trainings/specified
+	service.trainingListSpecified = function(){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/specified';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// List all trainings that the user is around.
+	// (Auth) GET /trainings/around
+	service.trainingListAround = function(coordinates){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/around';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
 	return service;
 });

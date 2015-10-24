@@ -29,8 +29,8 @@ $abdulellah						  #942dab !default;
 */
 @font-face {
   font-family: "Ionicons";
-  src: url("../libraries/ionic/fonts/ionicons.eot?v=2.0.1");
-  src: url("../libraries/ionic/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../libraries/ionic/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("../libraries/ionic/fonts/ionicons.woff?v=2.0.1") format("woff"), url("../libraries/ionic/fonts/ionicons.woff") format("woff"), url("../libraries/ionic/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg");
+  src: url("/libraries/ionic/fonts/ionicons.eot?v=2.0.1");
+  src: url("/libraries/ionic/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("/libraries/ionic/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("/libraries/ionic/fonts/ionicons.woff?v=2.0.1") format("woff"), url("/libraries/ionic/fonts/ionicons.woff") format("woff"), url("/libraries/ionic/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
