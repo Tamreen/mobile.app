@@ -342,6 +342,25 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	};
 
 	// TODO: groupUpdate.
+	// TODO: groupLeave.
+
+	// Delete a group, must be an admin.
+	// (Auth) DELETE /groups/:id
+	service.groupDelete = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/groups/' + id;
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'DELETE',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+
+	};
 
 	// Add a new player to a certain group, must be an admin for the group.
 	// (Auth) POST /groups/:id/players

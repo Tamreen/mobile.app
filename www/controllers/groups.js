@@ -266,12 +266,54 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 
 	//
 	$scope.deleteGroup = function(id){
-		// TODO:
+
+		console.log('Delete a group has been called.');
+
+		// Check if the user is sure about deleting.
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'حذف المجموعة',
+			template: 'هل أنت متأكّد من أنّك تريد حذف المجموعة؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		//
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// Try to list the groups using the service.
+				var promise = TamreenService.groupDelete(id);
+
+				// Check what the service promises.
+				promise.then(function(){
+
+					$ionicPopup.alert({
+						title: 'تم',
+						template: 'لقد حذفتَ المجموعة.',
+						okText: 'حسنًا',
+					});
+
+					// Redirect the user to the groups.
+					$rootScope.$emit('groups.update');
+					$state.go('home.groups');
+
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
+
+			}else{
+				console.log('Cancel deleting the group.');
+			}
+		});
+
 	};
 
 	//
 	$scope.leaveGroup = function(id){
 		// TODO:
+		alert('Leaving...');
 	};
 
 	//

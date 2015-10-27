@@ -29,12 +29,11 @@
 			    <span class="icon ion-ios-more" ng-if="group.adminable"></span>
 			</ion-item>
 
-            <!-- <a href="#" class="button button-block button-assertive">مُغادرة هذه المجموعة</a> -->
-
             <div class="item">
                 <div class="button-bar">
                     <a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
-                    <a class="button button-clear button-assertive">مُغادرة المجموعة</a>
+                    <a class="button button-clear button-assertive" ng-if="group.adminable == 1" ng-click="deleteGroup(group.id)">حذف المجموعة</a>
+                    <a class="button button-clear button-assertive" ng-if="group.adminable == 0" ng-click="leaveGroup(group.id)">مُغادرة هذه المجموعة</a>
                 </div>
             </div>
 
