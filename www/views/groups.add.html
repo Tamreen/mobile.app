@@ -6,20 +6,20 @@
         <a class="button button-icon icon ion-ios-arrow-back" ui-sref="home.groups"></a>
     </ion-nav-buttons>
     <ion-content padding="true">
-        <form name="addForm" ng-submit="add()">
+        <form name="addForm" ng-submit="addGroup()">
             <div class="list">
                 <label class="item item-input">
 	                <span class="input-label">اسم المجموعة</span>
-	                <input type="text" placeholder="المحترفون" ng-model="parameters.name" class="rtl text-left" />
+	                <input type="text" placeholder="المحترفون" ng-model="parameters.name" />
                 </label>
                 <div>
-                    <button class="button button-block button-positive rtl" type="submit">إضافة مجموعة</button>
+                    <button class="button button-block button-positive" type="submit">إضافة مجموعة</button>
                 </div>
             </div>
         </form>
     </ion-content>
     <div class="bar bar-footer bar-light">
-        <div class="title rtl">
+        <div class="title ">
             <small>إضافة اللاعبين إلى المجموعة ستأتي تباعًا.</small>
         </div>
     </div>

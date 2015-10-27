@@ -13,3 +13,7 @@
 - <code>cordova build --release</code>.
 - <code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keys/TamreenApp.keystore platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp</code>.
 - <code>/Users/hossamzee/android-sdk-macosx/build-tools/21.1.2/zipalign -v 4 platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp1.0.1.apk</code>.
+
+## TODO:
+- Tell the user about the current state of the app, e.g. Loading..., etc.
+- Check the deviceType value sometimes it happens to be null.

@@ -4,7 +4,7 @@
     </ion-nav-bar>
 
     <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-ios-plus-outline" ng-click="more()"></button>
+        <button class="button button-icon icon ion-ios-plus-outline" ng-click="addGroupPlayer(group.id)"></button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="left">
@@ -19,14 +19,14 @@
 			    لم يتم إضافة لاعبين حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '+' في الأعلى.
 			</div>
 
-			<ion-item class="item item-avatar item-icon-left" ng-repeat="player in group.players" ng-click="playerMore(player.id)">
+			<ion-item class="item item-avatar item-icon-left" ng-repeat="player in group.players" ng-click="elaborateGroupPlayer(group.id, player.id)">
 			    <img src="http://api.adorable.io/avatars/70/{{player.id}}" />
 			    <h2>{{player.fullname}}</h2>
 			    <p>
 			        <span ng-if="player.role == 'member'">انضم {{player.joinedAt | fromNow }}</span>
 			        <span class="assertive" ng-if="player.role == 'admin'">مدير المجموعة</span>
 			    </p>
-			    <span class="icon ion-ios-more"></span>
+			    <span class="icon ion-ios-more" ng-if="group.adminable"></span>
 			</ion-item>
 
             <!-- <a href="#" class="button button-block button-assertive">مُغادرة هذه المجموعة</a> -->

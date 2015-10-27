@@ -68,6 +68,7 @@ tamreen.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 		var promise = TamreenService.userSecondHandShake($scope.parameters.code);
 
 		// Check what the service promises.
+		// TODO: Maybe if there is only one promise.
 		promise.then(function(response){
 
 			TamreenService.helperSaveUserInfo(response.data)

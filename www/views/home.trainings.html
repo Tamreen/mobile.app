@@ -12,7 +12,7 @@
 
     <ion-tabs class="tabs-striped tabs-top tabs-icon-only">
 
-        <ion-tab title="خاصّةٌ بي" on-select="fethcSpecifiedTrainings()">
+        <ion-tab title="خاصّةٌ بي" on-select="fetchSpecifiedTrainings()">
             <ion-nav-view name="tab-b">
                 <ion-content class="padding has-footer">
                     <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="specifiedPullToRefresh()"></ion-refresher>
@@ -36,7 +36,7 @@
             </ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="قريبةٌ منّي" on-select="fethcAroundTrainings()">
+        <ion-tab title="قريبةٌ منّي" on-select="fetchAroundTrainings()">
             <ion-nav-view name="tab-a">
                 <ion-content class="padding has-footer">
                     <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="aroundPullToRefresh()"></ion-refresher>

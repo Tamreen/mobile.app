@@ -1,7 +1,8 @@
 
-tamreen.controller('HomeController', function($scope){
+tamreen.controller('HomeController', function($scope, $rootScope){
 
 	//
+	// TODO: Update the default value of the badges.
 	$scope.badges = {
 		trainings: 4,
 		groups: 0,
@@ -9,10 +10,8 @@ tamreen.controller('HomeController', function($scope){
 	};
 
 	// TODO: Call a method for updating the badges.
-	ionic.EventController.on('badges.update', function(event){
-		//$scope.badges = event;
+	$rootScope.$on('badges.update', function(){
 		$scope.badges.trainings = 0;
-
 	});
 
 });

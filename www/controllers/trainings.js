@@ -1,6 +1,6 @@
 
 //
-tamreen.controller('TrainingsController', function($scope, $state, $stateParams, $ionicActionSheet, TamreenService, LocationService){
+tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $stateParams, $ionicActionSheet, TamreenService, LocationService){
 
 	console.log('TrainingsController has been initialized.');
 
@@ -40,7 +40,7 @@ tamreen.controller('TrainingsController', function($scope, $state, $stateParams,
 	};
 
 	// TODO: What if an error occur.
-	$scope.fethcSpecifiedTrainings = function(){
+	$scope.fetchSpecifiedTrainings = function(){
 
 		return TamreenService.trainingListSpecified()
 
@@ -55,7 +55,7 @@ tamreen.controller('TrainingsController', function($scope, $state, $stateParams,
 	};
 
 	//
-	$scope.fethcAroundTrainings = function(){
+	$scope.fetchAroundTrainings = function(){
 
 		return LocationService.getCurrent()
 
@@ -94,7 +94,7 @@ tamreen.controller('TrainingsController', function($scope, $state, $stateParams,
 
 	// TODO:
 	$scope.triggerBadgesRead = function(){
-		ionic.EventController.trigger('badges.update', {trainings: 2, groups: 0, profile: 0,});
+		$rootScope.$emit('badges.update');
 	}
 
 	//
@@ -163,7 +163,7 @@ tamreen.controller('TrainingsController', function($scope, $state, $stateParams,
 		break;
 
 		default:
-			$scope.fethcSpecifiedTrainings();
+			$scope.fetchSpecifiedTrainings();
 		break;
 
 	}

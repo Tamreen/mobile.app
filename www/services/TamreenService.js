@@ -321,6 +321,64 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 			url: callableUrl,
 			headers: service.helperUserTokenHeader(),
 		});
+	};
+
+	// Add a new group and be the admin of it.
+	// (Auth) POST /groups/add
+	service.groupAdd = function(name){
+
+		var callableUrl = configs.apiBaseurl + '/groups';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'POST',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: {'name': name}
+		});
+	};
+
+	// TODO: groupUpdate.
+
+	// Add a new player to a certain group, must be an admin for the group.
+	// (Auth) POST /groups/:id/players
+	service.groupPlayerAdd = function(id, e164formattedMobileNumber, fullname){
+
+		var callableUrl = configs.apiBaseurl + '/groups/' + id +'/players';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'POST',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: {
+				e164formattedMobileNumber: e164formattedMobileNumber,
+				fullname: fullname,
+			}
+		});
+	};
+
+	// Make a player an admin for a certain group.
+	// (Auth) PUT /groups/:id/players/:playerId/adminize
+	service.groupPlayerAdminize = function(id, playerId){
+
+		var callableUrl = configs.apiBaseurl + '/groups/' + id + '/players/' + playerId + '/adminize';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
 
 	};
 
