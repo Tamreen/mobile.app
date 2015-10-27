@@ -287,5 +287,42 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// TODO: The training details method.
+
+	// List all groups that the current player (logged in user) is in.
+	// (Auth) GET /groups
+	service.groupList = function(){
+
+		var callableUrl = configs.apiBaseurl + '/groups';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Get the group details.
+	// (Auth) GET /groups/:id
+	service.groupDetails = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/groups/' + id;
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+
+	};
+
 	return service;
 });

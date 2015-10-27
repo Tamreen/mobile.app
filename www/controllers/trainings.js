@@ -1,6 +1,6 @@
 
 //
-tamreen.controller('TrainingsController', function($scope, $ionicActionSheet, TamreenService, LocationService){
+tamreen.controller('TrainingsController', function($scope, $state, $stateParams, $ionicActionSheet, TamreenService, LocationService){
 
 	console.log('TrainingsController has been initialized.');
 
@@ -46,26 +46,16 @@ tamreen.controller('TrainingsController', function($scope, $ionicActionSheet, Ta
 
 		//
 		.then(function(response){
-
-			//console.log(response.data);
 			$scope.specifiedTrainings = response.data;
 			$scope.triggerBadgesRead();
 		});
+
+		// TODO: What if there is something went wrong.
 
 	};
 
 	//
 	$scope.fethcAroundTrainings = function(){
-
-		// return TamreenService.trainingListSpecified()
-
-		// //
-		// .then(function(response){
-
-		// 	//console.log(response.data);
-		// 	$scope.specifiedTrainings = response.data;
-		// 	$scope.triggerBadgesRead();
-		// });
 
 		return LocationService.getCurrent()
 
@@ -105,6 +95,11 @@ tamreen.controller('TrainingsController', function($scope, $ionicActionSheet, Ta
 	// TODO:
 	$scope.triggerBadgesRead = function(){
 		ionic.EventController.trigger('badges.update', {trainings: 2, groups: 0, profile: 0,});
+	}
+
+	//
+	$scope.getTrainingDetails = function(id){
+		
 	}
 
 	//
@@ -158,6 +153,19 @@ tamreen.controller('TrainingsController', function($scope, $ionicActionSheet, Ta
 	};
 
 	//
-	$scope.fethcSpecifiedTrainings();
+	// if ($state.name == 'home.trainings'){
+	// 	$scope.fethcSpecifiedTrainings();
+	// }
+	switch ($state.name){
+
+		case 'trainings-details':
+			$scope.getTrainingDetails($stateParams.id);
+		break;
+
+		default:
+			$scope.fethcSpecifiedTrainings();
+		break;
+
+	}
 
 });

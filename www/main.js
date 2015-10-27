@@ -99,7 +99,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 
 	//
 	.state('trainings-details', {
-		url: '/trainings/:trainingId/details',
+		url: '/trainings/:id/details',
 		templateUrl: 'views/trainings.details.html',
 		controller: 'TrainingsController',
 	})
@@ -124,7 +124,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 
 	//
 	.state('groups-details', {
-		url: '/groups/:groupId/details',
+		url: '/groups/:id/details',
 		templateUrl: 'views/groups.details.html',
 		controller: 'GroupsController',
 	})

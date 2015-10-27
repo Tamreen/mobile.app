@@ -1,4 +1,6 @@
 
+<!-- TODO: Adjust the style and move it to the CSS file. -->
+
 <ion-view view-title="المجموعات">
     <ion-nav-bar>
     </ion-nav-bar>
@@ -13,7 +15,7 @@
                 <img src="http://api.adorable.io/avatars/70/27" style="border-radius: 50%; background-color: #fff; height: 70px;"/ ><br /><br />
                 لم تنضم إلى أيّ مجموعة حتّى الآن، إذا كُنت تدير مجموعة لعب خارج التطبيق، فإنّه يُمكنك إضافتها من خلال اللّمس على أيقونة <span class="ion-ios-plus-outline" /> في الأعلى، أمّا إذا كنت عضوًا في مجموعة لعب فانتظر إضافتك من قبل مُديرها.
             </div>
-            <a ui-sref="groups-details({groupId: group.id})" class="item item-avatar" ng-repeat="group in groups">
+            <a ui-sref="groups-details({id: group.id})" class="item item-avatar" ng-repeat="group in groups">
                 <img src="http://api.adorable.io/avatars/70/group-{{group.id}}" / >
                 <h2>{{group.name}}</h2>
                 <p>{{group.playersCount}} لاعب.</p>
