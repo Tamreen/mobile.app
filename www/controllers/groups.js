@@ -215,8 +215,50 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	//
 	$scope.deleteGroupPlayer = function(id, playerId){
 
-		// TODO: Call the method to delete a group player.
-		return;
+		console.log('Delete a player has been called.');
+
+		// Check if the user is sure about deleting.
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'حذف اللاعب',
+			template: 'هل أنت متأكّد من أنّك تريد حذف اللاعب؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		//
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// Try to list the groups using the service.
+				var promise = TamreenService.groupPlayerDelete(id, playerId);
+
+				// Check what the service promises.
+				promise.then(function(){
+
+					// Fetch the group id details.
+					$scope.fetchGroupDetails(id);
+					$rootScope.$emit('groups.update');
+
+					// TODO: Maybe there is no need for this popup.
+					$ionicPopup.alert({
+						title: 'تمَ',
+						template: 'تمّ حذف اللاعب من المجموعةِ بنجاح.',
+						okText: 'حسنًا',
+					});
+
+					// Done.
+					console.log('Deleting a player has been done.');
+
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
+
+			}else{
+				console.log('Cancel deleting the player.');
+			}
+		});
 
 	};
 

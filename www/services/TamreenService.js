@@ -364,6 +364,23 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// Delete a player from a certain group.
+	// (Auth) DELETE /groups/:id/players/:playerId
+	service.groupPlayerDelete = function(id, playerId){
+
+		var callableUrl = configs.apiBaseurl + '/groups/' + id + '/players/' + playerId;
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'DELETE',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
 	// Make a player an admin for a certain group.
 	// (Auth) PUT /groups/:id/players/:playerId/adminize
 	service.groupPlayerAdminize = function(id, playerId){
