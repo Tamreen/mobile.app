@@ -17,3 +17,4 @@
 ## TODO:
 - Tell the user about the current state of the app, e.g. Loading..., etc.
 - Check the deviceType value sometimes it happens to be null.
+- Check every pullToRefresh method to respond to the current view.

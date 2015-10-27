@@ -107,10 +107,19 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	};
 
 	//
-	$scope.pullToRefresh = function(){
+	$scope.pullToRefreshGroups = function(){
 
 		// Fetch the groups.
 		$scope.fetchGroups();
+
+		//
+		$scope.$broadcast('scroll.refreshComplete');
+	};
+
+	$scope.pullToRefreshGroup = function(id){
+
+		// Fetch the groups.
+		$scope.fetchGroupDetails(id);
 
 		//
 		$scope.$broadcast('scroll.refreshComplete');
@@ -210,6 +219,8 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 		return;
 
 	};
+
+	// TODO: If the user is an admin, then the user can delete the group but do not leave.
 
 	//
 	$scope.deleteGroup = function(id){

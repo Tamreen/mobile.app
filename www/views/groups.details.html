@@ -12,10 +12,10 @@
     </ion-nav-buttons>
 
     <ion-content padding="true">
-        <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefresh()" class="rtl"></ion-refresher>
+        <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshGroup(group.id)"></ion-refresher>
         <ion-list>
 
-			<div class="item item-text-wrap text-center rtl" ng-if="players.length == 0">
+			<div class="item item-text-wrap text-center" ng-if="players.length == 0">
 			    لم يتم إضافة لاعبين حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '+' في الأعلى.
 			</div>
 
