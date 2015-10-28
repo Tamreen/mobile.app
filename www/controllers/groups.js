@@ -52,7 +52,33 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 
 	//
 	$scope.updateGroup = function(id){
-		// TODO: 
+
+		console.log('Updating a group has been called.');
+
+		// Validate the input of the user.
+		if (validator.isNull($scope.parameters.name) || validator.isNull($scope.parameters.name.trim())){
+
+			$ionicPopup.alert({
+				title: 'خطأ',
+				template: 'الرجاء التأكّد من إدخال اسم المجموعة.',
+				okText: 'حسنًا',
+			});
+
+			return;
+		}
+
+		// Try to add a group using the service.
+		var promise = TamreenService.groupUpdate(id, {name: $scope.parameters.name});
+
+		// Check what the service promises.
+		promise.then(function(response){
+
+			$rootScope.$emit('groups.update');
+			$state.go('home.groups');
+
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
 	};
 
 	//
@@ -102,6 +128,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 		//
 		.then(function(response){
 			$scope.group = response.data;
+			$scope.parameters.name = $scope.group.name;
 		});
 
 	};
@@ -262,8 +289,6 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 
 	};
 
-	// TODO: If the user is an admin, then the user can delete the group but do not leave.
-
 	//
 	$scope.deleteGroup = function(id){
 
@@ -356,7 +381,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	//
 	switch ($state.current.name){
 
-		case 'groups-details':
+		case 'groups-details': case 'groups-update':
 			$scope.fetchGroupDetails($stateParams.id);
 		break;
 

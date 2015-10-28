@@ -31,7 +31,7 @@
 
             <div class="item">
                 <div class="button-bar">
-                    <a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
+                    <a ui-sref="groups-update({id: group.id})" class="button button-positive">تحديث المعلومات</a>
                     <a class="button button-clear button-assertive" ng-if="group.adminable == 1" ng-click="deleteGroup(group.id)">حذف المجموعة</a>
                     <a class="button button-clear button-assertive" ng-if="group.adminable == 0" ng-click="leaveGroup(group.id)">مُغادرة هذه المجموعة</a>
                 </div>

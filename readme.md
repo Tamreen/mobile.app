@@ -20,3 +20,4 @@
 - Check every pullToRefresh method to respond to the current view.
 - Take some beautiful screenshots for the app to market it.
 - Mention that the faces are randomly generated, they do not mean anything personal.
+- Beautify the lines and codes, make them really beautiful.

@@ -341,7 +341,24 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
-	// TODO: groupUpdate.
+	// Update a group.
+	// (Auth) PUT /groups/:id
+	service.groupUpdate = function(id, parameters){
+
+		var callableUrl = configs.apiBaseurl + '/groups/' + id;
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: parameters,
+		});
+
+	};
 
 	// Leave a group, must be in that group and not admin.
 	// (Auth) PUT /groups/:id/leave

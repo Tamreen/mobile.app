@@ -130,6 +130,13 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	})
 
 	//
+	.state('groups-update', {
+		url: '/groups/:id/update',
+		templateUrl: 'views/groups.update.html',
+		controller: 'GroupsController',
+	})
+
+	//
 	.state('home.profile', {
 		url: '/profile',
 		views: {
