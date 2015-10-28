@@ -342,7 +342,24 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	};
 
 	// TODO: groupUpdate.
-	// TODO: groupLeave.
+
+	// Leave a group, must be in that group and not admin.
+	// (Auth) PUT /groups/:id/leave
+	service.groupLeave = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/groups/' + id + '/leave';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+
+	};
 
 	// Delete a group, must be an admin.
 	// (Auth) DELETE /groups/:id

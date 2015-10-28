@@ -52,7 +52,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 
 	//
 	$scope.updateGroup = function(id){
-
+		// TODO: 
 	};
 
 	//
@@ -307,13 +307,50 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 				console.log('Cancel deleting the group.');
 			}
 		});
-
 	};
 
 	//
 	$scope.leaveGroup = function(id){
-		// TODO:
-		alert('Leaving...');
+
+		console.log('Leave a group has been called.');
+
+		// Check if the user is sure about deleting.
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'مغادرة المجموعة',
+			template: 'هل أنت متأكّد من أنّك تريد مغادرة المجموعة؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// Try to list the groups using the service.
+				var promise = TamreenService.groupLeave(id);
+
+				// Check what the service promises.
+				promise.then(function(){
+
+					$ionicPopup.alert({
+						title: 'تم',
+						template: 'لقد غادرتَ المجموعة، في حفظ الله.',
+						okText: 'حسنًا',
+					});
+
+					// Redirect the user to the groups.
+					$rootScope.$emit('groups.update');
+					$state.go('home.groups');
+
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
+
+			}else{
+				console.log('Cancel leaving the group.');
+			}
+		});
 	};
 
 	//
