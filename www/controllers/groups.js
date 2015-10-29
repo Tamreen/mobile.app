@@ -51,6 +51,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	};
 
 	//
+	// TODO: Fix the issue of a user updating the information of a group when not an admin.
 	$scope.updateGroup = function(id){
 
 		console.log('Updating a group has been called.');
@@ -100,26 +101,26 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 			$rootScope.$emit('groups.update');
 
 		// TODO: The way that the error appear, it should be different.
-		}, function(error){
-			alert(error);
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
 		});
 	}
 
 	//
 	$scope.fetchGroups = function(){
-
 		//
 		return TamreenService.groupList()
 
 		//
 		.then(function(response){
 			$scope.groups = response.data;
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
 		});
-
-		// TODO: Handle errors if they occur.
 	};
 
 	//
+	// TODO: Handle the errors if any.
 	$scope.fetchGroupDetails = function(id){
 
 		//

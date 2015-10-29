@@ -341,7 +341,40 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
-	// TODO: The training details method.
+	// Add a training.
+	// (Auth) POST /trainings
+	service.trainingAdd = function(parameters){
+
+		var callableUrl = configs.apiBaseurl + '/trainings';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'POST',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: parameters,
+		});
+	};
+
+	// Get the training details.
+	// (Auth) GET /trainings/:id
+	service.trainingDetails = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id;
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
 
 	// List all groups that the current player (logged in user) is in.
 	// (Auth) GET /groups

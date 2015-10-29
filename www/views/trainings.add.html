@@ -1,29 +1,41 @@
 
 <ion-view title="إضافة تمرين">
+
     <ion-nav-bar>
     </ion-nav-bar>
+
     <ion-nav-buttons side="primary">
         <button class="button button-icon icon ion-ios-arrow-back" ui-sref="home.trainings"></button>
     </ion-nav-buttons>
 
     <ion-content padding="true">
-        <form ng-submit="add(group.id)">
+        <form ng-submit="addTraining()">
             <div class="list">
                 <div class="item item-divider">
                     <span>المكان</span>
-                    </div>
+                </div>
+
                 <label class="item item-input">
-                <span class="input-label">اسم الملعب</span>
-                <input type="text" placeholder="الإبداع" ng-model="parameters.stadium">
+                    <span class="input-label">اسم الملعب</span>
+                    <input type="text" placeholder="الإبداع" ng-model="parameters.stadium">
                 </label>
-                <a class="item item-icon-left" href="#">
-                <i class="icon ion-ios-location-outline dark"></i>
-                حدّد الموقع إن أحببت (اختياريّ).
+
+                <a class="item item-icon-left" ui-sref="pages-choosemap()" ng-if="parameters.coordinates == null">
+                    <i class="icon ion-ios-location-outline dark"></i>
+                    حدّد الموقع إن أحببت (اختياريّ).
                 </a>
+
+                <a class="item item-icon-left item-dark" ui-sref="pages-choosemap" ng-if="parameters.coordinates != null">
+                    <i class="icon ion-ios-location"></i>
+                    تمّ تحديد الموقع وَ لتغيره المس هُنا.
+                </a>
+
                 <div class="row"><div class="col"></div></div>
-                    <div class="item item-divider">
+
+                <div class="item item-divider">
                     <span>الزمان</span>
-                    </div>
+                </div>
+
                 <label class="item item-input item-select">
                     <span class="input-label">التاريخ</span>
                     <select ng-model="parameters.startedAtDate">
@@ -33,6 +45,7 @@
                         </option>
                     </select>
                 </label>
+
                 <label class="item item-input item-select">
                     <span class="input-label">وقت البدء</span>
                     <select ng-model="parameters.startedAtTime">
@@ -42,52 +55,39 @@
                         </option>
                     </select>
                 </label>
+
                 <div class="row"><div class="col"></div></div>
-                    <div class="item item-divider">
-                      <span>المدعوون</span>
-                    </div>
-                <div class="item item-checkbox">
-                    <label class="checkbox"><input type="checkbox"></label> لعب الليقا
+
+                <div class="item item-divider">
+                  <span>المدعوون</span>
                 </div>
-                <div class="item item-checkbox">
-                    <label class="checkbox"><input type="checkbox"></label> لعب حيّ الريّان
+
+                <div class="item item-checkbox" ng-repeat="group in groups">
+                    <label class="checkbox"><input type="checkbox" ng-model="group.checked"></label> {{group.name}}
                 </div>
+
                 <div class="item item-checkbox">
-                    <label class="checkbox checkbox-balanced"><input type="checkbox"></label> الدعوة عامّة
+                    <label class="checkbox checkbox-balanced">
+                        <input type="checkbox" ng-model="parameters.publicized" />
+                    </label> الدعوة عامّة
                 </div>
+
                 <div class="row">
                     <div class="col"></div>
                 </div>
-                        <div class="item item-divider">
+
+                <div class="item item-divider">
                     <span>اللاعبون</span>
-                    </div>
+                </div>
+
                 <label class="item item-input">
-                <span class="input-label">عدد اللاعبين</span>
-                <input type="text" placeholder="20" ng-model="parameters.playersCount">
+                    <span class="input-label">عدد اللاعبين</span>
+                    <input type="text" placeholder="20" ng-model="parameters.playersCount">
                 </label>
-                <!--   <div class="item item-checkbox">
-                    <label class="checkbox">
-                      <input type="checkbox">
-                    </label>
-                    Flux Capacitor
-                    </div> -->
-                <!--<label class="item" ng-click="pickDate()">
-                    <input type="text" placeholder="وقت البدء" ng-model="parameters.startedAt" class="rtl text-left" ng-focus="pickDate()">
-                    <p>التاريخ</p>
-                    </label> -->
-                <!--     
-                    <label class="item item-input">
-                      <span class="input-label">عدد اللاعبين</span>
-                      <input type="tel" placeholder="20" ng-model="parameters.playersCount" class="rtl text-left">
-                    </label>
-                    
-                    <label class="item item-input">
-                      <span class="input-label">عدد الاحتياط</span>
-                      <input type="tel" placeholder="4" ng-model="parameters.subsetPlayersCount" class="rtl text-left">
-                    </label> -->
+
                 <div>
-                    <a class="button button-block button-positive" ui-sref="home.trainings">إضافة التمرين</a>
-                    </div>
+                    <button class="button button-block button-positive" type="submit">إضافة التمرين</button>
+                </div>
             </div>
         </form>
     </ion-content>

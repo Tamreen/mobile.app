@@ -1,0 +1,22 @@
+
+<!-- TODO: This has to be better, meaning an API map not a static one. -->
+<ion-view title="تحديد مكانٍ جغرافيّ">
+
+    <ion-nav-bar>
+        <ion-nav-back-button>اختيار</ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-nav-buttons side="right">
+        <a class="button button-icon icon ion-ios-navigate-outline" ng-click="getUserCurrentLocation()"></a>
+    </ion-nav-buttons>
+
+    <ion-content padding="false">
+        <form name="addForm" ng-submit="addGroup()">
+            <div class="list">
+                <div class="item" style="padding: 0;">
+                    <img src="http://maps.googleapis.com/maps/api/staticmap?center={{parameters.coordinates.y}},{{parameters.coordinates.x}}&zoom=14&scale=false&size=1024x1024&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff2600%7Clabel:1%7Cالبدائع" />
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

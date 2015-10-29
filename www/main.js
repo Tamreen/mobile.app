@@ -105,6 +105,13 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	})
 
 	//
+	.state('pages-choosemap', {
+		url: '/pages/choosemap',
+		templateUrl: 'views/pages.choosemap.html',
+		controller: 'PagesController',
+	})
+
+	//
 	.state('trainings-details', {
 		url: '/trainings/:id/details',
 		templateUrl: 'views/trainings.details.html',

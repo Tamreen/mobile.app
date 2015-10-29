@@ -24,3 +24,7 @@
 - Clean inputs everytime a form appears.
 - Design the about page.
 - Fix the error when there is no internet access.
+- There is an issue of performance when getting trainings that are near.
+- Make the method names the same.
+- Remove a lot of the inner styles.
+- Maybe fix the indian number validations.
