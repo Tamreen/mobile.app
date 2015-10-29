@@ -73,7 +73,19 @@ tamreen.factory('StorageService', function($q, $injector){
 
 	// TODO: Check if the environmet is development or not.
 	service.destroy = function(key){
-		return 'Destroyed!';
+
+		//
+		var deferred = $q.defer();
+
+		//deferred.resolve('Stored!');
+		if (configs.environment == 'development'){
+			localStorage.removeItem(key);
+			deferred.resolve(true);
+		}
+
+		//
+		return deferred.promise;
+
 	};
 
 	//

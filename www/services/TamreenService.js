@@ -96,12 +96,6 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	// TODO: Most of methods to be here.
 
 	//
-	service.helperDestroyUserInfo = function(){
-		service.user = null;
-		$cordovaFile.removeFile(cordova.file.dataDirectory, service.userTokenFilePath);
-	}
-
-	//
 	service.helperMobileNumberValidable = function(mobileNumber){
 		try{
 			return phoneUtils.isValidNumberForRegion(mobileNumber, service.regionCode);
@@ -187,6 +181,31 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	};
 
 	//
+	service.helperDestroyUserInfo = function(){
+
+		// $cordovaFile.removeFile(cordova.file.dataDirectory, service.userTokenFilePath);
+
+		//
+		service.user = null;
+
+		//
+		var deferred = $q.defer();
+
+		//
+		service.storage.destroy(configs['userKey'])
+
+		//
+		.then(function(user){
+			return deferred.resolve(user);
+		}, function(error){
+			return deferred.reject(error);
+		});
+
+		//
+		return deferred.promise;
+	}
+
+	//
 	service.helperHandleErrors = function(response){
 
 		var errorMessage = null;
@@ -246,6 +265,41 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 				'e164formattedMobileNumber': service.e164formattedMobileNumber,
 				'code': code,
 			}
+		});
+	};
+
+	// Update the parameters of a player.
+	// (Auth) PUT /players
+	service.playerUpdate = function(parameters){
+
+		var callableUrl = configs.apiBaseurl + '/players';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: parameters,
+		});
+	};
+
+	// Log the user out of the app.
+	// (Auth) PUT /users/logout
+	service.userLogout = function(){
+
+		var callableUrl = configs.apiBaseurl + '/users/logout';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
 		});
 	};
 

@@ -59,6 +59,13 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	})
 
 	//
+	.state('players-firstupdate', {
+		url: '/players/firstupdate',
+		templateUrl: 'views/players.firstupdate.html',
+		controller: 'PlayersController',
+	})
+
+	//
 	.state('players-update', {
 		url: '/players/update',
 		templateUrl: 'views/players.update.html',
@@ -142,6 +149,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 		views: {
 			'home-profile': {
 				templateUrl: 'views/home.profile.html',
+				controller: 'UsersController',
 			}
 		}
 	})

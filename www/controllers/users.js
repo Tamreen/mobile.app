@@ -1,12 +1,20 @@
 
 //
-tamreen.controller('UsersController', function($scope, $state, $ionicPopup, TamreenService){
+tamreen.controller('UsersController', function($scope, $rootScope, $state, $ionicPopup, TamreenService){
 
 	console.log('Users controller has been initialized.');
 
 	// Parameters.
 	$scope.parameters = {};
 	$scope.parameters.regionCode = 'sa';
+
+	//
+	$scope.user = null;
+
+	//
+	$rootScope.$on('users.update', function(){
+		$scope.user = TamreenService.user;
+	});
 
 	// firstHandShake.
 	// Called when the user is entering the mobile and expecting a temporary code number.
@@ -75,10 +83,8 @@ tamreen.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 
 			.then(function(success){
 
-				console.log(response.data);
-
 				if (response.data.loginable == 0)
-					return $state.go('players-update');
+					return $state.go('players-firstupdate');
 
 				// Otherwise.
 				$state.go('home.trainings');
@@ -96,4 +102,49 @@ tamreen.controller('UsersController', function($scope, $state, $ionicPopup, Tamr
 			TamreenService.helperHandleErrors(response);
 		});
 	};
+
+	// Confirm if the user wants to log out.
+	// TODO: Consider in the level of the API to remove the device token.
+	$scope.logout = function(){
+
+		//
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'تسجيل الخروج',
+			template: 'هل أنت متأكّد من أنّك تريد تسجيل الخروج؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				var promise = TamreenService.userLogout();
+
+				// Check what the service promises.
+				promise.then(function(){
+					TamreenService.helperDestroyUserInfo();
+				}, function(response){
+					TamreenService.helperDestroyUserInfo();
+				});
+
+				//
+				$state.go('users-firsthandshake');
+
+				$ionicPopup.alert({
+					title: 'تم',
+					template: 'تمّ تسجيل الخروج بنجاح.',
+					okText: 'حسنًا',
+				});
+			}
+		});
+	};
+
+	//
+	if ($state.current.name == 'home.profile'){
+		console.log('$state.current.name is called.');
+		$scope.user = TamreenService.user;
+	}
+
 });

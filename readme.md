@@ -21,3 +21,6 @@
 - Take some beautiful screenshots for the app to market it.
 - Mention that the faces are randomly generated, they do not mean anything personal.
 - Beautify the lines and codes, make them really beautiful.
+- Clean inputs everytime a form appears.
+- Design the about page.
+- Fix the error when there is no internet access.
