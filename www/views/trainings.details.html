@@ -8,7 +8,7 @@
 
     <!-- TODO: This button should be hidden if the user cannot decide. -->
     <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-ios-more" ng-click="more()"></button>
+        <button class="button button-icon icon ion-ios-more" ng-click="trainingMore()"></button>
     </ion-nav-buttons>
 
     <ion-tabs class="tabs-striped tabs-top tabs-icon-only">
@@ -62,8 +62,8 @@
                             </div>
 
                             <!-- The user must decide first to be able to bring a professional. -->
-                            <div ng-if="training.decision != 'notyet'">
-                                <a href="#" class="button button-block button-positive">جلب مُحترف</a>
+                            <div ng-if="training.decision != 'notyet' && training.professionalized == 1">
+                                <a ng-click="bringProfessional(training.id)" class="button button-block button-positive">جلب مُحترف</a>
                             </div>
                         </div>
 
@@ -119,7 +119,7 @@
                             <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
                         </div>
 
-                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.notyetPlayers" ng-click="notyetPlayerMore(player.id)">
+                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.notyetPlayers" ng-click="playerMore(player.id)">
                             <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
                             <h2>{{player.fullname}}</h2>
                             <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>

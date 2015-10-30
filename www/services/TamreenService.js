@@ -410,6 +410,95 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// Lets the player bring a professional player.
+	// (Auth) PUT /trainings/:id/bringprofessional
+	service.trainingBringProfessional = function(id, e164formattedMobileNumber, fullname){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id +'/bringprofessional';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: {
+				e164formattedMobileNumber: e164formattedMobileNumber,
+				fullname: fullname,
+			}
+		});
+	};
+
+	// Lets the admin poke the training players.
+	// (Auth) PUT /trainings/:id/poke
+	service.trainingPoke = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/poke';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Lets the admin professionalize the training.
+	// (Auth) PUT /trainings/:id/professionalize
+	service.trainingProfessionalize = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/professionalize';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Lets the admin publicize the training.
+	// (Auth) PUT /trainings/:id/publicize
+	service.trainingPublicize = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/publicize';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Lets the admin cancel the training.
+	// (Auth) PUT /trainings/:id/cancel
+	service.trainingCancel = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/cancel';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
 	// List all groups that the current player (logged in user) is in.
 	// (Auth) GET /groups
 	service.groupList = function(){

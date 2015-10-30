@@ -7709,7 +7709,7 @@ ion-content, .bar .title, .bar small {
   right: auto;
   font-weight: normal; }
 
-.rtl, .popup-body, .loading-container .loading, .popup-buttons, .action-sheet-title {
+.rtl, .popup-body, .loading-container .loading, .popup-buttons, .action-sheet-title, .action-sheet .button {
   direction: rtl; }
 
 .popup-buttons .button {

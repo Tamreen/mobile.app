@@ -1,6 +1,6 @@
 
 //
-tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicActionSheet, TamreenService, LocationService){
+tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicHistory, TamreenService, LocationService, ContactService){
 
 	console.log('TrainingsController has been initialized.');
 
@@ -21,8 +21,27 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	$scope.groups = [];
 
 	//
+	$scope.morePoke = 'إرسال “يالله شباب”';
+	$scope.moreProfessionalize = 'فتح الباب لجلب محترفين';
+	$scope.morePublicize = 'فتح الباب للعموم';
+	$scope.moreCancel = 'إلغاء التمرين'; 
+
+	//
+	// TODO: This one has to be fixed, it is being called too many times.
 	$rootScope.$on('pages.maps.choose', function(event, coordinates){
-		$scope.parameters.coordinates = coordinates;
+
+		console.log(event);
+
+		var previousState = $ionicHistory.backView().stateName;
+
+		if (previousState == 'trainings-add'){
+			return $scope.parameters.coordinates = coordinates;
+		}
+
+		if (previousState == 'trainings-details'){
+			//return $scope.parameters.coordinates = coordinates;
+			alert('The coordinates should be set and the training should be publicized.');
+		}
 	});
 
 	// Set the locale of moment.
@@ -173,6 +192,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			$scope.training = response.data;
 
 			// Redirect to the added training.
+			// TODO: $scope.specifiedPullToRefresh();
 			$state.go('trainings-details', {'id': $scope.training.id});
 
 		}, function(response){
@@ -272,7 +292,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			}
 
 		});
-
 	};
 
 	//
@@ -286,38 +305,76 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	};
 
 	//
-	$scope.more = function(){
+	$scope.trainingMore = function(){
 
 		// If the user cannot decide for this training.
-		if ($scope.training.canDecide == false){
+		if ($scope.training.canDecide == false || $scope.training.adminable == 0){
 			return;
 		}
 
 		//
+		var buttonLabels = [];
+
+		//
+		buttonLabels.push({text: $scope.morePoke});
+
+		//
+		if ($scope.training.professionalized == 0){
+			buttonLabels.push({text: $scope.moreProfessionalize});
+		}
+
+		//
+		if ($scope.training.publicized == 0){
+			buttonLabels.push({text: $scope.morePublicize});
+		}
+
+		//
+		buttonLabels.push({text: $scope.moreCancel});
+
+		//
 		$ionicActionSheet.show({
 
-			buttons: [
-				{text: 'فتح الباب لجلب محترفين'},
-				{text: 'جعل التمرين عامًا'},
-				{text: 'نكز'},
-			],
-
-			destructiveText: 'إلغاء التمرين',
+			buttons: buttonLabels,
 			titleText: 'فيمَ تفكّر؟',
 			cancelText: 'إلغاء',
+			destructiveText: null,
 
 			cancel: function(){
 
 			},
 
-			buttonClicked: function(index) {
+			buttonClicked: function(index){
+
+				//
+				var selectedLabel = buttonLabels[index].text;
+
+				//
+				if (selectedLabel == $scope.morePoke){
+					$scope.poke($scope.training.id);
+				}
+
+				//
+				if (selectedLabel == $scope.moreProfessionalize){
+					$scope.professionalize($scope.training.id);
+				}
+
+				//
+				if (selectedLabel == $scope.morePublicize){
+					$scope.publicize($scope.training.id);
+				}
+
+				//
+				if (selectedLabel == $scope.moreCancel){
+					$scope.cancel($scope.training.id);
+				}
+
 				return true;
 			}
 		});
 	};
 
 	//
-	$scope.notyetPlayerMore = function(playerId){
+	$scope.playerMore = function(playerId){
 
 		//
 		$ionicActionSheet.show({
@@ -334,7 +391,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 			},
 
-			buttonClicked: function(index) {
+			buttonClicked: function(index){
 				return true;
 			}
 		});
@@ -388,16 +445,140 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	};
 
 	//
-	// if ($state.name == 'home.trainings'){
-	// 	$scope.fethcSpecifiedTrainings();
-	// }
+	$scope.poke = function(id){
 
+		console.log('Poke has been called.');
+
+		// 
+		var promise = TamreenService.trainingPoke(id);
+
+		// Check what the service promises.
+		promise.then(function(){
+			$scope.fetchTrainingDetails(id);
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
+	};
+
+	//
+	$scope.professionalize = function(id){
+
+		console.log('Professionalize has been called.');
+
+		// 
+		var promise = TamreenService.trainingProfessionalize(id);
+
+		// Check what the service promises.
+		promise.then(function(){
+			$scope.fetchTrainingDetails(id);
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
+	};
+
+	//
+	$scope.publicize = function(id){
+
+		console.log('Publicize has been called.');
+
+		// 
+		var promise = TamreenService.trainingPublicize(id);
+
+		// Check what the service promises.
+		promise.then(function(){
+			$scope.fetchTrainingDetails(id);
+		}, function(response){
+
+			if (!validator.isNull(response) && !validator.isNull(response.status) && response.status == 409){
+
+				$state.go('pages-choosemap');
+
+				//
+				$ionicPopup.alert({
+					title: 'معلومة',
+					template: 'الرجاء تحديد الموقع الجغرافي للملعب ليتسنّى للعموم الحضور.',
+					okText: 'حسنًا',
+				});
+
+			}else{
+				TamreenService.helperHandleErrors(response);
+			}
+
+		});
+	};
+
+	//
+	$scope.cancel = function(trainingId){
+
+		console.log('Cancel the training has been called.');
+
+		// Check if the user is sure about deleting.
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'إلغاء التمرين',
+			template: 'هل أنت متأكّد من أنّك تريد إلغاء التمرين؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// 
+				var promise = TamreenService.trainingCancel(trainingId);
+
+				// Check what the service promises.
+				promise.then(function(){
+
+					// TODO: $scope.specifiedPullToRefresh();
+					$state.go('home.trainings');
+
+					$ionicPopup.alert({
+						title: 'تم',
+						template: 'تمّ إلغاء التمرين.',
+						okText: 'حسنًا',
+					});
+
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
+
+			}else{
+				console.log('Training has not been canceled.');
+			}
+		});
+	};
+
+	//
+	$scope.bringProfessional = function(id){
+
+		//
+		return ContactService.pick()
+
+		//
+		.then(function(contact){
+			return TamreenService.trainingBringProfessional(id, contact.e164formattedMobileNumber, contact.fullname);
+		})
+
+		//
+		.then(function(response){
+			$scope.fetchTrainingDetails(id);
+
+		//
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
+	};
+
+	//
 	switch ($state.current.name){
 
 		case 'trainings-details':
 			$scope.fetchTrainingDetails($stateParams.id);
 		break;
 
+		// TODO: There is an issue whith the coordinates.
 		case 'trainings-add':
 			console.log('trainings-add has been called.');
 			console.log('parameters.coordinates', $scope.parameters.coordinates);

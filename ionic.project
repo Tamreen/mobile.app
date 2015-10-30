@@ -3,8 +3,8 @@
   "app_id": "",
   "proxies": [
     {
-      "path": "/api",
-      "proxyUrl": "http://localhost:4000/api"
+      "path": "/api/v2",
+      "proxyUrl": "http://localhost:4000/api/v2"
     }
   ],
   "gulpStartupTasks": [
