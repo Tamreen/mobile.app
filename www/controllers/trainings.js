@@ -164,7 +164,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		var isoStartDateTime = startedAt.toISOString(); //validator.toDate($scope.parameters.startedAt).toISOString();
 
 		// Try to add a training using the service.
-		var promise = TamreenService.trainingAdd({stadium: $scope.parameters.stadium, startedAt: isoStartDateTime, playersCount: $scope.parameters.playersCount, publicized: $scope.parameters.publicized, coordinates: $scope.parameters.coordinates, groups: $scope.parameters.groups,});
+		var promise = TamreenService.trainingAdd({stadium: $scope.parameters.stadium, startedAt: isoStartDateTime, playersCount: $scope.parameters.playersCount, publicized: +$scope.parameters.publicized, coordinates: $scope.parameters.coordinates, groups: $scope.parameters.groups,});
 
 		// Check what the service promises.
 		promise.then(function(response){
@@ -223,7 +223,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		$scope.specifiedTrainings = [];
 
 		//
-		$scope.fethcSpecifiedTrainings();
+		$scope.fetchSpecifiedTrainings();
 		//
 		$scope.$broadcast('scroll.refreshComplete');
 	};
@@ -242,21 +242,64 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 		//
 		.then(function(response){
+
 			$scope.training = response.data;
+
+			//
+			$scope.training.canDecide = true;
+			$scope.training.summary = null;
+
+			// Work on variable called 'canDecide'.
+			if ($scope.training.status == 'canceled' || $scope.training.status == 'started' || $scope.training.status == 'completed'){
+				$scope.training.canDecide = false;
+			}
+
+			var summaries = [];
+
+			// Check if the training is allowing to bring professionals and is publicized.
+			if ($scope.training.professionalized == 1){
+				summaries.push('جلب المُحترفين');
+			}
+
+			//
+			if ($scope.training.publicized == 1){
+				summaries.push('مُشاركة العموم');
+			}
+
+			//
+			if (summaries.length > 0){
+				$scope.training.summary = summaries.join(' وَ ');
+			}
+
 		});
 
 	};
 
 	//
+	$scope.pullToRefreshTraining = function(id){
+
+		// Fetch the training.
+		$scope.fetchTrainingDetails(id);
+
+		//
+		$scope.$broadcast('scroll.refreshComplete');
+	};
+
+	//
 	$scope.more = function(){
+
+		// If the user cannot decide for this training.
+		if ($scope.training.canDecide == false){
+			return;
+		}
 
 		//
 		$ionicActionSheet.show({
 
 			buttons: [
-				{text: 'فتح الباب لجب محترفين'},
+				{text: 'فتح الباب لجلب محترفين'},
 				{text: 'جعل التمرين عامًا'},
-				{text: 'وكز'},
+				{text: 'نكز'},
 			],
 
 			destructiveText: 'إلغاء التمرين',
@@ -293,6 +336,53 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 			buttonClicked: function(index) {
 				return true;
+			}
+		});
+	};
+
+	//
+	$scope.willCome = function(id){
+
+		console.log('Decision will come has been called.');
+
+		// Try to list the groups using the service.
+		var promise = TamreenService.trainingWillCome(id);
+
+		// Check what the service promises.
+		promise.then(function(){
+			$scope.fetchTrainingDetails(id);
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
+	};
+
+	// Confirm this action.
+	$scope.apologize = function(id){
+		
+		console.log('Decision apologize has been called.');
+
+		// Check if the user is sure about deleting.
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'الاعتذار عن الحضور',
+			template: 'هل أنت متأكّد من أنّك تريد الاعتذار عن الحضور؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// Try to list the groups using the service.
+				var promise = TamreenService.trainingApologize(id);
+
+				// Check what the service promises.
+				promise.then(function(){
+					$scope.fetchTrainingDetails(id);
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
 			}
 		});
 	};

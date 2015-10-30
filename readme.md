@@ -28,3 +28,7 @@
 - Make the method names the same.
 - Remove a lot of the inner styles.
 - Maybe fix the indian number validations.
+- There seems to be an issue when choosing the current location of the user (pages/choosemap.html).
+- Fix the issue of the scroll when adding a new training.
+- Fix the android back button, the button should be in the left.
+- Fix the rounding with buttons bar.

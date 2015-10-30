@@ -1,11 +1,12 @@
 
-<ion-view view-title="التمارين" >
+<ion-view view-title="{{training.name}}" >
     <ion-nav-bar></ion-nav-bar>
 
     <ion-nav-buttons side="left">
         <button class="button button-icon icon ion-ios-arrow-back" ui-sref="home.trainings"></button>
     </ion-nav-buttons>
 
+    <!-- TODO: This button should be hidden if the user cannot decide. -->
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios-more" ng-click="more()"></button>
     </ion-nav-buttons>
@@ -14,68 +15,115 @@
         <ion-tab title="الملعب">
             <ion-nav-view name="tab-a">
                 <ion-content class="padding">
-                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
+
+                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshTraining(training.id)"></ion-refresher>
+
                     <div class="list">
-                        <div class="item" style="padding: 0; margin-bottom: -16px;">
-                            <img src="http://maps.googleapis.com/maps/api/staticmap?center=البدائع&zoom=14&scale=false&size=400x260&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff2600%7Clabel:1%7Cالبدائع" />
+
+                        <!-- <div class="item" style="padding: 0; margin-bottom: -16px;">
+                            <img src="http://33.media.tumblr.com/6501efae7730896e8da5cfbd601f77b3/tumblr_inline_n5oew7A7t71scmhb6.gif" />
+                        </div> -->
+
+                        <!-- TOOD: It should be clickable to show the directions to the coordinates. -->
+                        <div class="item" style="padding: 0; margin-bottom: -30px;" ng-if="training.coordinates != null">
+                            <img ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{training.coordinates.y}},{{training.coordinates.x}}&zoom=14&scale=false&size=400x260&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff2600%7Clabel:1%7Cالبدائع" />
                         </div>
+
                         <div class="item item-avatar">
-                            <img src="views/images/{{training.status}}.png" />
+                            <img ng-src="views/images/{{training.status}}.png" />
                             <h2>{{training.stadium}}</h2>
-                            <p>{{training.startedAt|arDate}}</p>
-                            <!-- <span class="badge">13/20</span> -->
+                            <p>{{training.startedAt | arDate}}</p>
                         </div>
-                        <div class="item">
-                            <div class="button-bar">
-                                <a class="button button-balanced">سأحضر بإذن الله</a>
-                                <!-- TODO: This should also be bringing a professional. -->
-                                <a class="button button-clear button-positive">أعتذر عن الحضور</a>
+
+                        <div ng-if="training.canDecide">
+
+                            <!-- The user did not decide yet. -->
+                            <div class="item" id="notYetDecided" ng-if="training.decision == 'notyet'">
+                                <div class="button-bar">
+                                    <a class="button button-balanced" ng-click="willCome(training.id)">سأحضر بإذن الله</a>
+                                    <a class="button button-clear button-positive" ng-click="apologize(training.id)">أعتذر عن الحضور</a>
+                                </div>
+                            </div>
+
+                            <!-- The user decided to come. -->
+                            <div class="item" id="notYetDecided" ng-if="training.decision == 'willcome'">
+                                <div class="button-bar">
+                                    <span class="button button-clear">قرّرتَ الحضور</span>
+                                    <a class="button button-outline button-assertive" ng-click="apologize(training.id)">أعتذر عن الحضور</a>
+                                </div>
+                            </div>
+
+                            <!-- The user apologized. -->
+                            <div class="item" id="notYetDecided" ng-if="training.decision == 'apologize'">
+                                <div class="button-bar">
+                                    <span class="button button-clear">اعتذرتَ عن الحضور</span>
+                                    <a class="button button-outline button-balanced" ng-click="willCome(training.id)">سأحضر بإذن الله</a>
+                                </div>
+                            </div>
+
+                            <!-- The user must decide first to be able to bring a professional. -->
+                            <div ng-if="training.decision != 'notyet'">
+                                <a href="#" class="button button-block button-positive">جلب مُحترف</a>
                             </div>
                         </div>
-                        <!-- <div class="padding rtl text-center dark">
-                            2.0.4
-                            </div> -->
+
                     </div>
                 </ion-content>
+
+                <!-- TODO: The content div has to have a (has-footer) attribute. -->
+                <div class="bar bar-footer bar-light" ng-if="training.summary != null">
+                    <div class="title">
+                        <small>التمرين يُتيح {{training.summary}}.</small>
+                    </div>
+                </div>
+
             </ion-nav-view>
         </ion-tab>
         <ion-tab title="اللاعبون">
             <ion-nav-view name="tab-b">
                 <ion-content class="padding">
-                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="trainingsPullToRefresh()"></ion-refresher>
+                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshTraining(training.id)"></ion-refresher>
                     <ion-list>
+
                         <!-- Will come players. -->
-                        <div class="item item-divider">
+                        <div class="item item-divider" ng-if="training.willcomePlayers.length > 0">
                             <span class="rtl">قرّروا الحضور</span>
                             <span class="badge badge-light">{{training.willcomePlayers.length}}</span>
-                            </div>
-                        <!-- <h5 class="padding">قرّروا الحضور</h5> -->
+                        </div>
+
                         <div class="item item-avatar" ng-repeat="player in training.willcomePlayers">
                             <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
                             <h2>{{player.fullname}}</h2>
-                            <p>{{decidedAt | arDate }}</p>
+                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
                         </div>
-                        <div class="row"><div class="col"></div></div>
-                            <div class="item item-divider">
-                                <span class="rtl">اعتذروا عن الحضور</span>
-                                <span class="badge badge-light">{{training.apologizePlayers.length}}</span>
-                            </div>
-                        <!-- <h5 class="padding">اعتذروا عن الحضور</h5> -->
+
+                        <!-- <div class="row"><div class="col"></div></div> -->
+
+                        <div class="item item-divider" ng-if="training.apologizePlayers.length > 0">
+                            <span class="rtl">اعتذروا عن الحضور</span>
+                            <span class="badge badge-light">{{training.apologizePlayers.length}}</span>
+                        </div>
+
                         <div class="item item-avatar" ng-repeat="player in training.apologizePlayers">
                             <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
                             <h2>{{player.fullname}}</h2>
-                            <p>{{decidedAt | arDate}}</p>
+                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
                         </div>
-                        <div class="row"><div class="col"></div></div>
-                            <div class="item item-divider">
-                                <span class="rtl">لم يقرّروا حتّى الآن</span>
-                                <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
-                            </div>
-                        <!-- <h5 class="padding">لم يقرّروا حتّى الآن</h5> -->
+
+                        <!-- <div class="row"><div class="col"></div></div> -->
+                        
+                        <div class="item item-divider" ng-if="training.notyetPlayers.length > 0">
+                            <span class="rtl">لم يقرّروا حتّى الآن</span>
+                            <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
+                        </div>
+
                         <div class="item item-avatar item-icon-left" ng-repeat="player in training.notyetPlayers" ng-click="notyetPlayerMore(player.id)">
                             <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
                             <h2>{{player.fullname}}</h2>
-                            <p>قرأها {{decidedAt | fromNow }}</p>
+                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
                             <i class="icon ion-ios-more"></i>
                         </div>
                     </ion-list>

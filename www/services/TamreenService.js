@@ -376,6 +376,40 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// Lets the player come to the training.
+	// (Auth) PUT /trainings/:id/willcome
+	service.trainingWillCome = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/willcome';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Lets the player apologize from coming to the training.
+	// (Auth) PUT /trainings/:id/apologize
+	service.trainingApologize = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/apologize';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
 	// List all groups that the current player (logged in user) is in.
 	// (Auth) GET /groups
 	service.groupList = function(){
