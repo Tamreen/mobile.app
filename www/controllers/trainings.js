@@ -119,6 +119,19 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	];
 
 	//
+	// TODO: It seems like this method is being called for too many times.
+	$scope.getStatusImageUrl = function(status, percentage){
+		
+		//
+		if (status == 'canceled' || status == 'gathering-completed'){
+			return 'views/images/' + status + '.png';
+		}
+
+		//
+		return drawTrainingPercentage(percentage);
+	}
+
+	//
 	$scope.fetchUserGroups = function(){
 
 		//
@@ -408,12 +421,13 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		var buttonLabels = [];
 
 		//
-		if (decision == 'notyet' || decision == 'willcome'){
-			buttonLabels.push({text: $scope.morePlayerApologize});
-		}
-
 		if (decision == 'notyet' || decision == 'apologize'){
 			buttonLabels.push({text: $scope.morePlayerWillCome});
+		}
+
+		//
+		if (decision == 'notyet' || decision == 'willcome'){
+			buttonLabels.push({text: $scope.morePlayerApologize});
 		}
 
 		//

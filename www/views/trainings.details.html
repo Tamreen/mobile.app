@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="item item-avatar">
-                            <img ng-src="views/images/{{training.status}}.png" />
+                            <img ng-src="{{getStatusImageUrl(training.status, training.percentage)}}" />
                             <h2>{{training.stadium}}</h2>
                             <p>{{training.startedAt | arDate}}</p>
                         </div>

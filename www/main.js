@@ -4,9 +4,6 @@ tamreen = angular.module('tamreen', ['ionic']);
 
 // Run at the begining.
 tamreen.run(function($ionicPlatform, TamreenService){
-
-	// TODO: Whenever ionic platform is ready.
-
 });
 
 // Filters.
@@ -169,5 +166,53 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 
 	// Set the default route.
 	//$urlRouterProvider.otherwise('/users/firsthandshake');
-
 });
+
+//
+// function drawTrainingStatus(){
+// 	var canvas = document.getElementById('trainingStatusCanvas');
+// 	//var context = canvas.getContext('2d');
+// 	console.log(canvas);
+// }
+
+// drawTrainingStatus();
+
+// http://www.wickedlysmart.com/how-to-make-a-pie-chart-with-html5s-canvas/
+function degreesToRadians(degrees){
+	return (degrees * Math.PI)/180;
+}
+
+// TODO: This method need to be tested.
+function drawTrainingPercentage(percentage){
+
+	var canvas = trainingStatusCanvas;
+	var context = canvas.getContext('2d');
+
+	context.save();
+
+	var centerX = Math.floor(canvas.width/2);
+    var centerY = Math.floor(canvas.height/2);
+    var radius = Math.floor(canvas.width/2);
+
+    // Fill the background.
+    context.rect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = '#f1f1f1';
+    context.fill();
+
+	var startingAngle = degreesToRadians(0);
+	var arcSize = degreesToRadians(360*(percentage/100));
+	var endingAngle = startingAngle + arcSize;
+
+	context.beginPath();
+	context.moveTo(centerX, centerY);
+	context.arc(centerX, centerY, radius, startingAngle, endingAngle, false);
+	context.closePath();
+
+	context.fillStyle = '#d0bcf9';
+	context.fill();
+
+	context.restore();
+
+	//
+	return canvas.toDataURL();
+}

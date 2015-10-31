@@ -26,7 +26,7 @@
                         </div>
 
                         <a ui-sref="trainings-details({id: training.id})" class="item item-avatar item-icon-left" ng-repeat="training in specifiedTrainings">
-                            <img ng-src="views/images/{{training.status}}.png"></img>
+                            <img ng-src="{{getStatusImageUrl(training.status, training.percentage)}}"></img>
                             <h2>{{training.name}}</h2>
                             <p>{{training.startedAt|arDate}}</p>
                         </a>
@@ -50,7 +50,7 @@
                         </div>
 
                         <a ui-sref="trainings-details({id: training.id})" class="item item-avatar item-icon-left" ng-repeat="training in aroundTrainings">
-                            <img ng-src="views/images/{{training.status}}.png"></img>
+                            <img ng-src="{{getStatusImageUrl(training.status, training.percentage)}}"></img>
                             <h2>{{training.name}}</h2>
                             <p>{{training.startedAt|arDate}}</p>
                         </a>
