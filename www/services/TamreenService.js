@@ -359,6 +359,24 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// Update a training.
+	// (Auth) PUT /trainings/:id
+	service.trainingUpdate = function(id, parameters){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id;
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+			data: parameters,
+		});
+	};
+
 	// Get the training details.
 	// (Auth) GET /trainings/:id
 	service.trainingDetails = function(id){
@@ -521,6 +539,23 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	service.trainingCancel = function(id){
 
 		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/cancel';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Lets the admin complete the training.
+	// (Auth) PUT /trainings/:id/complete
+	service.trainingComplete = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/complete';
 
 		// Do tell about calling the URL.
 		console.log('Calling ' + callableUrl + '...');

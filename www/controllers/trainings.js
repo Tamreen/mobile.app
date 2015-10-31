@@ -1,5 +1,5 @@
 
-var trainingEventsDefined = false;
+// var trainingEventsDefined = false;
 
 //
 tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicHistory, TamreenService, LocationService, ContactService){
@@ -26,6 +26,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	$scope.morePoke = 'إرسال “يالله شباب”';
 	$scope.moreProfessionalize = 'فتح الباب لجلب محترفين';
 	$scope.morePublicize = 'فتح الباب للعموم';
+	$scope.moreComplete = 'الاكتفاء بالعدد الحاليّ';
 	$scope.moreCancel = 'إلغاء التمرين';
 	$scope.morePlayerWillCome = 'سيحضر بإذن الله';
 	$scope.morePlayerApologize = 'يعتذر عن الحضور';
@@ -34,21 +35,21 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	// TODO: This one has to be fixed, it is being called too many times.
 	// if (trainingEventsDefined == false){
 
-	// 	ionic.EventController.on('pages.maps.choose', function(event){
+		$rootScope.$on('pages.maps.choose', function(event, coordinates){
 
-	// 		console.log(coordinates);
+			console.log('pages.maps.choose called');
 
-	// 		var previousState = $ionicHistory.backView().stateName;
+			var previousState = $ionicHistory.backView().stateName;
 
-	// 		if (previousState == 'trainings-add'){
-	// 			return $scope.parameters.coordinates = coordinates;
-	// 		}
+			if (previousState == 'trainings-add'){
+				return $scope.parameters.coordinates = coordinates;
+			}
 
-	// 		if (previousState == 'trainings-details'){
-	// 			//return $scope.parameters.coordinates = coordinates;
-	// 			alert('The coordinates should be set and the training should be publicized.');
-	// 		}
-	// 	});
+			if (previousState == 'trainings-details'){
+				//return $scope.parameters.coordinates = coordinates;
+				alert('The coordinates should be set and the training should be publicized.');
+			}
+		});
 
 	// 	trainingEventsDefined = true;
 	// }
@@ -239,9 +240,10 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		.then(function(response){
 			$scope.aroundTrainings = response.data;
 			$scope.updateBadgesEventTrigger();
-		}, function(error){
-			// TODO: Make this error prettier.
-			alert('Error occur');
+
+		// TODO: Handle all errors including permission errors.
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
 		});
 	};
 
@@ -300,6 +302,8 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 				$scope.training.summary = summaries.join(' وَ ');
 			}
 
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
 		});
 	};
 
@@ -325,7 +329,9 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		var buttonLabels = [];
 
 		//
-		buttonLabels.push({text: $scope.morePoke});
+		if ($scope.training.status != 'gathering-completed'){
+			buttonLabels.push({text: $scope.morePoke});
+		}
 
 		//
 		if ($scope.training.professionalized == 0){
@@ -335,6 +341,11 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		//
 		if ($scope.training.publicized == 0){
 			buttonLabels.push({text: $scope.morePublicize});
+		}
+
+		//
+		if ($scope.training.status != 'gathering-completed' && $scope.training.willcomePlayersCount > 0){
+			buttonLabels.push({text: $scope.moreComplete});
 		}
 
 		//
@@ -373,6 +384,11 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 				}
 
 				//
+				if (selectedLabel == $scope.moreComplete){
+					$scope.complete($scope.training.id);
+				}
+
+				//
 				if (selectedLabel == $scope.moreCancel){
 					$scope.cancel($scope.training.id);
 				}
@@ -404,7 +420,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		$ionicActionSheet.show({
 
 			buttons: buttonLabels,
-			titleText: 'فيمَ يفكّر محمّد الخالد؟',
+			titleText: 'فيمَ يفكّر؟',
 			cancelText: 'إلغاء',
 
 			cancel: function(){
@@ -602,7 +618,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	};
 
 	//
-	$scope.cancel = function(trainingId){
+	$scope.cancel = function(id){
 
 		console.log('Cancel the training has been called.');
 
@@ -620,7 +636,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			if(yes){
 
 				// 
-				var promise = TamreenService.trainingCancel(trainingId);
+				var promise = TamreenService.trainingCancel(id);
 
 				// Check what the service promises.
 				promise.then(function(){
@@ -640,6 +656,40 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 			}else{
 				console.log('Training has not been canceled.');
+			}
+		});
+	};
+
+	//
+	$scope.complete = function(id){
+
+		console.log('Cancel the training has been called.');
+
+		// Check if the user is sure about completing.
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'إلغاء التمرين',
+			template: 'هل أنت متأكّد من أنّك تريد الاكتفاء بالعدد الحاليّ؟',
+			cancelText: 'لا',
+			okText: 'نعم',
+			okType: 'button-assertive',
+		});
+
+		confirmPopup.then(function(yes){
+
+			if(yes){
+
+				// 
+				var promise = TamreenService.trainingComplete(id);
+
+				// Check what the service promises.
+				promise.then(function(){
+					$scope.fetchTrainingDetails(id);
+				}, function(response){
+					TamreenService.helperHandleErrors(response);
+				});
+
+			}else{
+				console.log('Training has not been completed.');
 			}
 		});
 	};
