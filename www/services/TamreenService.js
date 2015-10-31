@@ -410,6 +410,40 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// Decide for a player to come to a training by the training admin.
+	// (Auth) PUT /trainings/:id/players/:playerId/willcome
+	service.trainingAdminPlayerWillCome = function(id, playerId){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/players/' + playerId + '/willcome';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
+	// Decide for a player to apologize for attending a training by the training admin
+	// (Auth) PUT /trainings/:id/players/:playerId/apologize
+	service.trainingAdminPlayerApologize = function(id, playerId){
+
+		var callableUrl = configs.apiBaseurl + '/trainings/' + id + '/players/' + playerId + '/apologize';
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'PUT',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
 	// Lets the player bring a professional player.
 	// (Auth) PUT /trainings/:id/bringprofessional
 	service.trainingBringProfessional = function(id, e164formattedMobileNumber, fullname){

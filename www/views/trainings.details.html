@@ -7,6 +7,7 @@
     </ion-nav-buttons>
 
     <!-- TODO: This button should be hidden if the user cannot decide. -->
+    <!-- TODO: The button for players also should be hidden, the ones that show '...'. -->
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios-more" ng-click="trainingMore()"></button>
     </ion-nav-buttons>
@@ -91,11 +92,12 @@
                             <span class="badge badge-light">{{training.willcomePlayers.length}}</span>
                         </div>
 
-                        <div class="item item-avatar" ng-repeat="player in training.willcomePlayers">
+                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.willcomePlayers" ng-click="playerMore(player.id, 'willcome')">
                             <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
                             <h2>{{player.fullname}}</h2>
-                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
-                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
+                            <!-- <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p> -->
+                            <i class="icon ion-ios-more" ng-if="training.adminable == 1"></i>
                         </div>
 
                         <!-- <div class="row"><div class="col"></div></div> -->
@@ -105,11 +107,12 @@
                             <span class="badge badge-light">{{training.apologizePlayers.length}}</span>
                         </div>
 
-                        <div class="item item-avatar" ng-repeat="player in training.apologizePlayers">
+                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.apologizePlayers" ng-click="playerMore(player.id, 'apologize')">
                             <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
                             <h2>{{player.fullname}}</h2>
-                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
-                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
+                            <!-- <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p> -->
+                            <i class="icon ion-ios-more" ng-if="training.adminable == 1"></i>
                         </div>
 
                         <!-- <div class="row"><div class="col"></div></div> -->
@@ -119,12 +122,12 @@
                             <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
                         </div>
 
-                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.notyetPlayers" ng-click="playerMore(player.id)">
+                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.notyetPlayers" ng-click="playerMore(player.id, 'notyet')">
                             <img src="http://api.adorable.io/avatars/70/player-{{player.id}}" / >
                             <h2>{{player.fullname}}</h2>
-                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
-                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
-                            <i class="icon ion-ios-more"></i>
+                            <!-- <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p> -->
+                            <i class="icon ion-ios-more" ng-if="training.adminable == 1"></i>
                         </div>
                     </ion-list>
                 </ion-content>

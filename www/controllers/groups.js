@@ -1,6 +1,8 @@
 
+var groupEventsDefined = false;
+
 //
-tamreen.controller('GroupsController', function($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicActionSheet, TamreenService, ContactService){
+tamreen.controller('GroupsController', function($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, TamreenService, ContactService){
 
 	// Parameters.
 	$scope.parameters = {};
@@ -12,9 +14,20 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	$scope.group = null;
 
 	//
-	$rootScope.$on('groups.update', function(){
-		$scope.fetchGroups();
-	});
+	if (groupEventsDefined == false){
+
+		ionic.EventController.on('groups.update', function(){
+			console.log('groups.update happened.');
+			$scope.fetchGroups();
+		});
+
+		groupEventsDefined = true;
+	}
+
+	//
+	$scope.updateGroupEventTrigger = function(){
+		ionic.EventController.trigger('groups.update');
+	}
 
 	//
 	$scope.addGroup = function(){
@@ -43,7 +56,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 			$state.go('groups-details', {'id': response.data.id}, {reload: true});
 
 			// Notify the list of groups to be updated.
-			$rootScope.$emit('groups.update');
+			$scope.updateGroupEventTrigger();
 
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
@@ -74,7 +87,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 		// Check what the service promises.
 		promise.then(function(response){
 
-			$rootScope.$emit('groups.update');
+			$scope.updateGroupEventTrigger();
 			$state.go('home.groups');
 
 		}, function(response){
@@ -98,7 +111,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 		.then(function(response){
 
 			$scope.fetchGroupDetails(id);
-			$rootScope.$emit('groups.update');
+			$scope.updateGroupEventTrigger();
 
 		// TODO: The way that the error appear, it should be different.
 		}, function(response){
@@ -267,7 +280,6 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 
 					// Fetch the group id details.
 					$scope.fetchGroupDetails(id);
-					$rootScope.$emit('groups.update');
 
 					// TODO: Maybe there is no need for this popup.
 					$ionicPopup.alert({
@@ -322,7 +334,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 					});
 
 					// Redirect the user to the groups.
-					$rootScope.$emit('groups.update');
+					$scope.updateGroupEventTrigger();
 					$state.go('home.groups');
 
 				}, function(response){
@@ -366,7 +378,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 					});
 
 					// Redirect the user to the groups.
-					$rootScope.$emit('groups.update');
+					$scope.updateGroupEventTrigger();
 					$state.go('home.groups');
 
 				}, function(response){
@@ -380,16 +392,18 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	};
 
 	//
+	groupsScope = $scope;
+
+	//
 	switch ($state.current.name){
 
 		case 'groups-details': case 'groups-update':
 			$scope.fetchGroupDetails($stateParams.id);
 		break;
 
-		default:
+		case 'home.groups': 
 			$scope.fetchGroups();
 		break;
-
 	}
 
 });

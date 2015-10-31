@@ -32,3 +32,6 @@
 - Fix the issue of the scroll when adding a new training.
 - Fix the android back button, the button should be in the left.
 - Fix the rounding with buttons bar.
+- Check the warnings about SVG and fix them as possible.
+- Fix the issue with the events.
+- Add the ability for the user to see the readAt value.
