@@ -286,6 +286,23 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
+	// Get a player information.
+	// (Auth) GET /players/:id
+	service.playerDetails = function(id){
+
+		var callableUrl = configs.apiBaseurl + '/players/' + id;
+
+		// Do tell about calling the URL.
+		console.log('Calling ' + callableUrl + '...');
+
+		// Done.
+		return $http({
+			method: 'GET',
+			url: callableUrl,
+			headers: service.helperUserTokenHeader(),
+		});
+	};
+
 	// Log the user out of the app.
 	// (Auth) PUT /users/logout
 	service.userLogout = function(){

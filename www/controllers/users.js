@@ -11,7 +11,7 @@ tamreen.controller('UsersController', function($scope, $rootScope, $state, $ioni
 	//
 	$scope.user = null;
 
-	//
+	// TODO: This to be fixed.
 	$rootScope.$on('users.update', function(){
 		$scope.user = TamreenService.user;
 	});
@@ -140,6 +140,26 @@ tamreen.controller('UsersController', function($scope, $rootScope, $state, $ioni
 			}
 		});
 	};
+
+	//
+	$scope.fetchUserDetails = function(){
+		//
+		return TamreenService.playerDetails($scope.user.playerId)
+
+		//
+		.then(function(response){
+			TamreenService.user.fullname = response.data.fullname;
+			$scope.user = TamreenService.user;
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
+	};
+
+	//
+	$scope.profilePullToRefresh = function(){
+		$scope.fetchUserDetails();
+		$scope.$broadcast('scroll.refreshComplete');
+	}
 
 	//
 	if ($state.current.name == 'home.profile'){
