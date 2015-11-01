@@ -30,7 +30,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	$scope.morePlayerApologize = 'يعتذر عن الحضور';
 
 	//
-	// TODO: This one has to be fixed, it is being called too many times.
+	// TODO: This method still called too many times.
 	$rootScope.$on('pages.maps.choose', function(event, coordinates){
 
 		console.log('pages.maps.choose called');
@@ -42,13 +42,28 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		}
 
 		if (previousState == 'trainings-details'){
-			//return $scope.parameters.coordinates = coordinates;
-			alert('The coordinates should be set and the training should be publicized.');
+
+			if (validator.isNull($scope.training) || $scope.training.publicized == 1){
+				return;
+			}
+
+			$scope.parameters.coordinates = coordinates;
+			$scope.updateTrainingCoordinatesAndPublicize($scope.training.id)
+
+			//alert('The coordinates should be set and the training should be publicized.');
 		}
 	});
 
+	// TODO: This method still called too many times.
+	$rootScope.$on('trainings.update', function(){
+		console.log('trainings.update is called');
+		$scope.fetchSpecifiedTrainings();
+	});
+
 	//
-	//$rootScope.$on('trainings.update');
+	$scope.updateTrainingEventTrigger = function(){
+		$rootScope.$emit('trainings.update');
+	}
 
 	// Set the locale of moment.
 	moment.locale('ar-sa');
@@ -125,7 +140,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 		//
 		return drawTrainingPercentage(percentage);
-	}
+	};
 
 	//
 	$scope.fetchUserGroups = function(){
@@ -147,7 +162,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
 		});
-	}
+	};
 
 	//
 	$scope.addTraining = function(){
@@ -211,16 +226,17 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			$scope.training = response.data;
 
 			// Redirect to the added training.
-			// TODO: $scope.specifiedPullToRefresh();
 			$state.go('trainings-details', {'id': $scope.training.id});
+
+			// Notify that the list of trainings to be updated.
+			$scope.updateTrainingEventTrigger();
 
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
 		});
 	};
 
-	// TODO: What if an error occur.
-	// TODO: Order the trainings by the one with the latest updates.
+	//
 	$scope.fetchSpecifiedTrainings = function(){
 
 		return TamreenService.trainingListSpecified()
@@ -228,9 +244,10 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		//
 		.then(function(response){
 			$scope.specifiedTrainings = response.data;
+		//
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
 		});
-
-		// TODO: What if there is something went wrong.
 	};
 
 	//
@@ -249,6 +266,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			$scope.aroundTrainings = response.data;
 
 		// TODO: Handle all errors including permission errors.
+		// TODO: The next version this will be fixed.
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
 		});
@@ -256,9 +274,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 	//
 	$scope.specifiedPullToRefresh = function(){
-
-		// Truncate the trainings list.
-		$scope.specifiedTrainings = [];
 
 		//
 		$scope.fetchSpecifiedTrainings();
@@ -269,9 +284,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	//
 	$scope.aroundPullToRefresh = function(){
 
-		// Truncate the trainings list.
-		$scope.aroundTrainings = [];
-
 		//
 		$scope.fetchAroundTrainings();
 		//
@@ -279,7 +291,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	};
 
 	//
-	// TODO: Handle the errors if any.
 	$scope.fetchTrainingDetails = function(id){
 
 		//
@@ -315,6 +326,8 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			if (summaries.length > 0){
 				$scope.training.summary = summaries.join(' وَ ');
 			}
+
+			$scope.updateTrainingEventTrigger();
 
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
@@ -614,8 +627,10 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			$scope.fetchTrainingDetails(id);
 		}, function(response){
 
+			//
 			if (!validator.isNull(response) && !validator.isNull(response.status) && response.status == 409){
 
+				// Choose a map so the players will be able to come.
 				$state.go('pages-choosemap');
 
 				//
@@ -656,8 +671,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 				// Check what the service promises.
 				promise.then(function(){
 
-					// TODO: $scope.specifiedPullToRefresh();
-					$state.go('home.trainings');
+					$scope.fetchTrainingDetails(id);
 
 					$ionicPopup.alert({
 						title: 'تم',
@@ -731,13 +745,37 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	};
 
 	//
+	$scope.updateTrainingCoordinatesAndPublicize = function(id){
+
+		console.log('updateTrainingCoordinates has been called.');
+
+		//
+		var promise = TamreenService.trainingUpdate(id, {coordinates: $scope.parameters.coordinates});
+
+		// Check what the service promises.
+		promise.then(function(){
+
+			// TODO: There is an issue with the publicized.
+			if ($scope.training.publicized == 1){
+				return;
+			}
+
+			$scope.publicize(id);
+
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
+		});
+	};
+
+	//
 	switch ($state.current.name){
 
+		//
 		case 'trainings-details':
 			$scope.fetchTrainingDetails($stateParams.id);
 		break;
 
-		// TODO: There is an issue whith the coordinates.
+		//
 		case 'trainings-add':
 			console.log('trainings-add has been called.');
 			console.log('parameters.coordinates', $scope.parameters.coordinates);

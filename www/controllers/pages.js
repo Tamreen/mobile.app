@@ -3,11 +3,12 @@ tamreen.controller('PagesController', function($scope, $rootScope, $ionicHistory
 
 	//
 	$scope.parameters = {
-		coordinates: {x: 0, y: 0}
+		coordinates: {y: 0, x: 0}
 	};
 
 	//
 	$scope.goBack = function(){
+		console.log($scope.parameters.coordinates);
 		$rootScope.$emit('pages.maps.choose', $scope.parameters.coordinates);
 		$ionicHistory.goBack();
 	}

@@ -11,15 +11,10 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	//
 	$scope.group = null;
 
-	//
 	// TODO: This method still called too many times.
 	$rootScope.$on('groups.update', function(){
 		$scope.fetchGroups();
 	});
-
-	// $scope.$on('$destroy', function(){
-	// 	console.log('destroy');
-	// });
 
 	//
 	$scope.updateGroupEventTrigger = function(){
@@ -52,7 +47,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 			// Redirect the user to the group players.
 			$state.go('groups-details', {'id': response.data.id}, {reload: true});
 
-			// Notify the list of groups to be updated.
+			// Notify that the list of groups to be updated.
 			$scope.updateGroupEventTrigger();
 
 		}, function(response){

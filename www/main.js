@@ -26,6 +26,15 @@ tamreen.filter('fromNow', [
     }
 ]);
 
+// From now filter.
+tamreen.filter('round', [
+    '$filter', function($filter){
+        return function(input){
+			return Math.round(input);
+        };
+    }
+]);
+
 // Configs and routes.
 tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
 
