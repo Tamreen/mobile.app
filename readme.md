@@ -35,3 +35,4 @@
 - Check the warnings about SVG and fix them as possible.
 - Fix the issue with the events.
 - Add the ability for the user to see the readAt value.
+- Shorten the words when the interface is trainings.

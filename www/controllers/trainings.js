@@ -1,6 +1,4 @@
 
-// var trainingEventsDefined = false;
-
 //
 tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicHistory, TamreenService, LocationService, ContactService){
 
@@ -33,26 +31,24 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 	//
 	// TODO: This one has to be fixed, it is being called too many times.
-	// if (trainingEventsDefined == false){
+	$rootScope.$on('pages.maps.choose', function(event, coordinates){
 
-		$rootScope.$on('pages.maps.choose', function(event, coordinates){
+		console.log('pages.maps.choose called');
 
-			console.log('pages.maps.choose called');
+		var previousState = $ionicHistory.backView().stateName;
 
-			var previousState = $ionicHistory.backView().stateName;
+		if (previousState == 'trainings-add'){
+			return $scope.parameters.coordinates = coordinates;
+		}
 
-			if (previousState == 'trainings-add'){
-				return $scope.parameters.coordinates = coordinates;
-			}
+		if (previousState == 'trainings-details'){
+			//return $scope.parameters.coordinates = coordinates;
+			alert('The coordinates should be set and the training should be publicized.');
+		}
+	});
 
-			if (previousState == 'trainings-details'){
-				//return $scope.parameters.coordinates = coordinates;
-				alert('The coordinates should be set and the training should be publicized.');
-			}
-		});
-
-	// 	trainingEventsDefined = true;
-	// }
+	//
+	//$rootScope.$on('trainings.update');
 
 	// Set the locale of moment.
 	moment.locale('ar-sa');
@@ -232,7 +228,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		//
 		.then(function(response){
 			$scope.specifiedTrainings = response.data;
-			$scope.updateBadgesEventTrigger();
 		});
 
 		// TODO: What if there is something went wrong.
@@ -252,7 +247,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		//
 		.then(function(response){
 			$scope.aroundTrainings = response.data;
-			$scope.updateBadgesEventTrigger();
 
 		// TODO: Handle all errors including permission errors.
 		}, function(response){
@@ -272,9 +266,16 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		$scope.$broadcast('scroll.refreshComplete');
 	};
 
-	// TODO:
-	$scope.updateBadgesEventTrigger = function(){
-		ionic.EventController.trigger('badges.update');
+	//
+	$scope.aroundPullToRefresh = function(){
+
+		// Truncate the trainings list.
+		$scope.aroundTrainings = [];
+
+		//
+		$scope.fetchAroundTrainings();
+		//
+		$scope.$broadcast('scroll.refreshComplete');
 	};
 
 	//

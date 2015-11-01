@@ -1,8 +1,6 @@
 
-var groupEventsDefined = false;
-
 //
-tamreen.controller('GroupsController', function($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, TamreenService, ContactService){
+tamreen.controller('GroupsController', function($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicActionSheet, TamreenService, ContactService){
 
 	// Parameters.
 	$scope.parameters = {};
@@ -14,19 +12,18 @@ tamreen.controller('GroupsController', function($scope, $state, $stateParams, $i
 	$scope.group = null;
 
 	//
-	if (groupEventsDefined == false){
+	// TODO: This method still called too many times.
+	$rootScope.$on('groups.update', function(){
+		$scope.fetchGroups();
+	});
 
-		ionic.EventController.on('groups.update', function(){
-			console.log('groups.update happened.');
-			$scope.fetchGroups();
-		});
-
-		groupEventsDefined = true;
-	}
+	// $scope.$on('$destroy', function(){
+	// 	console.log('destroy');
+	// });
 
 	//
 	$scope.updateGroupEventTrigger = function(){
-		ionic.EventController.trigger('groups.update');
+		$rootScope.$emit('groups.update');
 	}
 
 	//
