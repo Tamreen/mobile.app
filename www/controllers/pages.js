@@ -6,6 +6,8 @@ tamreen.controller('PagesController', function($scope, $rootScope, $ionicHistory
 		coordinates: {y: 0, x: 0}
 	};
 
+	$scope.version = configs.version;
+
 	//
 	$scope.goBack = function(){
 		console.log($scope.parameters.coordinates);

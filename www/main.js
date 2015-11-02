@@ -171,6 +171,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	.state('pages-about', {
 		url: '/pages/about',
 		templateUrl: 'views/pages.about.html',
+		controller: 'PagesController',
 	});
 
 	// Set the default route.

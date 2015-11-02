@@ -27,7 +27,7 @@
                         <a ui-sref="trainings-details({id: training.id})" class="item item-avatar item-icon-left" ng-repeat="training in specifiedTrainings">
                             <img ng-src="{{getStatusImageUrl(training.status, training.percentage)}}"></img>
                             <h2>{{training.name}}</h2>
-                            <p>{{training.startedAt|arDate}}</p>
+                            <p>{{training.startedAt | arDate}}</p>
                             <span class="icon energized" ng-if="training.activitiesCount > 0">&bull;</span>
                         </a>
 

@@ -49,8 +49,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 			$scope.parameters.coordinates = coordinates;
 			$scope.updateTrainingCoordinatesAndPublicize($scope.training.id)
-
-			//alert('The coordinates should be set and the training should be publicized.');
 		}
 	});
 
@@ -624,6 +622,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 		// Check what the service promises.
 		promise.then(function(){
+			$scope.training.publicized = 1;
 			$scope.fetchTrainingDetails(id);
 		}, function(response){
 
@@ -756,6 +755,8 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		promise.then(function(){
 
 			// TODO: There is an issue with the publicized.
+			console.log($scope.training.publicized);
+
 			if ($scope.training.publicized == 1){
 				return;
 			}
@@ -763,7 +764,7 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 			$scope.publicize(id);
 
 		}, function(response){
-			TamreenService.helperHandleErrors(response);
+			//TamreenService.helperHandleErrors(response);
 		});
 	};
 

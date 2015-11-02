@@ -7805,3 +7805,8 @@ a {
 ion-slide {
   margin-top: 50%;
   text-align: center; }
+
+.item-logo {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #f3f3f3; }

@@ -24,7 +24,7 @@
 - Clean inputs everytime a form appears.
 - Design the about page.
 - Fix the error when there is no internet access.
-- There is an issue of performance when getting trainings that are near.
+- There is an issue of performance when getting trainings that are around.
 - Make the method names the same.
 - Remove a lot of the inner styles.
 - Maybe fix the indian number validations.
@@ -36,3 +36,5 @@
 - Fix the issue with the events.
 - Add the ability for the user to see the readAt value.
 - Shorten the words when the interface is trainings.
+- $rootScope concept is really ill.
+- Make the TOS.

@@ -1,1 +1,38 @@
-pages.about.html
+
+<ion-view view-title="حول التطبيق">
+
+  <ion-nav-bar>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-arrow-back" ui-sref="home.profile"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true" has-header="true">
+
+    <div class="list">
+
+      <div class="item text-center item-logo">
+        <img src="views/images/logo.png" />
+      </div>
+
+      <!-- Get the version of the app. -->
+      <div class="item">
+        الإصدار
+        <span class="item-note rtl">{{ version }}</span>
+      </div>
+
+      <div class="item">
+        <a class="button button-block button-positive" href="#" onclick="window.open('http://tamreen-app.com/', '_system', 'location=yes'); return false;">زيارة الموقع الإلكترونيّ</a>
+      </div>
+
+    </div>
+    
+  </ion-content>
+  <div class="bar bar-footer bar-light">
+    <div class="title rtl">
+      <small>بُني في الرياض.</small>
+    </div>
+  </div>
+
+
+</ion-view>
