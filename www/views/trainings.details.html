@@ -6,8 +6,8 @@
         <button class="button button-icon icon ion-ios-arrow-back" ui-sref="home.trainings"></button>
     </ion-nav-buttons>
 
-    <!-- TODO: This button should be hidden if the user cannot decide. -->
-    <!-- TODO: The button for players also should be hidden, the ones that show '...'. -->
+    <!-- FIXME: This button should be hidden if the user cannot decide. -->
+    <!-- FIXME: The button for players also should be hidden, the ones that show '...'. -->
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios-more" ng-click="trainingMore()"></button>
     </ion-nav-buttons>
@@ -21,12 +21,8 @@
 
                     <div class="list">
 
-                        <!-- <div class="item" style="padding: 0; margin-bottom: -16px;">
-                            <img src="http://33.media.tumblr.com/6501efae7730896e8da5cfbd601f77b3/tumblr_inline_n5oew7A7t71scmhb6.gif" />
-                        </div> -->
-
-                        <!-- TOOD: It should be clickable to show the directions to the coordinates. -->
-                        <div class="item" style="padding: 0; margin-bottom: -30px;" ng-if="training.coordinates != null">
+                        <!-- FIXME: It should be clickable to show the directions to the coordinates. -->
+                        <div class="item item-map" ng-if="training.coordinates != null">
                             <img ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{training.coordinates.y}},{{training.coordinates.x}}&zoom=14&scale=false&size=400x260&maptype=roadmap&format=png&visual_refresh=true&&markers=color:red%7C{{training.coordinates.y}},{{training.coordinates.x}}" />
                         </div>
 

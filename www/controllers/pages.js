@@ -1,9 +1,9 @@
 
-tamreen.controller('PagesController', function($scope, $rootScope, $ionicHistory, LocationService){
+tamreen.controller('PagesController', function($scope, $rootScope, $ionicPopup, $ionicHistory, LocationService){
 
 	//
 	$scope.parameters = {
-		coordinates: {y: 0, x: 0}
+		coordinates: null,
 	};
 
 	$scope.version = configs.version;
@@ -15,7 +15,7 @@ tamreen.controller('PagesController', function($scope, $rootScope, $ionicHistory
 		$ionicHistory.goBack();
 	}
 
-	// TODO: It does not seem to save the new coordinates in parameters.
+	//
 	$scope.getUserCurrentLocation = function(){
 
 		//
@@ -25,8 +25,11 @@ tamreen.controller('PagesController', function($scope, $rootScope, $ionicHistory
 		.then(function(coordinates){
 			$scope.parameters.coordinates = coordinates;
 		}, function(error){
-			// TODO: Make this error prettier.
-			alert('Error occur');
+			$ionicPopup.alert({
+				title: 'خطأ',
+				template: 'الرجاء تمكين التطبيق من استخدام الموقع الجغرافيّ.',
+				okText: 'حسنًا',
+			});
 		});
 	};
 

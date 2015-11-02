@@ -1,6 +1,4 @@
 
-<!-- TODO: Adjust the style and move it to the CSS file. -->
-
 <ion-view view-title="المجموعات">
     <ion-nav-bar>
     </ion-nav-bar>
@@ -11,8 +9,8 @@
         <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshGroups()"></ion-refresher>
         <ion-list>
             <!-- 24, 27, 38 -->
-            <div class="text-center padding" style="margin-top: 50%;" ng-if="groups.length == 0">
-                <img src="http://api.adorable.io/avatars/70/27" style="border-radius: 50%; background-color: #fff; height: 70px;"/ ><br /><br />
+            <div class="text-center padding home-no-items" ng-if="groups.length == 0">
+                <img src="http://api.adorable.io/avatars/70/27" /><br /><br />
                 لم تنضم إلى أيّ مجموعة حتّى الآن، إذا كُنت تدير مجموعة لعب خارج التطبيق، فإنّه يُمكنك إضافتها من خلال اللّمس على أيقونة <span class="ion-ios-plus-outline" /> في الأعلى، أمّا إذا كنت عضوًا في مجموعة لعب فانتظر إضافتك من قبل مُديرها.
             </div>
             <a ui-sref="groups-details({id: group.id})" class="item item-avatar" ng-repeat="group in groups">

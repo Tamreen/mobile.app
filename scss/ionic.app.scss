@@ -41,6 +41,10 @@ ion-content, .bar .title, .bar small{
 	right: 16px;
 }
 
+.item-map{
+	padding: 0; margin-bottom: -30px;
+}
+
 .item .badge{
 	left: 16px;
 	right: auto;
@@ -159,4 +163,17 @@ ion-slide{
 	padding-top: 30px;
 	padding-bottom: 30px;
 	background-color: #f3f3f3;
+}
+
+.home-no-items{
+	margin-top: 50%;
+}
+
+.home-no-items-with-tab{
+	margin-top: 30%;
+}
+
+.home-no-items img, .home-no-items-with-tab img{
+	border-radius: 50%; height: 70px;
+	background-color: #fff;
 }

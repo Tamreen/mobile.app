@@ -1,7 +1,4 @@
 
-<!-- TODO: Fix the inner styles. -->
-<!-- TODO: If there is a possibility to create a sub template. -->
-
 <ion-view view-title="التمارين">
 
     <ion-nav-bar></ion-nav-bar>
@@ -18,8 +15,8 @@
                     <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="specifiedPullToRefresh()"></ion-refresher>
                     <ion-list>
 
-                        <div class="text-center padding" style="margin-top: 30%;" ng-if="specifiedTrainings.length == 0">
-                            <img src="http://api.adorable.io/avatars/70/24" style="border-radius: 50%; background-color: #fff; height: 70px;" / ><br /><br />
+                        <div class="text-center padding home-no-items-with-tab" ng-if="specifiedTrainings.length == 0">
+                            <img src="http://api.adorable.io/avatars/70/24" /><br /><br />
                             لم يتم العثور على أيّ تمرين، يُمكنك إضافة تمرينٍ جديدٍ من خلال اللّمس على أيقونة <span class="ion-ios-plus-outline" /> في الأعلى.
                             كذلك يُمكنك البحث عن تمرينٍ أضافهُ آخرون من خلال السحب من الأعلى إلى الأسفل.
                         </div>
@@ -42,8 +39,8 @@
                     <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="aroundPullToRefresh()"></ion-refresher>
                     <ion-list>
 
-                        <div class="text-center padding" style="margin-top: 30%;" ng-if="aroundTrainings.length == 0">
-                            <img src="http://api.adorable.io/avatars/70/24" style="border-radius: 50%; background-color: #fff; height: 70px;" / ><br /><br />
+                        <div class="text-center padding home-no-items-with-tab" ng-if="aroundTrainings.length == 0">
+                            <img src="http://api.adorable.io/avatars/70/24" /><br /><br />
                             لم يتم العثور على أيّ تمرين، يُمكنك إضافة تمرينٍ جديدٍ من خلال اللّمس على أيقونة <span class="ion-ios-plus-outline" /> في الأعلى.
                             كذلك يُمكنك البحث عن تمرينٍ أضافهُ آخرون من خلال السحب من الأعلى إلى الأسفل.
                         </div>

@@ -104,7 +104,7 @@ tamreen.controller('UsersController', function($scope, $rootScope, $state, $ioni
 	};
 
 	// Confirm if the user wants to log out.
-	// TODO: Consider in the level of the API to remove the device token.
+	// FIXME: Consider in the level of the API to remove the device token.
 	$scope.logout = function(){
 
 		//

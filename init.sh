@@ -30,8 +30,10 @@ cordova plugins add cordova-plugin-media
 cordova plugins add cordova-plugin-console
 cordova plugins add cordova-plugin-contacts
 cordova plugins add cordova-plugin-device
-cordova plugins add https://github.com/whiteoctober/cordova-plugin-app-version.git
+cordova plugins add https://github.com/whiteoctober/cordova-plugin-app-version.git # This plugin is not required.
 cordova plugins add cordova-plugin-whitelist
+
+# error No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.
 
 # Build iOS.
 cordova build ios

@@ -56,7 +56,6 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	};
 
 	//
-	// TODO: Fix the issue of a user updating the information of a group when not an admin.
 	$scope.updateGroup = function(id){
 
 		console.log('Updating a group has been called.');
@@ -125,7 +124,6 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 	};
 
 	//
-	// TODO: Handle the errors if any.
 	$scope.fetchGroupDetails = function(id){
 
 		//
@@ -135,8 +133,9 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 		.then(function(response){
 			$scope.group = response.data;
 			$scope.parameters.name = $scope.group.name;
+		}, function(response){
+			TamreenService.helperHandleErrors(response);
 		});
-
 	};
 
 	//
@@ -224,7 +223,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 					// Fetch the group id details.
 					$scope.fetchGroupDetails(id);
 
-					// TODO: Maybe there is no need for this popup.
+					//
 					$ionicPopup.alert({
 						title: 'تمَ',
 						template: 'تمّ إضافة اللاعب إلى المدراء بنجاح.',
@@ -273,7 +272,7 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 					// Fetch the group id details.
 					$scope.fetchGroupDetails(id);
 
-					// TODO: Maybe there is no need for this popup.
+					//
 					$ionicPopup.alert({
 						title: 'تمَ',
 						template: 'تمّ حذف اللاعب من المجموعةِ بنجاح.',
