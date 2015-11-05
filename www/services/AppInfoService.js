@@ -13,7 +13,10 @@ tamreen.factory('AppInfoService', function($q, $http){
 	service.initialize = function(services){
 
 		//
-		return $http.get(configs.apiBaseurl + '/hellos')
+		var deferred = $q.defer();
+
+		//
+		$http.get(configs.apiBaseurl + '/hellos')
 
 		//
 		.then(function(response){
@@ -27,14 +30,18 @@ tamreen.factory('AppInfoService', function($q, $http){
 			var appVersionInteger = Number(service.appVersion.replace(/\./g, ''));
 
 			if (configAppVersionInteger < appVersionInteger){
-				throw new Error('The version of the app need to be updated.');
+				return deferred.reject('The version of the app need to be updated.');
 			}
 
-			return service;
+			return deferred.resolve(service);
 
+		}, function(response){
+			return deferred.reject('Cannot connect to Tamreen API.');
 		});
 
-	}
+		return deferred.promise;
+
+	};
 
 	//
 	return service;

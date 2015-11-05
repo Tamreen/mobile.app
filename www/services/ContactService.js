@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('ContactService', function($q, $injector){
+tamreen.factory('ContactService', function($q, $injector, $ionicPlatform, TamreenService){
 
 	console.log('ContactService has been called.');
 
@@ -25,17 +25,48 @@ tamreen.factory('ContactService', function($q, $injector){
 			service.contact = {
 				fullname: Math.floor(Math.random()*9000000) + 1000000,
 				e164formattedMobileNumber: '+96655' + (Math.floor(Math.random()*9000000) + 1000000),
-			}
+			};
 
 			//
 			deferred.resolve(service.contact);
 
-			// }, function(error){
-			// 	deferred.reject(error);
-			// });
-		}
+		}else{
 
-		// TODO: If the environment is not development.
+			// If the environment is not development.
+			$ionicPlatform.ready(function(){
+
+				$cordovaContacts = $injector.get('$cordovaContacts');
+
+				//
+				$cordovaContacts.pickContact()
+
+				//
+				.then(function(contact){
+
+					// Validate if the chosen contact have a mobile number.
+					if (validator.isNull(contact.phoneNumbers) || contact.phoneNumbers.length == 0 || TamreenService.helperMobileNumberValidable(contact.phoneNumbers[0].value) == false || validator.isNull(contact.name.formatted)){
+						return deferred.reject('Cannot pick this contact.');
+					}
+
+					// Set the e164 formatted mboile number and the name of the player.
+					var e164formattedMobileNumber = TamreenService.helperMobileNumberE164Format(contact.phoneNumbers[0].value);
+					var fullname = contact.name.formatted;
+
+					//
+					service.contact = {
+						fullname: fullname,
+						e164formattedMobileNumber: e164formattedMobileNumber,
+					};
+
+					console.log('contact', e164formattedMobileNumber);
+
+					//
+					deferred.resolve(service.contact);
+
+				});
+
+			});
+		}
 
 		//
 		return deferred.promise;

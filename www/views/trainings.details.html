@@ -22,12 +22,15 @@
                     <div class="list">
 
                         <!-- FIXME: It should be clickable to show the directions to the coordinates. -->
+                        <!-- ng-init="initializeMap()" -->
+                        <!-- <div id="map-{{scopeInfo.id}}" class="item-map" ng-if="training.coordinates != null" ng-init="initializeMap()"></div> -->
+
                         <div class="item item-map" ng-if="training.coordinates != null">
-                            <img ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{training.coordinates.y}},{{training.coordinates.x}}&zoom=14&scale=false&size=400x260&maptype=roadmap&format=png&visual_refresh=true&&markers=color:red%7C{{training.coordinates.y}},{{training.coordinates.x}}" />
+                            <img ng-src="{{training.mapSrc}}" ng-click="openMapDirections(training.coordinates)" />
                         </div>
 
                         <div class="item item-avatar">
-                            <img ng-src="{{getStatusImageUrl(training.status, training.percentage)}}" />
+                            <img ng-src="{{training.statusSrc}}" />
                             <h2>{{training.stadium}}</h2>
                             <p>{{training.startedAt | arDate}}</p>
                         </div>

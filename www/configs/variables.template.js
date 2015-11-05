@@ -8,4 +8,9 @@ configs = {
 
 	apiBaseurl: 'http://localhost:4000/api/v2',
 
+	userKey: 'abc',
+
+	android: {
+		senderID: '',
+	},
 };

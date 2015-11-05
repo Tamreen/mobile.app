@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('DeviceService', function($q, $injector){
+tamreen.factory('DeviceService', function($q, $injector, $ionicPlatform){
 
 	console.log('DeviceService has been called.');
 
@@ -11,17 +11,32 @@ tamreen.factory('DeviceService', function($q, $injector){
 	service.deviceType = null;
 
 	//
-	service.initialize = function(){
+	service.initialize = function(services){
 
 		//
 		var deferred = $q.defer();
 
 		if (configs.environment == 'development'){
+			
 			service.deviceType = 'android';
 			deferred.resolve(service);
-		}
 
-		// TODO: If the environment is not development.
+		}else{
+
+			// If the environment is not development.
+			$ionicPlatform.ready(function(){
+
+				$cordovaDevice = $injector.get('$cordovaDevice');
+				service.deviceType = $cordovaDevice.getPlatform();
+
+				if (validator.isNull(service.deviceType)){
+					return deferred.reject('Cannot find the device.');
+				}
+
+				service.deviceType = service.deviceType.toLowerCase();
+				return deferred.resolve(service);
+			});
+		}
 
 		//
 		return deferred.promise;

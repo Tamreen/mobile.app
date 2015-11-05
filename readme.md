@@ -1,10 +1,10 @@
 
 ## How to install?
-- Install node.js, npm, bower, cordova, ionic.
+- Install node.js, npm, bower, gulp, cordova, ionic.
 - In the application root directory (tamreen), run the command <code>npm install</code>.
 - In the application root directory (tamreen), run the command <code>bower install</code>.
 - In the directory <code>www/js</code>, duplicate the file <code>configs.template.js</code> and give the new file the name <code>configs.js</code>.
-- Run <code>./init_ios.sh</code>.
+- Run <code>./init.sh</code>.
 - Run <code>ionic emulate ios</code> for iOS.
 - If you want to test it on Android, you must install Genymotion, and have inside it any Android device (e.g. Nexus 5), and then keep it running.
 - Run <code>ionic run android</code> for Android.
@@ -40,3 +40,5 @@
 - Check the warnings about SVG and fix them as possible.
 - $rootScope concept is really ill (Fix the issue with the events).
 - Make the TOS (Mention that the faces are randomly generated, they do not mean anything personal).
+- Fix the readme file or update it.
+- AndroidPersistentFileLocation.

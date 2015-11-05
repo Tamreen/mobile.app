@@ -7,15 +7,16 @@
         <title>تمرين - Tamreen</title>
 
         <!-- Stylesheets. -->
-        <link href="views/stylesheets/ionic.app.css" rel="stylesheet" />
+        <link href="views/stylesheets/ionic.app.min.css" rel="stylesheet" />
 
         <!-- Ionic. -->
         <script src="libraries/ionic/js/ionic.bundle.js"></script>
 
         <!-- Cordova and other libraries. -->
-         <script src="libraries/ngCordova/dist/ng-cordova.js"></script>
+        <script src="libraries/ngCordova/dist/ng-cordova.js"></script>
 
         <!-- Helpers. -->
+        <!--<script src="libraries/angular-google-maps/dist/angular-google-maps.min.js"></script>-->
         <script src="libraries/libphonenumber/dist/libphonenumber.js"></script>
         <script src="libraries/validator-js/validator.min.js"></script>
         <script src="libraries/moment/min/moment-with-locales.min.js"></script>
@@ -50,8 +51,12 @@
     </head>
 
     <body ng-app="tamreen">
+
         <canvas id="trainingStatusCanvas" width="40" height="40" style="display: none;"></canvas>
         <ion-nav-view></ion-nav-view>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es"></script>
+
     </body>
 
 </html>

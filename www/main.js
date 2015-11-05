@@ -1,6 +1,6 @@
 
 //
-tamreen = angular.module('tamreen', ['ionic']);
+tamreen = angular.module('tamreen', ['ionic', 'ngCordova']);
 
 // Run at the begining.
 tamreen.run(function($ionicPlatform, TamreenService){

@@ -10,6 +10,9 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 	//
 	$scope.training = null;
+	$scope.scopeInfo = {id: $scope.$id};
+
+	console.log($scope.uinqueId);
 
 	//
 	$scope.parameters = {};
@@ -128,7 +131,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	];
 
 	//
-	// TODO: It seems like this method is being called for too many times.
 	$scope.getStatusImageUrl = function(status, percentage){
 		
 		//
@@ -139,6 +141,52 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		//
 		return drawTrainingPercentage(percentage);
 	};
+
+	// TODO:
+	$scope.initializeMap = function(){
+
+		console.log('called');
+
+		var mapOptions = {
+			center: new google.maps.LatLng(12, 43),
+			zoom: 16,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		var elementId = "map-" + $scope.scopeInfo.id;
+		console.log(elementId);
+		var map = new google.maps.Map(document.getElementById(elementId), mapOptions);
+		console.log(map);
+		
+		// //Marker + infowindow + angularjs compiled ng-click
+		// var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+		// var compiled = $compile(contentString)($scope);
+
+		// var infowindow = new google.maps.InfoWindow({
+		//   content: compiled[0]
+		// });
+
+		// var marker = new google.maps.Marker({
+		// 	position: myLatlng,
+		// 	map: map,
+		// 	title: 'Uluru (Ayers Rock)'
+		// });
+
+		// google.maps.event.addListener(marker, 'click', function() {
+		//   infowindow.open(map,marker);
+		// });
+	};
+
+	//
+	$scope.openMapDirections = function(coordinates){
+
+		if (validator.isNull(coordinates)){
+			return;
+		}
+
+		// Try to open Google maps.
+		window.open('http://maps.google.com?q=' + coordinates.y.toString() + ',' + coordinates.x.toString(), "_system", 'location=no');
+	}
 
 	//
 	$scope.fetchUserGroups = function(){
@@ -241,7 +289,12 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 		//
 		.then(function(response){
+
 			$scope.specifiedTrainings = response.data;
+
+			$scope.specifiedTrainings.forEach(function(training){
+				training.statusSrc = $scope.getStatusImageUrl(training.status, training.percentage);
+			});
 		//
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
@@ -255,13 +308,17 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 		//
 		.then(function(coordinates){
-			console.log(coordinates);
 			return TamreenService.trainingListAround(coordinates);
 		})
 
 		//
 		.then(function(response){
+
 			$scope.aroundTrainings = response.data;
+
+			$scope.aroundTrainings.forEach(function(training){
+				training.statusSrc = $scope.getStatusImageUrl(training.status, training.percentage);
+			});
 
 		// TODO: Handle all errors including permission errors.
 		// TODO: The next version this will be fixed.
@@ -290,6 +347,8 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 
 	//
 	$scope.fetchTrainingDetails = function(id){
+
+		console.log('fetchTrainingDetails');
 
 		//
 		return TamreenService.trainingDetails(id)
@@ -325,7 +384,14 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 				$scope.training.summary = summaries.join(' وَ ');
 			}
 
+			//
 			$scope.updateTrainingEventTrigger();
+
+			if (!validator.isNull($scope.training.coordinates)){
+				$scope.training.mapSrc = 'http://maps.googleapis.com/maps/api/staticmap?center=' + $scope.training.coordinates.y.toString() + ',' + $scope.training.coordinates.x.toString() + '&markers=color:red%7C' + $scope.training.coordinates.y.toString() + ',' + $scope.training.coordinates.x.toString() + '&zoom=14&scale=true&size=400x260&maptype=roadmap&format=png&visual_refresh=true';
+			}
+			
+			$scope.training.statusSrc = $scope.getStatusImageUrl($scope.training.status, $scope.training.percentage);
 
 		}, function(response){
 			TamreenService.helperHandleErrors(response);

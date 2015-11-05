@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('StorageService', function($q, $injector){
+tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 
 	console.log('StorageService has been called.');
 
@@ -27,7 +27,27 @@ tamreen.factory('StorageService', function($q, $injector){
 		console.log('initialize StorageService.');
 
 		//
-		deferred.resolve(service);
+		if (configs.environment == 'development'){
+			deferred.resolve(service);
+		}else{
+
+			$ionicPlatform.ready(function(){
+
+				$cordovaFile = $injector.get('$cordovaFile');
+				
+				//
+				$cordovaFile.getFreeDiskSpace()
+
+				//
+				.then(function(success){
+					return deferred.resolve(service);
+				}, function(error){
+					return deferred.reject('Cannot save or read files.');
+				});
+
+			});
+
+		}
 
 		//
 		return deferred.promise;
@@ -43,6 +63,22 @@ tamreen.factory('StorageService', function($q, $injector){
 		if (configs.environment == 'development'){
 			localStorage.setItem(key, JSON.stringify(value));
 			deferred.resolve(true);
+		}else{
+
+			$ionicPlatform.ready(function(){
+
+				$cordovaFile = $injector.get('$cordovaFile');
+
+				$cordovaFile.writeFile(cordova.file.dataDirectory, key, JSON.stringify(value), true)
+
+				.then(function(success){
+					return deferred.resolve(true);
+				}, function(error){
+					return deferred.reject(error);
+				});
+
+			});
+
 		}
 
 		//
@@ -64,6 +100,33 @@ tamreen.factory('StorageService', function($q, $injector){
 			}
 
 			deferred.resolve(JSON.parse(objectString));
+
+		}else{
+
+			$ionicPlatform.ready(function(){
+
+				$cordovaFile = $injector.get('$cordovaFile');
+
+				// Check if the file exists.
+				$cordovaFile.checkFile(cordova.file.dataDirectory, key)
+
+				.then(function(success){
+
+					return $cordovaFile.readAsText(cordova.file.dataDirectory, key)
+
+					.then(function(contents){
+						var jsonContents = JSON.parse(contents);
+						return deferred.resolve(jsonContents);
+					}, function(error){
+						return deferred.reject(error);
+					});
+
+				}, function(error){
+					return deferred.reject(error);
+				});
+
+			});
+
 		}
 
 		//
@@ -81,6 +144,14 @@ tamreen.factory('StorageService', function($q, $injector){
 		if (configs.environment == 'development'){
 			localStorage.removeItem(key);
 			deferred.resolve(true);
+		}else{
+
+			$ionicPlatform.ready(function(){
+				$cordovaFile = $injector.get('$cordovaFile');
+				$cordovaFile.removeFile(cordova.file.dataDirectory, key);
+				deferred.resolve(true);
+			});
+
 		}
 
 		//

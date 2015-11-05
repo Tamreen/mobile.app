@@ -27,29 +27,33 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	//
 	.then(function(internet){
 		service.internet = internet;
-		return AppInfoService.initialize(internet);
+		return AppInfoService.initialize({internet: internet});
 	})
 
 	//
 	.then(function(appInfo){
 		service.appInfo = appInfo;
-		return DeviceService.initialize(appInfo);
+		return DeviceService.initialize({appInfo: appInfo});
 	})
 
 	//
 	.then(function(device){
+		console.log(JSON.stringify(device));
 		service.device = device;
-		return PushNotificationService.initialize(device);
+		return PushNotificationService.initialize({device: device});
 	})
 
 	//
 	.then(function(pushNotification){
+		console.log(JSON.stringify(pushNotification));
 		service.pushNotification = pushNotification;
-		return StorageService.initialize(pushNotification);
+		return StorageService.initialize({pushNotification: pushNotification});
 	})
 
 	//
 	.then(function(storage){
+
+		console.log('Reached this line meaning peace.');
 
 		service.storage = storage;
 
@@ -65,7 +69,7 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 			//
 			.then(function(user){
 
-				//user.logginable = 1;
+				// TODO: user.logginable = 1;
 				service.user = user;
 
 				// Set the region code.
@@ -86,6 +90,9 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 
 	// The app cannot run without these services.
 	.catch(function(error){
+
+		console.log(JSON.stringify(error));
+
 		$ionicModal.fromTemplateUrl('views/pages.modal.html').then(function(modal){
 			modal.scope.message = error;
 			// modal.scope.details = '1.0.0';

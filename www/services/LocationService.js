@@ -18,24 +18,18 @@ tamreen.factory('LocationService', function($q, $injector){
 		//
 		var deferred = $q.defer();
 
-		if (configs.environment == 'development'){
+		// This should be a promise.
+		navigator.geolocation.getCurrentPosition(function(position){
 
-			// This should be a promise.
-			navigator.geolocation.getCurrentPosition(function(position){
+			service.coordinates.y = position.coords.latitude;
+			service.coordinates.x = position.coords.longitude;
 
-				service.coordinates.y = position.coords.latitude;
-				service.coordinates.x = position.coords.longitude;
+			deferred.resolve(service.coordinates);
 
-				deferred.resolve(service.coordinates);
-
-			}, function(error){
-				deferred.reject(error);
-			});
-			
-			//deferred.resolve(service);
-		}
-
-		// TODO: If the environment is not development.
+		}, function(error){
+			console.log(JSON.stringify(error));
+			deferred.reject(error);
+		});
 
 		//
 		return deferred.promise;
