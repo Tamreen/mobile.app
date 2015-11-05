@@ -57,19 +57,17 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 
 		service.storage = storage;
 
+		//
 		$ionicPlatform.ready(function(){
 
 			console.log('$ionicPlatform is ready.');
-
-			// TODO: Check if the user is logged in or redirect to firsthandshake.
-			//$state.go('users-firsthandshake');
 
 			service.helperLoadUserInfo()
 
 			//
 			.then(function(user){
 
-				// TODO: user.logginable = 1;
+				user.logginable = 1;
 				service.user = user;
 
 				// Set the region code.
@@ -86,8 +84,6 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	})
 
-	// TODO: The media and the contacts and so.
-
 	// The app cannot run without these services.
 	.catch(function(error){
 
@@ -99,8 +95,6 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 			modal.show();
 		});
 	});
-
-	// TODO: Most of methods to be here.
 
 	//
 	service.helperMobileNumberValidable = function(mobileNumber){
@@ -344,7 +338,7 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 		});
 	};
 
-	// TODO: I used PUT and I do not want to use it.
+	// FIXME: I used PUT and I do not want to use it.
 	// List all trainings that the user is around.
 	// (Auth) GET /trainings/around
 	service.trainingListAround = function(coordinates){

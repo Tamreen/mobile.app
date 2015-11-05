@@ -4,19 +4,8 @@ tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 
 	console.log('StorageService has been called.');
 
-	// $ionicPlatform.ready(function(){
-	// 	console.log('$ionicPlatform is ready.');
-	// });
-
-	// $injector.get('$ionicPlatform').ready(function(){
-	// 	console.log('It was ready and I was called.');
-	// });
-
 	//
 	var service = {};
-
-	//
-	// service.deviceToken = null;
 
 	//
 	service.initialize = function(services){
@@ -53,7 +42,7 @@ tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 		return deferred.promise;
 	};
 
-	// TODO: Check if the environmet is development or not.
+	// Check if the environmet is development or not.
 	service.store = function(key, value){
 
 		//
@@ -85,7 +74,7 @@ tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 		return deferred.promise;
 	};
 
-	// TODO: Check if the environmet is development or not.
+	// Check if the environmet is development or not.
 	service.retrieve = function(key){
 		
 		//
@@ -134,7 +123,7 @@ tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 
 	};
 
-	// TODO: Check if the environmet is development or not.
+	// Check if the environmet is development or not.
 	service.destroy = function(key){
 
 		//

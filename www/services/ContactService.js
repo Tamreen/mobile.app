@@ -11,7 +11,7 @@ tamreen.factory('ContactService', function($q, $injector, $ionicPlatform, Tamree
 	service.contact = null;
 
 	//
-	// TODO: The validation should be here.
+	// The validation should be here.
 	service.pick = function(){
 
 		console.log('service.pick has been called.');

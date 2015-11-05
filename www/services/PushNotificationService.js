@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatform, $rootScope){
+tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatform, $rootScope, $ionicLoading){
 
 	console.log('PushNotificationService has been called.');
 
@@ -9,9 +9,13 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 	//
 	service.deviceToken = null;
+	service.services = {};
 
 	//
 	service.initialize = function(services){
+
+		//
+		service.services = services;
 
 		//
 		var deferred = $q.defer();
@@ -23,12 +27,12 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 		}else{
 
-			// TODO: If the environment is not development.
+			// If the environment is not development.
 			$ionicPlatform.ready(function(){
 
 				$cordovaPush = $injector.get('$cordovaPush');
 
-				// TODO: Listen to whenever a notification received.
+				// Listen to whenever a notification received.
 				$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification){
 
 					switch(notification.event){
@@ -42,31 +46,30 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 						break;
 
 						case 'message':
-							// TODO: service.helperToast(notification.payload.title);
+							service.helperToast(notification.payload.title);
 							console.log('message has been received.');
 						break;
 
-						// TODO: There has to be an error received also.
+						// There has to be an error received also.
 						default:
 							return deferred.reject('An unknown GCM event has occurred');
 						break;
 					}
 
 					if (notification.alert){
-						// TODO: service.helperToast(notification.alert);
+						service.helperToast(notification.alert);
 						console.log('alert has been received.');
 					}
 				});
 
-				// TODO: Register the push notification service.
+				// Register the push notification service.
 				if (validator.equals(services.device.deviceType, 'android')){
 
 					// Set the device token.
-					// TODO: Android is very important.
+					// Android is very important.
 					$cordovaPush.register(configs.android.senderID).then(function(result){
 					    console.log('Device is to be registered.');
 					}, function(error){
-						// TODO: This error to be readable.
 					    return deferred.reject(error);
 					});
 
@@ -85,7 +88,7 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 					}, function(error){
 
-						// TODO: Escape when the simulator is used for both ios and android.
+						// Escape when the simulator is used for both ios and android.
 						if (error == ' - REMOTE_NOTIFICATION_SIMULATOR_NOT_SUPPORTED_NSERROR_DESCRIPTION'){
 							service.deviceToken = '12321312321';
 							return deferred.resolve(service);
@@ -100,6 +103,27 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 		//
 		return deferred.promise;
+	};
+
+	//
+	service.helperToast = function(content){
+
+		$ionicPlatform.ready(function(){
+
+			var androidPath = '';
+
+			if (validator.equals(service.services.device.deviceType, 'android')){
+				androidPath = '/android_asset/www/';
+			}
+
+			var media = new Media(androidPath + 'views/sounds/activity.mp3');
+
+			$ionicLoading.show({template: content, duration: 2000});
+
+			// Play the media.
+			media.play();
+
+		});
 	};
 
 	//
