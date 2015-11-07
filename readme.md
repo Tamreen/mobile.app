@@ -22,6 +22,8 @@
 - Add the ability for the user to see the readAt value.
 - Shorten the words when the interface is trainings.
 - Remove a lot of the inner styles.
+- Design the about page.
+- Fix the error when there is no internet access.
 
 ## TODO:
 - Make the services real, e.g. Contacts, Location, Storage, etc.
@@ -31,8 +33,6 @@
 - Check the deviceType value sometimes it happens to be null.
 - Take some beautiful screenshots for the app to market it.
 - Beautify the lines and codes, make them really beautiful.
-- Design the about page.
-- Fix the error when there is no internet access.
 - There is an issue of performance when getting trainings that are around.
 - Maybe fix the indian number validations.
 - Fix the android back button, the button should be in the left.
@@ -42,3 +42,5 @@
 - Make the TOS (Mention that the faces are randomly generated, they do not mean anything personal).
 - Fix the readme file or update it.
 - AndroidPersistentFileLocation.
+- Error messages must be in Arabic.
+ - No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.

@@ -26,26 +26,28 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 
 	//
 	.then(function(internet){
+		console.log('internet');
 		service.internet = internet;
 		return AppInfoService.initialize({internet: internet});
 	})
 
 	//
 	.then(function(appInfo){
+		console.log('appInfo');
 		service.appInfo = appInfo;
 		return DeviceService.initialize({appInfo: appInfo});
 	})
 
 	//
 	.then(function(device){
-		console.log(JSON.stringify(device));
+		console.log('device');
 		service.device = device;
 		return PushNotificationService.initialize({device: device});
 	})
 
 	//
 	.then(function(pushNotification){
-		console.log(JSON.stringify(pushNotification));
+		console.log('pushNotification');
 		service.pushNotification = pushNotification;
 		return StorageService.initialize({pushNotification: pushNotification});
 	})
@@ -87,7 +89,7 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	// The app cannot run without these services.
 	.catch(function(error){
 
-		console.log(JSON.stringify(error));
+		console.log(error);
 
 		$ionicModal.fromTemplateUrl('views/pages.modal.html').then(function(modal){
 			modal.scope.message = error;

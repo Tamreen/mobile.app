@@ -11,12 +11,6 @@
     </ion-nav-buttons>
 
     <ion-content padding="false">
-        <form name="addForm" ng-submit="addGroup()">
-            <div class="list">
-                <div class="item" style="padding: 0;">
-                    <img ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{parameters.coordinates.y}},{{parameters.coordinates.x}}&zoom=14&scale=false&size=1024x1024&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff2600%7Clabel:1%7Cالبدائع" />
-                </div>
-            </div>
-        </form>
+        <div id="map" class="map" ng-init="initializeMap()"></div>
     </ion-content>
 </ion-view>

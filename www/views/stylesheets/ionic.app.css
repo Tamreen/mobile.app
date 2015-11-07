@@ -9088,8 +9088,15 @@ ion-content, .bar .title, .bar small {
 
 .item-map {
   padding: 0;
-  margin-bottom: -60px;
-  height: 300px; }
+  height: 300px;
+  margin-bottom: -60px; }
+
+.map {
+  width: 100%;
+  height: 100%; }
+
+.scroll {
+  height: 100%; }
 
 .item .badge {
   left: 16px;

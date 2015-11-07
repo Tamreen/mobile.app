@@ -142,41 +142,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 		return drawTrainingPercentage(percentage);
 	};
 
-	// TODO:
-	$scope.initializeMap = function(){
-
-		console.log('called');
-
-		var mapOptions = {
-			center: new google.maps.LatLng(12, 43),
-			zoom: 16,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-
-		var elementId = "map-" + $scope.scopeInfo.id;
-		console.log(elementId);
-		var map = new google.maps.Map(document.getElementById(elementId), mapOptions);
-		console.log(map);
-		
-		// //Marker + infowindow + angularjs compiled ng-click
-		// var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-		// var compiled = $compile(contentString)($scope);
-
-		// var infowindow = new google.maps.InfoWindow({
-		//   content: compiled[0]
-		// });
-
-		// var marker = new google.maps.Marker({
-		// 	position: myLatlng,
-		// 	map: map,
-		// 	title: 'Uluru (Ayers Rock)'
-		// });
-
-		// google.maps.event.addListener(marker, 'click', function() {
-		//   infowindow.open(map,marker);
-		// });
-	};
-
 	//
 	$scope.openMapDirections = function(coordinates){
 

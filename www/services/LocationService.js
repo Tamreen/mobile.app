@@ -27,7 +27,7 @@ tamreen.factory('LocationService', function($q, $injector){
 			deferred.resolve(service.coordinates);
 
 		}, function(error){
-			console.log(JSON.stringify(error));
+			console.log(error);
 			deferred.reject(error);
 		});
 

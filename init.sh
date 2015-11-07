@@ -21,6 +21,8 @@ cordova plugin rm cordova-plugin-contacts # cordova plugin add org.apache.cordov
 cordova plugin rm cordova-plugin-device
 cordova plugin rm cordova-plugin-whitelist
 cordova plugin rm cordova-plugin-network-information
+cordova plugin rm cordova-plugin-geolocation
+cordova plugin rm cordova-plugin-inappbrowser
 
 # Plugins adding.
 cordova plugin add com.ionic.keyboard

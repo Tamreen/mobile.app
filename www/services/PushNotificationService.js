@@ -67,7 +67,7 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 					// Set the device token.
 					// Android is very important.
-					$cordovaPush.register(configs.android.senderID).then(function(result){
+					$cordovaPush.register(configs.android).then(function(result){
 					    console.log('Device is to be registered.');
 					}, function(error){
 					    return deferred.reject(error);
