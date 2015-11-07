@@ -21,6 +21,11 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	//
 	service.user = null;
 
+	// TODO: Maybe this should appear.
+	// $ionicLoading.show({
+	// 	template: 'ثوانٍ من فضلك...'
+	// });
+
 	//
 	InternetService.initialize()
 
@@ -56,6 +61,7 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	.then(function(storage){
 
 		console.log('Reached this line meaning peace.');
+		// $ionicLoading.hide();
 
 		service.storage = storage;
 

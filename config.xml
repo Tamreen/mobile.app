@@ -7,7 +7,7 @@
   <author email="hossam_zee@yahoo.com" href="http://hossamzee.github.io/">
       حسام الزغيبي
     </author>
-  <content src="http://192.168.43.207:8100" original-src="index.html"/>
+  <content src="index.html"/>
   <access origin="*"/>
   <allow-navigation href="*"/>
   <allow-intent href="*"/>
