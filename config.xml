@@ -19,6 +19,7 @@
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
   <platform name="android">
+    <preference name="android-targetSdkVersion" value="19"/>
     <icon src="resources/android/icon/drawable-ldpi.png" density="ldpi"/>
     <icon src="resources/android/icon/drawable-mdpi.png" density="mdpi"/>
     <icon src="resources/android/icon/drawable-hdpi.png" density="hdpi"/>
