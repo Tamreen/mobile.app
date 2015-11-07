@@ -63,6 +63,8 @@ tamreen.factory('ContactService', function($q, $injector, $ionicPlatform, Tamree
 					//
 					deferred.resolve(service.contact);
 
+				}, function(error){
+					deferred.reject('لا يُمكن الوصول إلى جهات الإتصال.');
 				});
 
 			});

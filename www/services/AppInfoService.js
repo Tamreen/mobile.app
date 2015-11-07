@@ -30,13 +30,13 @@ tamreen.factory('AppInfoService', function($q, $http){
 			var appVersionInteger = Number(service.appVersion.replace(/\./g, ''));
 
 			if (configAppVersionInteger < appVersionInteger){
-				return deferred.reject('The version of the app need to be updated.');
+				return deferred.reject('الرجاء تحديث التطبيق إلى آخر نسخة متوفّرة.');
 			}
 
 			return deferred.resolve(service);
 
 		}, function(response){
-			return deferred.reject('Cannot connect to Tamreen API.');
+			return deferred.reject('الوصول إلى واجهة برمجة تطبيق تمرين (API) غير مُمكنة.');
 		});
 
 		return deferred.promise;

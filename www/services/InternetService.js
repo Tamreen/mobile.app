@@ -24,7 +24,7 @@ tamreen.factory('InternetService', function($q, $injector, $ionicPlatform){
 				if (isOnline == true){
 					deferred.resolve(service);
 				}else{
-					deferred.reject('Cannot connect to the internet.');
+					deferred.reject('لا يُمكن الوصول إلى الإنترنت.');
 				}
 			});
 		}

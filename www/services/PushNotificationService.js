@@ -54,7 +54,7 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 						// There has to be an error received also.
 						default:
-							return deferred.reject('An unknown GCM event has occurred');
+							return deferred.reject('لا يُمكن الوصول إلى الإشعارات في الوقت الحاليّ.');
 						break;
 					}
 
@@ -90,13 +90,13 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 					}, function(error){
 
-						// Escape when the simulator is used for both ios and android.
+						// FIXME: Escape when the simulator is used for both ios and android.
 						if (error == ' - REMOTE_NOTIFICATION_SIMULATOR_NOT_SUPPORTED_NSERROR_DESCRIPTION'){
 							service.deviceToken = '12321312321';
 							return deferred.resolve(service);
 						}
 
-						return deferred.reject('Cannot use the push notification for now.');
+						return deferred.reject('لا يُمكن الوصول إلى الإشعارات في الوقت الحاليّ.');
 					});
 				}
 

@@ -30,7 +30,7 @@ tamreen.factory('DeviceService', function($q, $injector, $ionicPlatform){
 				service.deviceType = $cordovaDevice.getPlatform();
 
 				if (validator.isNull(service.deviceType)){
-					return deferred.reject('Cannot find the device.');
+					return deferred.reject('لا يُمكن الحصول على معلومات الجهاز.');
 				}
 
 				service.deviceType = service.deviceType.toLowerCase();

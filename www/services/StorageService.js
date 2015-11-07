@@ -31,7 +31,7 @@ tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 				.then(function(success){
 					return deferred.resolve(service);
 				}, function(error){
-					return deferred.reject('Cannot save or read files.');
+					return deferred.reject('لا يُمكن قراءة وَ كتابة الملفات.');
 				});
 
 			});
@@ -85,7 +85,7 @@ tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 			var objectString = localStorage.getItem(key);
 
 			if (validator.isNull(objectString)){
-				deferred.reject('Cannot find the variable.');
+				deferred.reject('لا يُمكن قراءة المتغيّر.');
 			}
 
 			deferred.resolve(JSON.parse(objectString));

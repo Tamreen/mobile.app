@@ -27,8 +27,7 @@ tamreen.factory('LocationService', function($q, $injector){
 			deferred.resolve(service.coordinates);
 
 		}, function(error){
-			console.log(error);
-			deferred.reject(error);
+			deferred.reject('ثمّة خطأ عند محاولة الحصول على موقعك الجغرافيّ الحاليّ.');
 		});
 
 		//
