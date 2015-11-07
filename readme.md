@@ -24,23 +24,23 @@
 - Remove a lot of the inner styles.
 - Design the about page.
 - Fix the error when there is no internet access.
-
-## TODO:
 - Make the services real, e.g. Contacts, Location, Storage, etc.
 - Display the notifications and what is relevant.
 - Make the map in training details clickable.
+- Fix the android back button, the button should be in the left.
+- No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.
+- Footer is broken in many places.
+- AndroidPersistentFileLocation.
+
+## TODO:
 - Tell the user about the current state of the app, e.g. Loading..., etc.
 - Check the deviceType value sometimes it happens to be null.
 - Take some beautiful screenshots for the app to market it.
-- Beautify the lines and codes, make them really beautiful.
 - There is an issue of performance when getting trainings that are around.
 - Maybe fix the indian number validations.
-- Fix the android back button, the button should be in the left.
 - Fix the rounding with buttons bar.
 - Check the warnings about SVG and fix them as possible.
 - $rootScope concept is really ill (Fix the issue with the events).
 - Make the TOS (Mention that the faces are randomly generated, they do not mean anything personal).
 - Fix the readme file or update it.
-- AndroidPersistentFileLocation.
 - Error messages must be in Arabic.
- - No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.

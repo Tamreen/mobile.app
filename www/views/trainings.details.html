@@ -15,7 +15,7 @@
     <ion-tabs class="tabs-striped tabs-top tabs-icon-only">
         <ion-tab title="الملعب">
             <ion-nav-view name="tab-a">
-                <ion-content class="padding">
+                <ion-content class="padding" ng-class="{'has-footer': (training.summary != null)}">
 
                     <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshTraining(training.id)"></ion-refresher>
 
@@ -70,7 +70,6 @@
                     </div>
                 </ion-content>
 
-                <!-- TODO: The content div has to have a (has-footer) attribute. -->
                 <div class="bar bar-footer bar-light" ng-if="training.summary != null">
                     <div class="title">
                         <small>التمرين يُتيح {{training.summary}}.</small>

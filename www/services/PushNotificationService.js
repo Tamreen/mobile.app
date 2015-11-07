@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatform, $rootScope, $ionicLoading){
+tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatform, $rootScope, $ionicLoading, $timeout){
 
 	console.log('PushNotificationService has been called.');
 
@@ -34,6 +34,8 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 				// Listen to whenever a notification received.
 				$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification){
+
+					console.log('hello');
 
 					switch(notification.event){
 
@@ -100,6 +102,11 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 
 			});
 		}
+
+		// TODO: Test these lines.
+		// $timeout(function(){
+		// 	deferred.reject('Cannot use the push notifications service.');
+		// }, 5000);
 
 		//
 		return deferred.promise;
