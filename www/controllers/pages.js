@@ -50,7 +50,6 @@ tamreen.controller('PagesController', function($scope, $rootScope, $state, $ioni
 			$scope.parameters.coordinates.x = event.latLng.lng();
 			$scope.parameters.coordinates.y = event.latLng.lat(); 
         });
-
 	};
 
 	//

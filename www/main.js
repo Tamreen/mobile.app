@@ -226,3 +226,9 @@ function drawTrainingPercentage(percentage){
 	//
 	return canvas.toDataURL();
 }
+
+//
+function randomAvatar(){
+	var number = Math.floor(Math.random() * 1000);
+	return 'http://api.adorable.io/avatars/70/' + number.toString() + '.png';
+}

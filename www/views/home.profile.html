@@ -9,7 +9,7 @@
         <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="profilePullToRefresh()"></ion-refresher>
         <div class="list">
             <div class="item item-avatar">
-                <img src="http://api.adorable.io/avatars/70/{{user.id}}">
+                <img ng-src="{{userAvatar}}" ng-init="getRandomAvatar()" />
                 <h2>{{user.fullname}}</h2>
                 <p>انضممت في {{user.createdAt | arDate}}</p>
             </div>

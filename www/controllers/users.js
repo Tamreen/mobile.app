@@ -10,11 +10,17 @@ tamreen.controller('UsersController', function($scope, $rootScope, $state, $ioni
 
 	//
 	$scope.user = null;
+	$scope.userAvatar = null;
 
 	// TODO: This to be fixed.
 	$rootScope.$on('users.update', function(){
 		$scope.user = TamreenService.user;
 	});
+
+	//
+	$scope.getRandomAvatar = function(){
+		$scope.userAvatar = randomAvatar();
+	}
 
 	// firstHandShake.
 	// Called when the user is entering the mobile and expecting a temporary code number.

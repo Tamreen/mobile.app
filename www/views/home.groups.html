@@ -10,11 +10,11 @@
         <ion-list>
             <!-- 24, 27, 38 -->
             <div class="text-center padding home-no-items" ng-if="groups.length == 0">
-                <img src="http://api.adorable.io/avatars/70/27" /><br /><br />
+                <img src="views/images/green-smile.png" /><br /><br />
                 لم تنضم إلى أيّ مجموعة حتّى الآن، إذا كُنت تدير مجموعة لعب خارج التطبيق، فإنّه يُمكنك إضافتها من خلال اللّمس على أيقونة <span class="ion-ios-plus-outline" /> في الأعلى، أمّا إذا كنت عضوًا في مجموعة لعب فانتظر إضافتك من قبل مُديرها.
             </div>
             <a ui-sref="groups-details({id: group.id})" class="item item-avatar" ng-repeat="group in groups">
-                <img src="http://api.adorable.io/avatars/70/group-{{group.id}}" / >
+                <img ng-src="{{group.avatarSrc}}" / >
                 <h2>{{group.name}}</h2>
                 <p>{{group.playersCount}} لاعب.</p>
             </a>

@@ -356,7 +356,23 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 				$scope.training.mapSrc = 'http://maps.googleapis.com/maps/api/staticmap?center=' + $scope.training.coordinates.y.toString() + ',' + $scope.training.coordinates.x.toString() + '&markers=color:red%7C' + $scope.training.coordinates.y.toString() + ',' + $scope.training.coordinates.x.toString() + '&zoom=14&scale=true&size=400x260&maptype=roadmap&format=png&visual_refresh=true';
 			}
 			
+			//
 			$scope.training.statusSrc = $scope.getStatusImageUrl($scope.training.status, $scope.training.percentage);
+
+			//
+			$scope.training.willcomePlayers.forEach(function(player){
+				player.avatarSrc = randomAvatar();
+			});
+
+			//
+			$scope.training.apologizePlayers.forEach(function(player){
+				player.avatarSrc = randomAvatar();
+			});
+
+			//
+			$scope.training.notyetPlayers.forEach(function(player){
+				player.avatarSrc = randomAvatar();
+			});
 
 		}, function(response){
 			TamreenService.helperHandleErrors(response);

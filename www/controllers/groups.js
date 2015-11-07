@@ -118,6 +118,11 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 		//
 		.then(function(response){
 			$scope.groups = response.data;
+
+			$scope.groups.forEach(function(group){
+				group.avatarSrc = randomAvatar();
+			});
+
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
 		});
@@ -131,8 +136,14 @@ tamreen.controller('GroupsController', function($scope, $rootScope, $state, $sta
 
 		//
 		.then(function(response){
+
 			$scope.group = response.data;
 			$scope.parameters.name = $scope.group.name;
+			
+			$scope.group.players.forEach(function(player){
+				player.avatarSrc = randomAvatar();
+			});
+
 		}, function(response){
 			TamreenService.helperHandleErrors(response);
 		});
