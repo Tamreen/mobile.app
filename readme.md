@@ -31,6 +31,8 @@
 - No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.
 - Footer is broken in many places.
 - AndroidPersistentFileLocation.
+- Error messages must be in Arabic.
+- Make the TOS (Mention that the faces are randomly generated, they do not mean anything personal).
 
 ## TODO:
 - Tell the user about the current state of the app, e.g. Loading..., etc.
@@ -41,6 +43,4 @@
 - Fix the rounding with buttons bar.
 - Check the warnings about SVG and fix them as possible.
 - $rootScope concept is really ill (Fix the issue with the events).
-- Make the TOS (Mention that the faces are randomly generated, they do not mean anything personal).
 - Fix the readme file or update it.
-- Error messages must be in Arabic.
