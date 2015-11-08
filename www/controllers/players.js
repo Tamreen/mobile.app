@@ -18,7 +18,7 @@ tamreen.controller('PlayersController', function($scope, $rootScope, $state, $q,
 
 		//
 		.then(function(){
-			$state.go('home.trainings');
+			$state.go('pages-walkthrough');
 		//
 		}, function(response){
 			TamreenService.helperHandleErrors(response);

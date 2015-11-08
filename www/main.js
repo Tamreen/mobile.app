@@ -26,11 +26,16 @@ tamreen.filter('fromNow', [
     }
 ]);
 
+var symbolMap = {'1': '١', '2': '٢', '3': '٣', '4': '٤', '5': '٥', '6': '٦', '7': '٧', '8': '٨', '9': '٩', '0': '٠'};
+
 // From now filter.
 tamreen.filter('round', [
     '$filter', function($filter){
         return function(input){
-			return Math.round(input);
+        	var stringInput = input.toFixed(2);
+            return stringInput.replace(/\d/g, function (match) {
+                return symbolMap[match];
+            }).replace(/,/g, '،');
         };
     }
 ]);
@@ -82,6 +87,7 @@ tamreen.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider
 	.state('pages-walkthrough', {
 		url: '/pages/walkthrough',
 		templateUrl: 'views/pages.walkthrough.html',
+		controller: 'PagesController',
 	})
 
 	//

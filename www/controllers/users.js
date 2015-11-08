@@ -93,7 +93,13 @@ tamreen.controller('UsersController', function($scope, $rootScope, $state, $ioni
 					return $state.go('players-firstupdate');
 
 				// Otherwise.
-				$state.go('home.trainings');
+				TamreenService.storage.retrieve(configs['walkthroughKey'])
+
+				.then(function(success){
+					return $state.go('home.trainings');
+				}, function(error){
+					return $state.go('pages-walkthrough');
+				});
 
 			}, function(error){
 

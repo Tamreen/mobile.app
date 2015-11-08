@@ -1,5 +1,5 @@
 
-tamreen.controller('PagesController', function($scope, $rootScope, $state, $ionicPopup, $ionicHistory, LocationService){
+tamreen.controller('PagesController', function($scope, $rootScope, $state, $ionicPopup, $ionicHistory, TamreenService, LocationService){
 
 	//
 	$scope.parameters = {
@@ -70,6 +70,18 @@ tamreen.controller('PagesController', function($scope, $rootScope, $state, $ioni
 			});
 		});
 	};
+
+	//
+	$scope.skipWalkthrough = function(){
+
+		TamreenService.storage.store(configs['walkthroughKey'], true)
+
+		.then(function(success){
+			return $state.go('home.trainings');
+		}, function(error){
+			console.log(error);
+		});
+	}
 
 	// TODO: The choosemap page should accept coordinates.
 	//$scope.getUserCurrentLocation();

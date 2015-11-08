@@ -120,7 +120,6 @@ tamreen.factory('StorageService', function($q, $injector, $ionicPlatform){
 
 		//
 		return deferred.promise;
-
 	};
 
 	// Check if the environmet is development or not.

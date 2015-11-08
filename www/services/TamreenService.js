@@ -81,9 +81,15 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 				// Set the region code.
 				service.regionCode = service.helperMobileRegionCode(user.e164formattedMobileNumber);
 
-				// Go afterward to groups.
-				$state.go('home.trainings');
-				
+				//
+				service.storage.retrieve(configs['walkthroughKey'])
+
+				.then(function(success){
+					return $state.go('home.trainings');
+				}, function(error){
+					return $state.go('pages-walkthrough');
+				});
+
 			//
 			}, function(error){
 				$state.go('users-firsthandshake');

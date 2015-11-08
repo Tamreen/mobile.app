@@ -3,18 +3,41 @@
 
     <ion-nav-bar></ion-nav-bar>
 
-	<!-- <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-ios-checkmark-outline" ui-sref="home.trainings"></button>
-    </ion-nav-buttons> -->
+	<ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios-checkmark-outline" ng-click="skipWalkthrough()"></button>
+    </ion-nav-buttons>
 
-    <!-- on-slide-changed="slideChanged(index)" -->
 	<ion-slide-box>
-		<ion-slide class="padding">
-			Hello World!
+
+		<ion-slide class="slide-welcome">
+			<img src="views/images/red-smile.png" />
+			<p>
+				مرحبًا مليون، تطبيق “تمرين” طُوّر بعناية لمن يُدير مجموعات اللعب وَ لمن يشارك فيها أيضًا، لا حاجة لاستخدام تطبيق “وتساب” للتحضير إلى “التمارين” بعد الآن.
+			</p>
 		</ion-slide>
-		<ion-slide>
-			<a ui-sref="home.trainings" class="button button-positive">تخطّي</a>
+
+		<ion-slide class="slide-groups">
+			<img src="views/images/green-smile.png" />
+			<p>
+				إذا كنت تُدير مجموعة لعب؛ فأضفها الآن من خلال اللّمس على تبويب المجموعات المتمثّل في الأيقونة <span class="ion-ios-people"></span> ثم اللّمس على أيقونة <span class="ion-ios-plus-outline"></span> في الأعلى، بعد ذلك يُمكنك إضافة الأعضاء إلى المجموعة.
+			</p>
 		</ion-slide>
+
+		<ion-slide class="slide-trainings">
+			<img src="views/images/blue-smile.png" />
+			<p>
+				يُمكنك إضافة تمرينٍ جديد من خلال اللّمس على تبويب التمارين المتمثّل في الأيقونة <span class="ion-ios-football"></span> ثم اللّمس على أيقونة <span class="ion-ios-plus-outline"></span> في الأعلى. كما يُمكنك المشاركة في تمرين ما من خلال استعراض تبويب “خاصّةٌ بي” وَ تبويب “قريبةُ منّي”.
+			</p>
+		</ion-slide>
+
+		<ion-slide class="slide-activities">
+			<img src="views/images/orange-smile.png" />
+			<p>
+				تطبيق “تمرين” سيرسل إليك كلّ الإشعارات التي لك علاقة بها، “بداية التحضير إلى تمرينٍ جديد”، “لاعبٌ قرّر الحضور”، “لاعبٌ اعتذر عن الحضور”، “اكتمال التحضير إلى التمرين”، و غيرها الكثير.
+			</p>
+			<a ng-click="skipWalkthrough()" class="button button-light">تخطّي</a>
+		</ion-slide>
+
 	</ion-slide-box>
 
 </ion-view>
