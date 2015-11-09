@@ -9,6 +9,4 @@ tamreen.controller('HomeController', function($scope, $rootScope){
 		profile: 0,
 	};
 
-
-
 });
