@@ -4,7 +4,7 @@
     </ion-nav-bar>
 
     <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-ios-plus-outline" ng-click="addGroupPlayer(group.id)"></button>
+        <button class="button button-icon icon ion-ios-plus-outline" ng-click="addGroupPlayer(group.id)" ng-if="group.adminable"></button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="left">
