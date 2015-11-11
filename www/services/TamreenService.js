@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicPlatform, $state, $http, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
+tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicPlatform, $state, $http, $ionicLoading, InternetService, AppInfoService, DeviceService, PushNotificationService, StorageService){
 
 	console.log('TamreenService has been called.');
 
@@ -22,9 +22,9 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	service.user = null;
 
 	// TODO: Maybe this should appear.
-	// $ionicLoading.show({
-	// 	template: 'ثوانٍ من فضلك...'
-	// });
+	$ionicLoading.show({
+		template: 'لحظةً من فضلك...'
+	});
 
 	//
 	InternetService.initialize()
@@ -60,8 +60,9 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 	//
 	.then(function(storage){
 
+		$ionicLoading.hide();
+
 		console.log('Reached this line meaning peace.');
-		// $ionicLoading.hide();
 
 		service.storage = storage;
 
@@ -100,6 +101,8 @@ tamreen.factory('TamreenService', function($q, $ionicModal, $ionicPopup, $ionicP
 
 	// The app cannot run without these services.
 	.catch(function(error){
+
+		$ionicLoading.hide();
 
 		console.log(error);
 

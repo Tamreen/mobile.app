@@ -38,6 +38,7 @@ cordova plugin add cordova-plugin-geolocation
 cordova plugin add cordova-plugin-inappbrowser
 
 # error No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.
+ionic resources
 
 # Build iOS.
 cordova build ios
