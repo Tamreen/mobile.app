@@ -1,0 +1,43 @@
+
+<ion-view view-title="{{group.name}}">
+    <ion-nav-bar>
+    </ion-nav-bar>
+
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios-plus-outline" ng-click="addGroupPlayer(group.id)" ng-if="group.adminable"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="left">
+    	<button class="button button-icon icon ion-ios-arrow-back" ui-sref="home.groups"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+        <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshGroup(group.id)"></ion-refresher>
+        <ion-list>
+
+			<div class="item item-text-wrap text-center" ng-if="players.length == 0">
+			    لم يتم إضافة لاعبين حتّى الآن، يمكنك القيام بذلك من خلال اللمس على أيقونة '+' في الأعلى.
+			</div>
+
+			<ion-item class="item item-avatar item-icon-left" ng-repeat="player in group.players" ng-click="elaborateGroupPlayer(group.id, player.id)">
+			    <img ng-src="{{player.avatarSrc}}" />
+			    <h2>{{player.fullname}}</h2>
+			    <p>
+			        <span ng-if="player.role == 'member'">انضم {{player.joinedAt | fromNow }}</span>
+			        <span class="assertive" ng-if="player.role == 'admin'">مدير المجموعة</span>
+			    </p>
+			    <span class="icon ion-ios-more" ng-if="group.adminable"></span>
+			</ion-item>
+
+            <div class="item">
+                <div class="button-bar">
+                    <a ui-sref="groups-update({id: group.id})" class="button button-positive" ng-if="group.adminable == 1">تحديث المعلومات</a>
+                    <span class="button button-clear" ng-if="group.adminable == 0"> </span>
+                    <a class="button button-clear button-assertive" ng-if="group.adminable == 1" ng-click="deleteGroup(group.id)">حذف المجموعة</a>
+                    <a class="button button-clear button-assertive" ng-if="group.adminable == 0" ng-click="leaveGroup(group.id)">مُغادرة هذه المجموعة</a>
+                </div>
+            </div>
+
+        </ion-list>
+    </ion-content>
+</ion-view>

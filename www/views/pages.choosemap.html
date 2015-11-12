@@ -1,0 +1,16 @@
+
+<!-- TODO: This has to be better, meaning an API map not a static one. -->
+<ion-view title="تحديد موقعٍ جغرافيّ">
+
+    <ion-nav-bar>
+        <ion-nav-back-button ng-click="goBack()">تحديد</ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-nav-buttons side="right">
+        <a class="button button-icon icon ion-ios-navigate-outline" ng-click="getUserCurrentLocation()"></a>
+    </ion-nav-buttons>
+
+    <ion-content padding="false">
+        <div id="map" class="map" ng-init="initializeMap()"></div>
+    </ion-content>
+</ion-view>

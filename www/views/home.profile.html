@@ -1,0 +1,24 @@
+
+<ion-view view-title="الملف الشخصي">
+    <ion-nav-bar>
+    </ion-nav-bar>
+    <ion-nav-buttons side="right">
+        <a class="button button-icon icon ion-ios-help-outline" ui-sref="pages-about"></a>
+    </ion-nav-buttons>
+    <ion-content padding="true">
+        <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="profilePullToRefresh()"></ion-refresher>
+        <div class="list">
+            <div class="item item-avatar">
+                <img ng-src="{{userAvatar}}" ng-init="getRandomAvatar()" />
+                <h2>{{user.fullname}}</h2>
+                <p>انضممت في {{user.createdAt | arDate}}</p>
+            </div>
+            <div class="item">
+                <div class="button-bar">
+                    <a ui-sref="players-update" class="button button-positive">تحديث المعلومات</a>
+                    <a class="button button-clear button-assertive" ng-click="logout()">تسجيل الخروج</a>
+                </div>
+            </div>
+        </div>  
+    </ion-content>
+</ion-view>

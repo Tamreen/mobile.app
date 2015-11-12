@@ -1,0 +1,135 @@
+
+<ion-view view-title="{{training.name}}" >
+    <ion-nav-bar></ion-nav-bar>
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-arrow-back" ui-sref="home.trainings"></button>
+    </ion-nav-buttons>
+
+    <!-- FIXME: This button should be hidden if the user cannot decide. -->
+    <!-- FIXME: The button for players also should be hidden, the ones that show '...'. -->
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios-more" ng-click="trainingMore()"></button>
+    </ion-nav-buttons>
+
+    <ion-tabs class="tabs-striped tabs-top tabs-icon-only">
+        <ion-tab title="الملعب">
+            <ion-nav-view name="tab-a">
+                <ion-content class="padding" ng-class="{'has-footer': (training.summary != null)}">
+
+                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshTraining(training.id)"></ion-refresher>
+
+                    <div class="list">
+
+                        <!-- FIXME: It should be clickable to show the directions to the coordinates. -->
+                        <!-- ng-init="initializeMap()" -->
+                        <!-- <div id="map-{{scopeInfo.id}}" class="item-map" ng-if="training.coordinates != null" ng-init="initializeMap()"></div> -->
+
+                        <div class="item item-map" ng-if="training.coordinates != null">
+                            <img ng-src="{{training.mapSrc}}" ng-click="openMapDirections(training.coordinates)" />
+                        </div>
+
+                        <div class="item item-avatar">
+                            <img ng-src="{{training.statusSrc}}" />
+                            <h2>{{training.stadium}}</h2>
+                            <p>{{training.startedAt | arDate}}</p>
+                        </div>
+
+                        <div ng-if="training.canDecide">
+
+                            <!-- The user did not decide yet. -->
+                            <div class="item" id="notYetDecided" ng-if="training.decision == 'notyet'">
+                                <div class="button-bar">
+                                    <a class="button button-balanced" ng-click="willCome(training.id)">سأحضر بإذن الله</a>
+                                    <a class="button button-clear button-positive" ng-click="apologize(training.id)">أعتذر عن الحضور</a>
+                                </div>
+                            </div>
+
+                            <!-- The user decided to come. -->
+                            <div class="item" id="notYetDecided" ng-if="training.decision == 'willcome'">
+                                <div class="button-bar">
+                                    <span class="button button-clear">قرّرتَ الحضور</span>
+                                    <a class="button button-outline button-assertive" ng-click="apologize(training.id)">أعتذر عن الحضور</a>
+                                </div>
+                            </div>
+
+                            <!-- The user apologized. -->
+                            <div class="item" id="notYetDecided" ng-if="training.decision == 'apologize'">
+                                <div class="button-bar">
+                                    <span class="button button-clear">اعتذرتَ عن الحضور</span>
+                                    <a class="button button-outline button-balanced" ng-click="willCome(training.id)">سأحضر بإذن الله</a>
+                                </div>
+                            </div>
+
+                            <!-- The user must decide first to be able to bring a professional. -->
+                            <div ng-if="training.decision != 'notyet' && training.professionalized == 1">
+                                <a ng-click="bringProfessional(training.id)" class="button button-block button-positive">جلب مُحترف</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </ion-content>
+
+                <div class="bar bar-footer bar-light" ng-if="training.summary != null">
+                    <div class="title">
+                        <small>التمرين يُتيح {{training.summary}}.</small>
+                    </div>
+                </div>
+
+            </ion-nav-view>
+        </ion-tab>
+        <ion-tab title="اللاعبون">
+            <ion-nav-view name="tab-b">
+                <ion-content class="padding">
+                    <ion-refresher pulling-icon="ion-ios-arrow-down" pulling-text="اسحب للتحديث..." on-refresh="pullToRefreshTraining(training.id)"></ion-refresher>
+                    <ion-list>
+
+                        <!-- Will come players. -->
+                        <div class="item item-divider" ng-if="training.willcomePlayers.length > 0">
+                            <span class="rtl">قرّروا الحضور</span>
+                            <span class="badge badge-light">{{training.willcomePlayers.length}}</span>
+                        </div>
+
+                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.willcomePlayers" ng-click="playerMore(player.id, 'willcome')">
+                            <img ng-src="{{player.avatarSrc}}" / >
+                            <h2>{{player.fullname}}</h2>
+                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
+                            <i class="icon ion-ios-more" ng-if="training.adminable == 1"></i>
+                        </div>
+
+                        <!-- <div class="row"><div class="col"></div></div> -->
+
+                        <div class="item item-divider" ng-if="training.apologizePlayers.length > 0">
+                            <span class="rtl">اعتذروا عن الحضور</span>
+                            <span class="badge badge-light">{{training.apologizePlayers.length}}</span>
+                        </div>
+
+                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.apologizePlayers" ng-click="playerMore(player.id, 'apologize')">
+                            <img ng-src="{{player.avatarSrc}}" / >
+                            <h2>{{player.fullname}}</h2>
+                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
+                            <i class="icon ion-ios-more" ng-if="training.adminable == 1"></i>
+                        </div>
+
+                        <!-- <div class="row"><div class="col"></div></div> -->
+                        
+                        <div class="item item-divider" ng-if="training.notyetPlayers.length > 0">
+                            <span class="rtl">لم يقرّروا حتّى الآن</span>
+                            <span class="badge badge-light">{{training.notyetPlayers.length}}</span>
+                        </div>
+
+                        <div class="item item-avatar item-icon-left" ng-repeat="player in training.notyetPlayers" ng-click="playerMore(player.id, 'notyet')">
+                            <img ng-src="{{player.avatarSrc}}" / >
+                            <h2>{{player.fullname}}</h2>
+                            <p ng-if="player.readAt != null">قرأها {{player.readAt | fromNow }}</p>
+                            <p ng-if="player.readAt == null">لم يقرأها بعدُ</p>
+                            <i class="icon ion-ios-more" ng-if="training.adminable == 1"></i>
+                        </div>
+                    </ion-list>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>

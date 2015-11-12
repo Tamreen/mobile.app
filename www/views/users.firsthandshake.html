@@ -1,0 +1,56 @@
+
+<ion-view title="مرحبًا ألف">
+
+    <ion-nav-bar></ion-nav-bar>
+
+    <ion-content padding="true" has-footer="true">
+
+        <form name="firstHandShakeForm" ng-submit="firstHandShake()">
+
+            <div class="list">
+                <!-- <div class="item text-center item-logo">
+                    صورة
+                </div> -->
+                <label class="item item-input item-select">
+                    <span class="input-label">الدولة</span>
+                    <select ng-model="parameters.regionCode">
+                        <option value="jo">الأردن</option>
+                        <option value="ae">الإمارات</option>
+                        <option value="bh">البحرين</option>
+                        <option value="dz">الجزائر</option>
+                        <option value="sa">السعودية</option>
+                        <option value="cn">الصين</option>
+                        <option value="iq">العراق</option>
+                        <option value="kw">الكويت</option>
+                        <option value="ma">المغرب</option>
+                        <option value="ye">اليمن</option>
+                        <option value="gr">اليونان</option>
+                        <option value="us">أمريكا</option>
+                        <option value="gb">بريطانيا</option>
+                        <option value="tn">تونس</option>
+                        <option value="sy">سوريا</option>
+                        <option value="om">عمان</option>
+                        <option value="qa">قطر</option>
+                        <option value="lb">لبنان</option>
+                        <option value="ly">ليبيا</option>
+                        <option value="eg">مصر</option>
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">الجوّال</span>
+                    <input type="tel" placeholder="05XXXXXXXX" ng-model="parameters.mobileNumber" />
+                </label>
+                <div>
+                    <input class="button button-block button-positive" type="submit" value="إرسال الرمز المؤقت عبر SMS" />
+                </div>
+            </div>
+        </form>
+    </ion-content>
+
+    <div class="bar bar-footer bar-light">
+        <div class="title">
+            <small>إنّك بتسجيلك الدخول تُوافق على <a ui-sref="pages-tos">بنود الخدمة</a>.</small>
+        </div>
+    </div>
+
+</ion-view>

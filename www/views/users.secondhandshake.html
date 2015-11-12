@@ -1,0 +1,32 @@
+
+
+<ion-view title="تسجيل الدخول">
+
+    <ion-nav-bar></ion-nav-bar>
+
+    <ion-content padding="true" has-footer="true">
+
+        <form name="secondHandShakeForm" ng-submit="secondHandShake()">
+
+            <div class="list">
+                <!-- <div class="item text-center item-logo">
+                    صورة
+                </div> -->
+                <label class="item item-input">
+                	<span class="input-label">الرمز المؤقت</span>
+                	<input type="tel" placeholder="1234" ng-model="parameters.code" />
+                </label>
+                <div>
+                    <input class="button button-block button-positive" type="submit" value="تسجيل الدخول" />
+                </div>
+            </div>
+        </form>
+    </ion-content>
+
+    <div class="bar bar-footer bar-light">
+        <div class="title">
+            <small>ستصلك رسالة نصيّة قصيرة بعد قليلٍ بإذن الله، كُن صبورًا.</small>
+        </div>
+    </div>
+
+</ion-view>

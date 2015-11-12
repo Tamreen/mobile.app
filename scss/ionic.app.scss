@@ -22,12 +22,12 @@ $positive: #8962ed !default;
 $dark: #524b57 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../lib/ionic/fonts" !default;
+$ionicons-font-path: "../fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "www/libraries/ionic/scss/ionic";
 
-ion-content, .tabs{
+ion-content, .bar .title, .bar small{
 	direction: rtl;
 }
 
@@ -41,13 +41,28 @@ ion-content, .tabs{
 	right: 16px;
 }
 
+.item-map{
+	padding: 0;
+	height: 300px;
+	margin-bottom: -60px;
+}
+
+.map{
+	width: 100%;
+	height: 100%;
+}
+
+.scroll{
+	height: 100%;
+}
+
 .item .badge{
 	left: 16px;
 	right: auto;
 	font-weight: normal;
 }
 
-.rtl, .popup-body, .loading-container .loading, .popup-buttons, .action-sheet-title{
+.rtl, .popup-body, .loading-container .loading, .popup-buttons, .action-sheet-title, .action-sheet .button{
 	direction: rtl;
 }
 
@@ -65,42 +80,16 @@ a{
 	border-bottom: 1px dotted $positive;
 }
 
-.item-logo{
-	padding-top: 30px;
-	padding-bottom: 30px;
-	background-color: #f3f3f3;
-	background-image: url('../img/swirl-pattern.png');
+.modal-bg{
+	/*background: url('http://38.media.tumblr.com/tumblr_m7r76sNkp41r7exs2o1_500.gif') center center no-repeat;
+	background-size: cover;
+	opacity: 0.1;*/
 }
 
-.vertical-center{
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-direction: normal;
-	-moz-box-direction: normal;
-	-webkit-box-orient: horizontal;
-	-moz-box-orient: horizontal;
-	-webkit-flex-direction: row;
-	-ms-flex-direction: row;
-	flex-direction: row;
-	-webkit-flex-wrap: nowrap;
-	-ms-flex-wrap: nowrap;
-	flex-wrap: nowrap;
-	-webkit-box-pack: center;
-	-moz-box-pack: center;
-	-webkit-justify-content: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-align-content: stretch;
-	-ms-flex-line-pack: stretch;
-	align-content: stretch;
-	-webkit-box-align: center;
-	-moz-box-align: center;
-	-webkit-align-items: center;
-	-ms-flex-align: center;
-	align-items: center;
+.lovely-modal{
+	text-align: center;
+	position: absolute;
+	width: 100%; top: 50%;
 }
 
 .item-input input{
@@ -110,6 +99,8 @@ a{
 
 .item-select select{
 	right: auto;
+	padding: 0;
+	padding-right: 24px;
 }
 
 .item-select:after{
@@ -134,6 +125,93 @@ a{
 	float: left;
 }
 
+.item-photo{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	background-color: #f3f3f3;
+}
+
+.item-photo img{
+	border-radius: 50%;
+	background-color: #fff;
+	height: 70px;
+}
+
 /*.button-bar > .button:first-child{
 	border-radius: 0px 2px 2px 0px;
 }*/
+
+.slider{
+	width: 100%; height: 100%;
+	background-color: #524b57; /*6734e8*/
+}
+
+ion-slide img{
+	margin-top: 50%; border-radius: 50%;
+	background-color: #fff; height: 70px;
+}
+
+.slide-welcome{
+	/*background: url('http://33.media.tumblr.com/0e1d3679560684ec289cb066abc6569a/tumblr_nlmv2lrHff1qikcuzo1_400.gif') center center no-repeat;
+  	background-size: cover;*/
+	background-color: #524b57;
+
+	/*&:before {
+    	content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
+		opacity: .9; 
+  }*/
+}
+
+.slide-groups{
+	background-color: #8962ed;
+}
+
+.slide-trainings{
+	background-color: #ef473a;
+}
+
+.slide-activities{
+	background-color: #33cd5f;
+}
+
+ion-slide{
+	text-align: center;
+}
+
+ion-slide p{
+	padding: 20px; margin-top: 10px;
+	direction: rtl; color: #fff;
+}
+
+.slider-pager .slider-pager-page{
+	color: #fff;
+}
+
+.slider-pager-page .active{
+	color: #ccc;
+}
+
+.item-logo{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	background-color: #f3f3f3;
+}
+
+.home-no-items{
+	margin-top: 50%;
+}
+
+.home-no-items-with-tab{
+	margin-top: 30%;
+}
+
+.home-no-items img, .home-no-items-with-tab img{
+	border-radius: 50%; height: 70px;
+	background-color: #fff;
+}

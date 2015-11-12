@@ -1,0 +1,94 @@
+
+<ion-view title="إضافة تمرين">
+
+    <ion-nav-bar>
+    </ion-nav-bar>
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-ios-arrow-back" ui-sref="home.trainings"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+        <form ng-submit="addTraining()">
+            <div class="list">
+                <div class="item item-divider">
+                    <span>المكان</span>
+                </div>
+
+                <label class="item item-input">
+                    <span class="input-label">اسم الملعب</span>
+                    <input type="text" placeholder="الإبداع" ng-model="parameters.stadium">
+                </label>
+
+                <a class="item item-icon-left" ui-sref="pages-choosemap()" ng-if="parameters.coordinates == null">
+                    <i class="icon ion-ios-location-outline dark"></i>
+                    حدّد الموقع الجغرافيّ (اختياريّ).
+                </a>
+
+                <a class="item item-icon-left item-dark" ui-sref="pages-choosemap" ng-if="parameters.coordinates != null">
+                    <i class="icon ion-ios-location"></i>
+                    تمّ تحديد الموقع الجغرافيّ وَ لتغيره المس هُنا.
+                </a>
+
+                <div class="row"><div class="col"></div></div>
+
+                <div class="item item-divider">
+                    <span>الزمان</span>
+                </div>
+
+                <label class="item item-input item-select">
+                    <span class="input-label">التاريخ</span>
+                    <select ng-model="parameters.startedAtDate">
+                        <option value="" ng-selected="selected">اختر تاريخًا</option>
+                        <option ng-repeat="date in dates" value="{{date.id}}">
+                            {{date.value}}
+                        </option>
+                    </select>
+                </label>
+
+                <label class="item item-input item-select">
+                    <span class="input-label">وقت البدء</span>
+                    <select ng-model="parameters.startedAtTime">
+                        <option value="" ng-selected="selected">اختر وقتًا</option>
+                        <option ng-repeat="hour in hours" value="{{hour.id}}">
+                            {{hour.value}}
+                        </option>
+                    </select>
+                </label>
+
+                <div class="row"><div class="col"></div></div>
+
+                <div class="item item-divider">
+                  <span>المدعوون</span>
+                </div>
+
+                <div class="item item-checkbox" ng-repeat="group in groups">
+                    <label class="checkbox"><input type="checkbox" ng-model="group.checked"></label> {{group.name}}
+                </div>
+
+                <div class="item item-checkbox">
+                    <label class="checkbox checkbox-balanced">
+                        <input type="checkbox" ng-model="parameters.publicized" />
+                    </label> الدعوة عامّة
+                </div>
+
+                <div class="row">
+                    <div class="col"></div>
+                </div>
+
+                <div class="item item-divider">
+                    <span>اللاعبون</span>
+                </div>
+
+                <label class="item item-input">
+                    <span class="input-label">عدد اللاعبين</span>
+                    <input type="tel" placeholder="20" ng-model="parameters.playersCount">
+                </label>
+
+                <div>
+                    <button class="button button-block button-positive" type="submit">إضافة التمرين</button>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
