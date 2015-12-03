@@ -91,10 +91,10 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 					}, function(error){
 
 						// FIXME: Escape when the simulator is used for both ios and android.
-						if (error == ' - REMOTE_NOTIFICATION_SIMULATOR_NOT_SUPPORTED_NSERROR_DESCRIPTION'){
+						//if (error == ' - REMOTE_NOTIFICATION_SIMULATOR_NOT_SUPPORTED_NSERROR_DESCRIPTION'){
 							service.deviceToken = '12321312321';
 							return deferred.resolve(service);
-						}
+						//}
 
 						return deferred.reject('لا يُمكن الوصول إلى الإشعارات في الوقت الحاليّ.');
 					});
