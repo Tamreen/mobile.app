@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatform, $rootScope, $ionicLoading, $timeout){
+tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatform, $rootScope, $ionicLoading){
 
 	console.log('PushNotificationService has been called.');
 
@@ -21,92 +21,50 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 		var deferred = $q.defer();
 
 		if (configs.environment == 'development'){
-
-			service.deviceToken = '12321312321';
-			deferred.resolve(service);
-
+			service.fail(deferred);
 		}else{
 
 			// If the environment is not development.
 			$ionicPlatform.ready(function(){
 
-				$cordovaPush = $injector.get('$cordovaPush');
+				var iosConfig = {
+					"badge": true,
+					"sound": true,
+					"alert": true,
+				};
 
-				// Listen to whenever a notification received.
-				$rootScope.$on('$cordovaPush:notificationReceived', function(event, notification){
+				console.log('pushNotification', PushNotification);
 
-					console.log('hello');
+				//
+				var push = PushNotification.init({
+					android: configs.android,
+					ios: iosConfig,
+    				windows: {},
+				});	
 
-					switch(notification.event){
-
-						case 'registered':
-
-							// Make sure the type of the notification is registered.
-							service.deviceToken = notification.regid;
-							return deferred.resolve(service);
-
-						break;
-
-						case 'message':
-							service.helperToast(notification.payload.title);
-							console.log('message has been received.');
-						break;
-
-						// There has to be an error received also.
-						default:
-							return deferred.reject('لا يُمكن الوصول إلى الإشعارات في الوقت الحاليّ.');
-						break;
-					}
-
-					if (notification.alert){
-						service.helperToast(notification.alert);
-						console.log('alert has been received.');
-					}
+				push.on('registration', function(data) {
+					// data.registrationId
+					service.deviceToken = data.registrationId;
+					return deferred.resolve(service);
 				});
 
-				// Register the push notification service.
-				if (validator.equals(services.device.deviceType, 'android')){
+				push.on('notification', function(data) {
+					// data.message,
+					// data.title,
+					// data.count,
+					// data.sound,
+					// data.image,
+					// data.additionalData
+					// console.log('notification');
+					service.helperToast(data.title);
+				});
 
-					// Set the device token.
-					// Android is very important.
-					$cordovaPush.register(configs.android).then(function(result){
-					    console.log('Device is to be registered.');
-					}, function(error){
-					    return deferred.reject(error);
-					});
-
-				}else if (validator.equals(services.device.deviceType, 'ios')){
-
-					var iosConfig = {
-						"badge": true,
-						"sound": true,
-						"alert": true,
-					};
-
-					$cordovaPush.register(iosConfig).then(function(result){
-
-						service.deviceToken = result;
-						return deferred.resolve(service);
-
-					}, function(error){
-
-						// FIXME: Escape when the simulator is used for both ios and android.
-						//if (error == ' - REMOTE_NOTIFICATION_SIMULATOR_NOT_SUPPORTED_NSERROR_DESCRIPTION'){
-							service.deviceToken = '12321312321';
-							return deferred.resolve(service);
-						//}
-
-						return deferred.reject('لا يُمكن الوصول إلى الإشعارات في الوقت الحاليّ.');
-					});
-				}
+				push.on('error', function(e) {
+					return service.fail(deferred);
+				});
 
 			});
 		}
-
-		// TODO: Test these lines.
-		// $timeout(function(){
-		// 	deferred.reject('Cannot use the push notifications service.');
-		// }, 5000);
 
 		//
 		return deferred.promise;
@@ -131,6 +89,12 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 			media.play();
 
 		});
+	};
+
+	//
+	service.fail = function(deferred){
+		service.deviceToken = '1234-dance';
+		return deferred.resolve(service);
 	};
 
 	//
