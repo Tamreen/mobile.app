@@ -12,8 +12,6 @@ tamreen.controller('TrainingsController', function($scope, $rootScope, $state, $
 	$scope.training = null;
 	$scope.scopeInfo = {id: $scope.$id};
 
-	console.log($scope.uinqueId);
-
 	//
 	$scope.parameters = {};
 

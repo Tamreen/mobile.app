@@ -19,10 +19,10 @@ cordova plugin add cordova-plugin-media
 cordova plugin add cordova-plugin-console
 cordova plugin add cordova-plugin-contacts
 cordova plugin add cordova-plugin-device
-cordova plugin add cordova-plugin-whitelist
 cordova plugin add cordova-plugin-network-information
 cordova plugin add cordova-plugin-geolocation
 cordova plugin add cordova-plugin-inappbrowser
+cordova plugin add cordova-plugin-whitelist
 
 # error No Content-Security-Policy meta tag found. Please add one when using the cordova-plugin-whitelist plugin.
 ionic resources

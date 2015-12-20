@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('LocationService', function($q, $injector){
+tamreen.factory('LocationService', function($q, $injector, $ionicPlatform){
 
 	console.log('LocationService has been called.');
 
@@ -18,17 +18,51 @@ tamreen.factory('LocationService', function($q, $injector){
 		//
 		var deferred = $q.defer();
 
-		// This should be a promise.
-		navigator.geolocation.getCurrentPosition(function(position){
+		$cordovaGeolocation = $injector.get('$cordovaGeolocation');
 
-			service.coordinates.y = position.coords.latitude;
-			service.coordinates.x = position.coords.longitude;
+		$ionicPlatform.ready(function(){
 
-			deferred.resolve(service.coordinates);
+			console.log('$ionicPlatform in $cordovaGeolocation');
 
-		}, function(error){
-			deferred.reject('ثمّة خطأ عند محاولة الحصول على موقعك الجغرافيّ الحاليّ.');
+			var posOptions = {
+	            enableHighAccuracy: true,
+	            timeout: 10000,
+	        };
+
+	        //
+        	//$cordovaGeolocation.getCurrentPosition(posOptions)
+
+        	//
+        	$cordovaGeolocation.getCurrentPosition(posOptions)
+
+        	.then(function(position){
+
+				service.coordinates.y = position.coords.latitude;
+				service.coordinates.x = position.coords.longitude;
+
+				console.log('coordinates');
+
+				deferred.resolve(service.coordinates);
+
+			}, function(error){
+				deferred.reject('ثمّة خطأ عند محاولة الحصول على موقعك الجغرافيّ الحاليّ.');
+			});
+
 		});
+
+		// // This should be a promise.
+		// navigator.geolocation.getCurrentPosition(function(position){
+
+		// 	service.coordinates.y = position.coords.latitude;
+		// 	service.coordinates.x = position.coords.longitude;
+
+		// 	console.log('coordinates');
+
+		// 	deferred.resolve(service.coordinates);
+
+		// }, function(error){
+		// 	deferred.reject('ثمّة خطأ عند محاولة الحصول على موقعك الجغرافيّ الحاليّ.');
+		// }, { enableHighAccuracy: true });
 
 		//
 		return deferred.promise;
