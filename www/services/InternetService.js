@@ -11,6 +11,9 @@ tamreen.factory('InternetService', function($q, $injector, $ionicPlatform){
 		//
 		var deferred = $q.defer();
 
+		// Skip checking the status of the internet.
+		deferred.resolve(service);
+
 		//
 		if (configs.environment == 'development'){
 			deferred.resolve(service);

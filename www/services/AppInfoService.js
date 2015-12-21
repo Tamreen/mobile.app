@@ -1,6 +1,6 @@
 
 //
-tamreen.factory('AppInfoService', function($q, $http){
+tamreen.factory('AppInfoService', function($q, $http, $timeout){
 
 	//
 	var service = {};
@@ -38,6 +38,11 @@ tamreen.factory('AppInfoService', function($q, $http){
 		}, function(response){
 			return deferred.reject('الوصول إلى واجهة برمجة تطبيق تمرين (API) غير مُمكنة.');
 		});
+
+		// 
+		$timeout(function(){
+			return deferred.reject('الوصول إلى واجهة برمجة تطبيق تمرين (API) غير مُمكنة.');
+		}, 10000);
 
 		return deferred.promise;
 
