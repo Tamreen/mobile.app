@@ -1,4 +1,6 @@
 
+![iOS screenshots](press/ios-screenshots.png)
+
 ## How to install?
 - Install node.js, npm, bower, gulp, cordova, ionic.
 - In the application root directory (tamreen), run the command <code>npm install</code>.
@@ -11,7 +13,7 @@
 
 ## How to build a release?
 - <code>cordova build --release</code>.
-- <code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keys/TamreenApp.keystore platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp</code>.
+- <code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keys/TamreenApp.keystore platforms/android/build/outputs/apk/android-release-unsigned.apk TamreenApp</code>.
 - <code>/Users/hossamzee/android-sdk-macosx/build-tools/21.1.2/zipalign -v 4 platforms/android/ant-build/CordovaApp-release-unsigned.apk TamreenApp1.0.1.apk</code>.
 
 ## Done:

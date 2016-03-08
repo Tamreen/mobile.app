@@ -42,13 +42,18 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
     				windows: {},
 				});	
 
-				push.on('registration', function(data) {
+				push.on('registration', function(data){
 					// data.registrationId
 					service.deviceToken = data.registrationId;
+					console.log(service.deviceToken);
 					return deferred.resolve(service);
 				});
 
-				push.on('notification', function(data) {
+				push.on('notification', function(data){
+
+					// TODO: .message for iOS.
+					// TODO: .title for Android.
+
 					// data.message,
 					// data.title,
 					// data.count,
@@ -56,10 +61,12 @@ tamreen.factory('PushNotificationService', function($q, $injector, $ionicPlatfor
 					// data.image,
 					// data.additionalData
 					// console.log('notification');
-					service.helperToast(data.title);
+					console.log('ok', JSON.stringify(data));
+					service.helperToast(data.message);
 				});
 
-				push.on('error', function(e) {
+				push.on('error', function(e){
+					console.log('error');
 					return service.fail(deferred);
 				});
 
